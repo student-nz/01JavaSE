@@ -1,0 +1,40 @@
+package com.yj.nz.oop.oop3.combainDemo2;
+
+public class Line {
+    private Point p1 ;
+    private Point p2 ;
+
+    // 定义一个方法 返回当前线的长度
+    public double getLength(){
+        int x1=p1.getX();
+        int x2 =p2.getX();
+        int y1 =p1.getY();
+        int y2 =p2.getY();
+        int temp=(x1-x2)*(x1-x2)+(y1-y2)*(y1-y2);
+        return Math.sqrt(temp);
+    }
+
+    public Line() {
+    }
+
+    public Line(Point p1, Point p2) {
+        this.p1 = p1;
+        this.p2 = p2;
+    }
+
+    public Point getP1() {
+        return p1;
+    }
+
+    public void setP1(Point p1) {
+        this.p1 = p1;
+    }
+
+    public Point getP2() {
+        return p2;
+    }
+
+    public void setP2(Point p2) {
+        this.p2 = p2;
+    }
+}
