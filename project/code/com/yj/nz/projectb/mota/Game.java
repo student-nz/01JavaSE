@@ -3,71 +3,135 @@ package com.yj.nz.projectb.mota;
 import java.util.Scanner;
 
 public class Game {
-	//对象也是一种数据类型,引用数据类型
-	private User user;
-	private Computer computer;
-	private int count;
-
-	public void init() {
-		//对象 要想使用里面的方法或者属性，必须先实例化
-		user = new User();
-		computer = new Computer();
-
-	}
-
+	private Scanner sc = new Scanner(System.in);
+	private Hero hero = new Hero();
+	private int mapIndex = 1;		//第一层
+	private int hindex = 136;
+	private boolean isGameOver = false;
+			
 	public void startGame() {
-		//先初始化
-		init();
-		Scanner sc = new Scanner(System.in);
-		System.out.println("开始游戏，请选择对战局数：1、3局		2、5局		3、7局");
-		int choise = sc.nextInt();
-		count = choise == 1 ? 3:choise == 2 ? 5:7;		//三元运算符
-
-		System.out.println("请输入你的名字");
-		String name = sc.next();
-		user.setName(name);
-
-		System.out.println("请输入你选择的对手：1、简单电脑	2、普通电脑		3、疯狂电脑");
-		choise = sc.nextInt();
-		name = choise == 1 ? "简单电脑":choise == 2 ? "普通电脑" : "疯狂电脑";
-		computer.setName(name);
-
-		//正式开始游戏
-		for(int i = 0;i < count;i++) {
-			//首先，人出拳
-			int uNum = user.showFist();		//定义一个uNum，来接收你这个方法的返回值
-			int cNum = computer.showFist();
-
-			//判断结果，输出最终成绩
-			result(uNum,cNum);	//实参	实际的参数
+		//首先，先显示地图
+		System.out.println("游戏开始");
+		System.out.println( hero );
+		showMap();
+		
+		//开始行动
+		System.out.println("请输入wsad来进行操作：");
+		while(!isGameOver) {
+			String choice = sc.next();
+			//根据不同的指令，我们应该做不同的移动
+			if( "w".equals(choice) ) {
+				move(-13);
+			}else if( "s".equals(choice) ) {
+				move(13);
+			}else if( "a".equals(choice) ) {
+				move(-1);
+			}else if( "d".equals(choice) ) {
+				move(1);
+			}
 		}
-
-		//游戏结束，输出最终成绩
-		showInfo();
 	}
 
-	public void result(int uNum,int cNum) {
-		if(uNum == cNum ) {
-			System.out.println("平局继续");
-			//1、剪刀		2、石头		3、布
-			//uNUm == 1 && cNum == 2 || uNum == 2 && cNum == 3 || uNum == 3 && cNum == 1
-		}else if(uNum % 3 + 1 == cNum) {
-			System.out.println(computer.getName() + "赢了");
-			//加分
-			computer.setScore(computer.getScore() + 1);
+	//控制勇士移动
+	private void move(int num) {
+		String[] map = Maps.maps[mapIndex-1];
+		
+		//移动之前的判断
+		if( "x".equals( map[hindex + num] ) ) {
+			//不动
+			showMap();
+			return;
+		}else if( "a".equals( map[hindex + num] ) ) {
+			//加攻击力
+			hero.setAtt( hero.getAtt() + 3 );
+			System.out.println("捡到红宝石，攻击力 + 3");
+			System.out.println( hero );
+		}else if( "i".equals( map[hindex + num] ) ) {
+			hero.setYk( hero.getYk() + 1 );
+			System.out.println("捡到黄钥匙，黄钥匙 + 1");
+			System.out.println( hero );
+		}else if( "K".equals( map[hindex + num] ) ) {
+			//遇到了红色的门
+			if( hero.getRk() <= 0 ) {
+				//不动
+				showMap();
+				return;
+			}
+			hero.setRk( hero.getRk() - 1 );
+			System.out.println( hero );
+		}else if( " ".equals( map[hindex + num] ) ) {
+			//空地，什么都不管
 		}else {
-			System.out.println(user.getName() + "赢了");
-			user.setName(user.getName() + 1);
+			//除开，墙，宝石，钥匙，门，空地，血瓶，之外，全部都是怪物了
+			//索引是整型  int
+			//String index = map[hindex + num];
+			int index = Integer.parseInt( map[hindex + num] );
+			
+			//打架      原数据不要动
+			Monster data = Monsters.ms[index - 1];
+			Monster m = new Monster(data.getName(), data.getBlood(), data.getAtt(),
+					data.getDef(), data.getGold(), data.getExp());
+			fight( m );
+			System.out.println( hero );
 		}
-
+		
+		
+		//首先，勇士原先的位置，应该变成：空地
+		
+		map[hindex] = " ";
+		//移动之后的位置，变成勇士
+		map[hindex + num] = "h";
+		//勇士的位置发生改变
+		hindex += num;
+		
+		//重新显示地图
+		showMap();
 	}
 
-	public void showInfo() {
-		if( user.getScore() > computer.getScore() ) {
-			System.out.println("赢个电脑。也就这样");
-		}else {
-			System.out.println("渣渣辉");
+	//打架，你打我，我打你
+	private void fight(Monster m) {
+		//先计算一下，伤害
+		int h2m = hero.getAtt() - m.getDef();
+		int m2h = m.getAtt() - hero.getDef();
+		
+		if( h2m <= 0 ) {
+			System.out.println("砍不动怪物，被怪物乱刀砍死，游戏结束");
+			isGameOver = true;
+			return;
 		}
+		m2h = m2h < 0 ? 0 : m2h;
+		
+		//开始打
+		while( hero.getBlood() > 0  &&  m.getBlood() > 0 ) {
+			//首先，勇士攻击怪物
+			m.setBlood(  m.getBlood() - h2m  );
+			if( m.getBlood() <= 0 ) {
+				System.out.println("战斗胜利，获得"+m.getGold()+"金币，"+m.getExp()+"经验");
+				hero.setGold( hero.getGold() + m.getGold() );
+				hero.setExp( hero.getExp() + m.getExp() );
+				break;
+			}
+			hero.setBlood( hero.getBlood() - m2h );
+			if( hero.getBlood() <= 0 ) {
+				System.out.println("被怪物乱刀砍死，游戏结束");
+				break;
+			}
+		}
+		
+		
 	}
 
+	private void showMap() {
+		//先得到这一层地图的数组
+		String[] map = Maps.maps[mapIndex-1];		//静态变量，直接调用
+		//循环显示
+		for(int i = 0; i < map.length; i++) {
+			System.out.print( map[i] + " " );
+			//什么时候换行？
+			if( (i + 1) % 13 == 0 ) {
+				System.out.println();
+			}
+		}
+		System.out.println();
+	}
 }
