@@ -518,6 +518,10 @@
 
 ​					import static com.yj.nz.oop.oop2.demo1.Student.*;
 
+### 4. 特殊情况:
+
+​	开发中,可以直接使用java.lang包下的类,因为java.lang包下的所有类, 系统会自动导入,无需手动导入
+
 ## 13）权限修饰符
 
 ​			权限修饰符就是用来控制一个成员能够被访问的范围的
