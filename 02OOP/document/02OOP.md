@@ -64,7 +64,7 @@
 
 ​				
 
-​		![image-20221010082843896](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\如何定义类.png)
+​		![image-20221010082843896](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\如何定义类.png)
 
 ## 4）如何得到类的对象？
 
@@ -86,9 +86,9 @@
 
 ​			成员变量的数据存储在对象中, 存在于堆内存中
 
-![image-20221010083604570](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\对象内存图1.png)
+![image-20221010083604570](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\对象内存图1.png)
 
-![image-20221010083843258](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\两个变量指向同一对象内存图.png)
+![image-20221010083843258](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\两个变量指向同一对象内存图.png)
 
 ## 7）垃圾回收机制
 
@@ -158,7 +158,7 @@
 
 ### 		4. 成员变量和局部变量的区别
 
-![image-20221010085453785](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\成员变量和局部变量的区别.png)
+![image-20221010085453785](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\成员变量和局部变量的区别.png)
 
 ## 8）static关键字
 
@@ -188,7 +188,7 @@
 
 ### 		2. static修饰成员变量内存原理
 
-​			![image-20221010113341415](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\static修饰成员变量内存原理.png)
+​			![image-20221010113341415](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\static修饰成员变量内存原理.png)
 
 ### 	3. 成员方法分类
 
@@ -314,7 +314,7 @@
 
 ​				3. 必须提供一个无参构造器
 
-​				![image-20221010085050533](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\封装.png)
+​				![image-20221010085050533](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\封装.png)
 
 ### 		2. 继承
 
@@ -482,7 +482,7 @@
 
 ​		super：代表父类存储空间的标识
 
-​		![image-20221010122947958](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\this和super比较.png)
+​		![image-20221010122947958](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\this和super比较.png)
 
 ## 12）包
 
@@ -530,7 +530,7 @@
 
 ​			权限修饰符有四种作用范围：由小到大（private -> 缺省 -> protected - > public ）
 
-​			   ![ ](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\权限修饰符.png) 
+​			   ![ ](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\权限修饰符.png) 
 
 ​		如何使用权限修饰符：
 
@@ -592,11 +592,11 @@
 
 ### 			2. 定义枚举类的格式
 
-​				![image-20221010130348105](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\定义枚举类的格式.png)
+​				![image-20221010130348105](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\定义枚举类的格式.png)
 
 ### 			3. 反编译后观察枚举的特征
 
-​				![image-20221010130501506](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP_API\document\assets\反编译后观察枚举的特征.png)
+​				![image-20221010130501506](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\02OOP\document\assets\反编译后观察枚举的特征.png)
 
 ## 17）常量和枚举信息标志选择
 
