@@ -92,7 +92,7 @@
 
 ​					Collection集合为什么不提供for循环遍历方式？
 
-​						因为Collection集合下有无索引系列集合List以及有索引系列集合Set, 
+​						因为Collection集合下有有索引系列集合List以及无索引系列集合Set, 
 
 ​						所以采用for循环遍历无法满足无索引的系列集合Set
 
