@@ -562,6 +562,141 @@
 
 ## 6）Map集合体系
 
+​			Map集合是一种双列集合，每个元素包含两个数据,也被称为“键值对集合”
+
+​			格式：key=value(键值对元素)
+
+​			Collection集合的格式: [元素1,元素2,元素3..]
+
+​			Map集合的完整格式：{key1=value1 , key2=value2 , key3=value3 , ...}
+
+​			![image-20221013123902349](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\04gather\document\assets\Map集合体系.png)
+
+### 1. Map集合体系特点
+
+​		1. Map集合的特点都是由键决定的
+
+​		2. Map集合的键是无序,不重复的，无索引的，值不做要求（可以重复）
+
+​		3. Map集合后面重复的键对应的值会覆盖前面重复键的值
+
+​		4. Map集合的键值对都可以为null
+
+### 2. Map集合实现类特点
+
+​		HashMap: 元素按照键是无序，不重复，无索引，值不做要求。（与Map体系一致）
+
+​		LinkedHashMap:元素按照键是有序，不重复，无索引，值不做要求
+
+​		TreeMap：元素按照建是排序，不重复，无索引的，值不做要求
+
+### 3. Map集合常用API
+
+​		Map是双列集合的祖宗接口，它的功能是全部双列集合都可以继承使用的
+
+​			V put(K key,V value)：添加元素
+
+​			V remove(Object key)：根据键删除键值对元素
+
+​			void clear()：移除所有的键值对元素
+
+​			boolean containsKey(Object key)：判断集合是否包含指定的键
+​			boolean containsValue(Object value)：判断集合是否包含指定的值
+
+​			boolean isEmpty()：判断集合是否为空
+
+​			int size()：集合的长度，也就是集合中键值对的个数
+
+### 4. Map集合的3种遍历方式
+
+#### 	1）键找值的方式遍历
+
+​			先获取Map集合全部的键，再根据遍历键找值
+
+​			操作步骤：
+
+​				1. 先获取Map集合的全部键的Set集合（Set<K> keySet()：获取所有键的集合）
+
+​				2. 遍历键的Set集合，然后通过键提取对应值（V get(Object key)：根据键获取值）
+
+#### 	2）键值对的方式遍历
+
+​			把“键值对“看成一个整体，难度较大
+
+​			操作步骤：
+
+​				1. 先把Map集合转换成Set集合，Set集合中每个元素都是键值对实体类型了
+
+​						（Set<Map.Entry<K,V>> entrySet()：获取所有键值对对象的集合）
+
+​				2. 遍历Set集合，然后提取键以及提取值
+
+​						K  getKey()：获得键
+
+​						V  getValue()：获取值
+
+#### 	3）Lambda表达式
+
+​			JDK 8开始的新技术Lambda表达式，提供了一种更简单、更直接的遍历集合的方式
+
+​			操作步骤：
+
+​				1.  maps.forEach((k , v) -> {   System.out.println(k +"----->" + v);});
+
+​				default void forEach(BiConsumer<? super K, ? super V> action)：结合lambda遍历Map集合
+
+### 5. Map集合体系之HashMap
+
+#### 		1）HashMap的特点和底层原理
+
+​				1. 由键决定：无序、不重复、无索引，且HashMap底层是哈希表结构的
+
+​				2. 依赖hashCode方法和equals方法保证键的唯一
+
+​				3. 如果键要存储的是自定义对象，需要重写hashCode和equals方法
+
+​				4. 底层基于哈希表，增删改查的性能都较好（因为JDK8后哈希表底层采用数组+链表+红黑树组成）
+
+​				5. HashMap跟HashSet底层原理一样, 都是哈希表结构，只是HashMap的每个元素包含两个值而已
+
+​				实际上Set系列集合的底层真正实现原理就是基于Map实现的，只是Set集合中的元素只要键数据，不要值数据而已
+
+​				public HashSet() {    map = new HashMap<>();}
+
+#### 		2）HashMap的添加规则	
+
+### ![image-20221013130337245](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\04gather\document\assets\HashMap的添加规则.png)
+
+### 6. Map集合体系之LinkedHashMap
+
+#### 		1）LinkedHashMap的特点和底层原理
+
+​				1. 由键决定：有序、不重复、无索引（有序指的是保证存储和取出的元素顺序一致）
+
+​				2. 底层数据结构是依然哈希表，只是每个键值对元素又额外的多了一个双链表的机制记录存储的顺序
+
+#### 		2）LinkedHashMap的添加规则	
+
+​		![image-20221013131520917](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\04gather\document\assets\LinkedHashMap的添加规则.png)
+
+### 7. Map集合体系之TreeMap集合
+
+#### 	1）TreeMap的特点和底层原理
+
+​			1. 由键决定特性：不重复、无索引、可排序
+
+​			2. 可排序：按照键数据的大小默认升序（有小到大）排序，只能对键排序
+
+​			3. TreeMap集合是一定要排序的，可以默认排序，也可以将键按照指定的规则进行排序
+
+​			4. TreeMap跟TreeSet底层原理一样（都是基于红黑树实现排序，增删改查性能较好）
+
+#### 	2）TreeMap集合自定义排序规则有2种
+
+​			1. 类实现Comparable接口，重写比较规则
+
+​			2. 集合自定义Comparator比较器对象，重写比较规则
+
 # 加强：常见数据结构-理论常识-必须理解
 
 ​		（模拟手写如下数据结构与算法，请看我的Github之struct_algorithm篇的struct的code+document）
