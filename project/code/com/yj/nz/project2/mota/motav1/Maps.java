@@ -1,16 +1,16 @@
-package com.yj.nz.projectb.mota;
+package com.yj.nz.mota.motav1;
 
 public class Maps {
 	//这个游戏，有27层，每一层，是13*13大小的地图        不要用三维数组，要用二维数组
 	public static String[][] maps = new String[27][169];
-	
+
 	//这个地图，一开始就要创建好
 	static {
 		//假设时间
 		//x代表墙   h代表勇士    怪物：数字     r    b    a   d     空地：空格
 		//i j k 钥匙    I J K 门              n下楼梯    p上楼梯
 		maps[0] = new String[] {
-			"x","x","x","x","x","x","x","x","x","x","x","x","x",	
+			"x","x","x","x","x","x","x","x","x","x","x","x","x",
 			"x","p"," ","i","1","2","1"," "," "," "," "," ","x",
 			"x","x","x","x","x","x","x","x","x","x","x"," ","x",
 			"x","r"," ","4","I"," ","x","r","i","r","x"," ","x",

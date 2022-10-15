@@ -1,4 +1,4 @@
-package com.yj.nz.projectb.mota;
+package com.yj.nz.mota.motav1;
 
 public class Monster {
 	//名字name 生命blood 等级level 攻击att 防御def 金币gold 经验exp
@@ -45,7 +45,11 @@ public class Monster {
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
-	
+
+	public Monster() {
+	}
+
+
 	public Monster(String name, int blood, int att, int def, int gold, int exp) {
 		this.name = name;
 		this.blood = blood;
@@ -54,8 +58,16 @@ public class Monster {
 		this.gold = gold;
 		this.exp = exp;
 	}
-	public Monster() {
+
+	@Override
+	public String toString() {
+		return "Monster{" +
+				"name='" + name + '\'' +
+				", blood=" + blood +
+				", att=" + att +
+				", def=" + def +
+				", gold=" + gold +
+				", exp=" + exp +
+				'}';
 	}
-	
-	
 }

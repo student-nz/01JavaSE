@@ -1,4 +1,4 @@
-package com.yj.nz.projectb.mota;
+package com.yj.nz.mota.motav1;
 
 public class Monsters {
 	public static Monster m1 = new Monster("绿头怪", 50, 20, 1, 1, 1);

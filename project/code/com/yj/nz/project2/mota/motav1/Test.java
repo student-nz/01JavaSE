@@ -1,10 +1,7 @@
-package com.yj.nz.projectb.mota;
+package com.yj.nz.mota.motav1;
 
 public class Test {
 	public static void main(String[] args) {
-//		Hero h = new Hero();
-//		System.out.println(  h );
-		
 		Game g = new Game();
 		g.startGame();
 	}
