@@ -1,522 +1,229 @@
-# 九、多线程基础（V1）（简单会用）
+# 九、多线程基础（为后续学习打基础）
 
-## 1）什么是线程？
+## 1）进程和线程
 
-​		线程(thread)就是一个程序内部的一条执行路径
+### 1. 进程：
 
-​		main方法的执行其实就是一条单独的执行路径
+​	1. 进程是指正在运行的程序，所以进程可以视为程序的一个实例
 
-​		程序中如果只有一条执行路径，那么这个程序就是单线程的程序
+​		大部分程序可以同时运行多个实例进程（例如：记事本、画图、浏览器等）
 
-## 2）多线程是什么？
+​		有的程序只能启动一个实例进程（例如：网易云音乐、360 安全卫士等）
 
-​		多线程是指从软硬件上实现多条执行流程的技术
+​	2. 进程就是用来加载指令、管理内存、管理 IO 的
 
-## 3）多线程用在哪里，有什么好处？
+​		因为程序由指令和数据组成，但这些指令要运行，数据要读写，就必须将指令加载至 CPU，数据加载至内存
 
-​		如：消息通信、淘宝、京东系统都离不开多线程技术
+​		在指令运行过程中还需要用到磁盘、网络等设备，所以进程也拥有一个完整的、私有的基本运行资源集合
 
-## 4）多线程的创建
+### 2. 线程：
 
-​		public Thread(String name)：为当前线程指定名称
+​	1. 一个进程之内可以分为一到多个线程，因此线程也被称为轻量级的进程，同时每个进程最少有一个线程
 
-​		public Thread(Runnable target)：封装Runnable对象成为线程对象
+​	2. 一个线程就是一个指令流，将指令流中的一条条指令以一定的顺序交给 CPU 执行
 
-​		public Thread(Runnable target ，String name )：封装Runnable对象成为线程对象，并指定线程名称
+​	3. 在Java 中，线程作为最小调度单位，进程作为资源分配的最小单位
 
-### 	方式一：继承Thread类
+​	4. 在 windows 中进程是不活动的，只是作为线程的容器
 
-​		Java是通过java.lang.Thread 类来代表线程的
+​	5. 线程共享进程的资源，包括内存和打开的文件
 
-​		按照面向对象的思想，Thread类应该提供了实现多线程的方式
+​	6. 一个程序运行后至少有一个进程，一个进程中可以包含多个线程
 
-#### 	1）实现步骤
+​	7. 我们前面所学的都是单线程程序，即启动的只有一个线程，叫主线程
 
-​			1. 定义一个子类MyThread继承线程类java.lang.Thread，重写run()方法
+### 3. 简而言之：
 
-​			2. 创建MyThread类的对象
+​		1. 线程(thread)就是一个程序内部的一条执行路径，
 
-​			3. 调用线程对象的start()方法启动线程（启动后还是执行run方法的）
+​		2. main方法的执行其实就是一条单独的执行路径
 
-#### 	2）优缺点：
+​		3. 程序中如果只有一条执行路径，那么这个程序就是单线程的程序
 
-​			优点：编码简单
+## 2）创建线程三种方式
 
-​			缺点：线程类已经继承Thread，无法继承其他类，不利于扩展
+### 1. 继承Thread类
 
-#### 	3）问题
+#### 		实现步骤：
 
-​		为什么不直接调用了run方法，而是调用start启动线程？
+​			1. 定义一个线程类继承Thread类
 
-​			直接调用run方法会当成普通方法执行，此时相当于还是单线程执行
+​			2. 重写run方法，里面是定义线程以后要干啥
 
-​			只有调用start方法才是启动一个新的线程执行
+​			3. new一个新线程对象
 
-​		如果只有两个线程把主线程任务放在子线程之前了会是什么效果？
+​			4. 调用start方法启动线程（执行的还是run方法）
 
-​			主线程一直是先跑完的，相当于是一个单线程的效果了
+### 2. 实现Runnable接口
 
-### 方式二：实现Runnable接口
+#### 		实现步骤：
 
-#### 	1）实现步骤
+​			1. 定义一个线程任务类 实现Runnable接口
 
-​			1. 定义一个线程任务类MyRunnable实现Runnable接口，重写run()方法
+​			2. 重写run方法，定义线程的执行任务的
 
-​			2. 创建MyRunnable任务对象
+​			3. 创建一个任务对象
 
-​			3. 把MyRunnable任务对象交给Thread处理
+​			4. 把任务对象交给Thread处理	
 
-​			4. 调用线程对象的start()方法启动线程
+​			5. 启动线程
 
-#### 	2）优缺点
+### 3. JDK 5.0新增：实现Callable接口
 
-​		优点：线程任务类只是实现接口，可以继续继承类和实现接口，扩展性强
+#### 		实现步骤：
 
-​		缺点：编程多一层对象包装，如果线程有执行结果是不可以直接返回的
+​			 1. 定义一个任务类 实现Callable接口，并声明线程任务执行完毕后的结果的数据类型
 
-### 方式三：JDK 5.0新增：实现Callable接口
+​			2. 重写call方法（任务方法）
 
-​		public FutureTask<>(Callable call)：把Callable对象封装成FutureTask对象。
+​			3. 创建Callable任务对象
 
-​		public V get() throws Exception：获取线程执行call方法返回的结果
+​			4. 把Callable任务对象 交给 FutureTask 对象
 
-### 	1）实现步骤
+​			5. FutureTask 对象交给线程处理
 
-​			 1. 得到任务对象
+​			6. 启动线程
 
-​				定义类实现Callable接口，重写call方法，封装要做的事情
+## 	3）创建线程三种方式对比
 
-​				用FutureTask把Callable对象封装成线程任务对象
+#### 	1. 继承Thread类
 
-​			2. 把线程任务对象交给Thread处理
+​			优点：编程比较简单，可以直接使用Thread类中的方法
 
-​			3. 调用Thread的start方法启动线程，执行任务
+​			缺点：扩展性较差，不能再继承其他的类，不能返回线程执行的结果
 
-​			4. 线程执行完毕后、通过FutureTask的get方法去获取任务执行的结果
+#### 	2. 实现Runnable接口
 
-### 	2）优缺点
+​			优点：扩展性强，实现该接口的同时还可以继承其他的类
 
-​			优点：线程任务类只是实现接口，可以继续继承类和实现接口，扩展性强
+​			缺点：编程相对复杂，不能返回线程执行的结果
 
-​						可以在线程执行完毕后去获取线程执行的结果		
+#### 	3. 实现Callable接口
 
-​			缺点：编码复杂一点
+​			优点：扩展性强，实现该接口的同时还可以继承其他的类。可以得到线程执行的结果
 
-### 	3）3种方式对比
+​			缺点：编程相对复杂
 
-​		![image-20221015173915255](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\3种方式对比.png)
+## 4）与线程相关的API
 
-### 	4）Thread常用API
+### 	1.  currentThread()：获取当前线程对象
 
-​				String getName()：获取当前线程的名称，默认线程名称是Thread-索引
+​				返回代码段正在被哪个线程调用的信息
 
-​				void setName(String name)：将此线程的名称更改为指定的名称，通过构造器也可以设置线程名称
+​				Thread.currentThread().getName();
 
-​				public static Thread currentThread()：返回对当前正在执行的线程对象的引用
+### 	2. getName()：获取当前线程名称
 
-​				public static void sleep(long time)：让当前线程休眠指定的时间后再继续执行，单位为毫秒
+​				返回代码段正在被哪个线程调用的线程名称
 
-#### 			问题：
+​				Thread.currentThread().getName();
 
-​				当有很多线程在执行的时候，我们怎么去区分这些线程呢？
+### 	3. start：启动线程
 
-​				我们可以通过getName()、setName()、currentThread()这类API去区分线程
+​			start()方法用来启动一个线程，这时线程处于就绪（可运行）状态，并没有运行
 
-## 5）线程安全
+​			一旦得到cpu时间片，就开始执行run()方法
 
-### 	1. 线程安全问题是什么？
+### 	4. stop：停止线程
 
-​		线程安全问题是指多个线程同时操作同一个共享资源的时候可能会出现业务安全问题，称为线程安全问题		
+​			强制停止一个正在运行的线程，无论此时线程是何种状态
 
-### 	2. 线程安全问题出现的原因？
+​			stop方法在停止线程时需要自行指定线程退出逻辑，否则线程会立即退出，
 
-​		多个线程同时访问同一个共享资源且存在修改该资源
+​			不做任何清理操作，非常不安全，会造成数据不一致问题
 
-## 6）线程同步
+### 	5. sleep：休眠线程
 
-### 1. 线程同步解决安全问题的思想是什么？
+​			让当前线程进入休眠，进入“阻塞”状态，放弃占有CPU时间片，让给其他线程使用
 
-​	加锁，把共享资源进行上锁，每次只能一个线程进入访问完毕以后解锁，然后其他线程才能进来
+### 	6. run：指定线程任务
 
-### 2. 线程同步方式
+​			1. run 方法只是 thread 的一个普通方法调用时，还是在主线程里执行，还是一条执行路径，单线程运行
 
-#### 	1）方式一：同步代码块
+​			2. run()方法中，线程调用start()方法自动调用 run()方法时，此时多线程开启，
 
-##### 		1. 作用：
+​				同时，这是由 jvm 的内存机制规定的，且 run()方法必须是 public 访问权
 
-​			把出现线程安全问题的核心代码给上锁
+### 	7. setDaemon：精灵线程
 
-##### 		2. 原理：
+#### 			1）Java中有两类线程：
 
-​			每次只能一个线程进入，执行完毕后自动解锁，其他线程才可以进来执行
+​				用户线程(User Thread)
 
-##### 		3. 格式：
+​				守护线程(Daemon Thread)
 
-​			synchronized(同步锁对象) {	
+#### 			2）两者之间的区别：
 
-​				操作共享资源的代码(核心代码) 
+​				守护线程是指程序运行的时候在后台提供了一种通用服务的线程
 
-​			}
+​				比如GC垃圾回收线程，这个线程具有最低的优先级，用于为系统中的其它对象和线程提供服务
 
-##### 		4. 锁对象要求：
+​				两者几乎没有区别，唯一的不同之处就在于虚拟机的离开:
 
-​			理论上：锁对象只要对于当前同时执行的线程来说是同一个对象即可
+​					1. 如果用户线程全部退出离开，只剩下守护线程，虚拟机就会退出
 
-##### 		5. 问题
+​					2. 如果还有至少一个用户线程，那么虚拟机就不会退出
 
-​			1. 同步代码块是如何实现线程安全的？
+​			举例：
+​				就好比上边所说的GC垃圾回收线程，当我们程序中的用户线程运行结束之后
 
-​				对出现问题的核心代码使用synchronized进行加锁
+​				那么程序就不会再产生垃圾，垃圾回收器也无事可做，自然就随着JVM的退出而结束
 
-​				每次只能一个线程占锁访问
+​			守护线程的具体意义：
 
-​			2. 锁对象用任意唯一的对象好不好呢?
+​				守护线程的责任是为整个用户线程提供服务，比如保持网络链接，负责内存管理与垃圾回收
 
-​				不好，会影响其他无关线程的执行	
+​				因此这些线程与实际提供应用服务的线程有了逻辑上的"前/后"的概念
 
-​			3. 同步代码块的同步锁对象有什么要求？
+​				而如果用户线程已经退出，那么守护线程也就没有存在的必要了
 
-​				对于实例方法建议使用this作为锁对象
+​			如何创建用户线程和守护线程？
 
-​				对于静态方法建议使用字节码（类名.class）对象作为锁对象
+​				用户线程 转成守护线程需要用setDaemon()：thread.setDaemon(true);
 
-#### 	2）方式二：同步方法
+​				该方法需要线程启动前执行(即写在thread.start()前面)
 
-##### 		1. 作用：
+​				在守护线程中产生的新线程也是Daemon的
 
-​			把出现线程安全问题的核心方法给上锁
+​				守护线程尽量不要去访问固有资源，如文件、数据库，因为它会在任何时候甚至在一个操作的中间发生中断
 
-##### 		2. 原理：
+### 8. 获取线程状态：getState
 
-​			每次只能一个线程进入，执行完毕以后自动解锁，其他线程才可以进来执行
+​		获取当前线程状态（六大状态）
 
-##### 		3. 格式：
+#### 		1）Java线程可能的状态：
 
-​			修饰符 synchronized 返回值类型 方法名称(形参列表) {	
+![image-20221015183528834](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Java线程可能的状态.png)
 
-​				操作共享资源的代码
+#### 		2）线程的状态变迁
 
-​			}
+![image-20221015183605355](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\线程的状态变迁.png)
 
-##### 		4. 同步方法底层原理：
+### 	9. 线程暂停和中断
 
-​			1. 同步方法其实底层也是有隐式锁对象的，只是锁的范围是整个方法代码
+​		interrupt()、interrupted()、isInterrupted(boolean ClearInterrupted)
 
-​			2. 如果方法是实例方法：同步方法默认用this作为的锁对象，但是代码要高度面向对象！
+#### 	1）暂停
 
-​			3. 如果方法是静态方法：同步方法默认用类名.class作为的锁对象
+​		Java中线程的暂停是调用 java.lang.Thread 类的 sleep 方法，该方法会使当前正在执行的线程暂停
 
-##### 		5. 问题：
+​		指定的一段时间，如果线程持有锁， sleep 方法结束前并不会释放该锁
 
-​			1. 解决安全问题是同步代码块好还是同步方法好一点？
+#### 	2）中断
 
-​				同步代码块锁的范围更小，同步方法锁的范围更大
+​		java.lang.Thread类有一个 interrupt 方法，该方法直接对线程调用
 
-​			2. 同步方法是如何保证线程安全的？
+​		当被interrupt的线程正在sleep或wait时，会抛出 InterruptedException 异常
 
-​				对出现问题的核心方法使用synchronized修饰
+​		事实上， interrupt 方法只是改变目标线程的中断状态（interrupt status），而那些会抛出
 
-​				每次只能一个线程占锁进入访问
+​		InterruptedException 异常的方法，如wait、sleep、join等，都是在方法内部不断地检查中断状态的值
 
-​			3. 同步方法的同步锁对象的原理？
+##### 	interrupt方法：
 
-​				对于实例方法默认使用this作为锁对象
+​			Thread实例方法：必须由其它线程获取被调用线程的实例后，进行调用。实际上，只是改变了被调用线程的内部中断状态；
 
-​				对于静态方法默认使用类名.class对象作为锁对象
-
-#### 	3）方式三：Lock锁
-
-​			JDK5以后提供了一个新的锁对象Lock，就是为了更清晰的表达如何加锁和释放锁，使用更加灵活、方便
-
-​			Lock实现提供比使用synchronized方法和语句可以获得更广泛的锁定操作
-
-​			Lock是接口不能直接实例化，这里采用它的实现类ReentrantLock来构建Lock锁对象
-
-​			public ReentrantLock()：获得Lock锁的实现类对象
-
-​			void lock()：获得锁
-
-​			void unlock()：释放锁
-
-## 7）线程通信
-
-### 	1. 什么是线程通信、如何实现？
-
-​			所谓线程通信就是线程间相互发送数据，线程间共享一个资源即可实现线程通信
-
-### 	2.  线程通信常见形式
-
-​			通过共享一个数据的方式实现
-
-​			根据共享数据的情况决定自己该怎么做，以及通知其他线程怎么做
-
-### 	3. 线程通信的应用场景
-
-​			生产者与消费者模型：生产者线程负责生产数据，消费者线程负责消费生产者产生的数据
-
-​			要求：生产者线程生产完数据后唤醒消费者，然后等待自己，消费者消费完该数据后唤醒生产者，然后等待自己
-
-### 	4. Object类的等待和唤醒方法：
-
-​			void wait()：让当前线程等待并释放所占锁，直到另一个线程调用notify()方法或 notifyAll()方法
-
-​			void notify()：唤醒正在等待的单个线程
-
-​			void notifyAll()：唤醒正在等待的所有线程 
-
-### 	5. 能说说线程通信三个常见方法？
-
-​				void wait()：让当前线程等待并释放所占锁，直到另一个线程调用notify()方法或 notifyAll()方法
-
-​				void notify()：唤醒正在等待的单个线程
-
-​				void notifyAll()：唤醒正在等待的所有线程 
-
-## 8）线程池（具体请看Github之thread_high）
-
-### 1. 什么是线程池？
-
-​	线程池就是一个可以复用线程的技术
-
-### 2. 不使用线程池的问题  
-
-​	如果用户每发起一个请求，后台就创建一个新线程来处理
-
-​	下次新任务来了又要创建新线程，而创建新线程的开销是很大的，这样会严重影响系统的性能
-
-### 3. 线程池的工作原理
-
-​		![image-20221015173839451](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\线程池的工作原理.png)
-
-### 4. 线程池实现的API、参数说明
-
-#### 	1）谁代表线程池？
-
-​		JDK 5.0起提供了代表线程池的接口：ExecutorService
-
-#### 	2）如何得到线程池对象
-
-##### 		1. 方式一：
-
-​			方式一：使用ExecutorService的实现类ThreadPoolExecutor自创建一个线程池对象
-
-​		![image-20221015173730223](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\方式一获的线程池对象.png)
-
-​		ThreadPoolExecutor构造器的参数说明：
-
-​				参数一：指定线程池的线程数量（核心线程）： corePoolSize（不能小于0）
-
-​				参数二：指定线程池可支持的最大线程数： maximumPoolSize（最大数量 >= 核心线程数量）
-
-​				参数三：指定临时线程的最大存活时间： keepAliveTime（不能小于0）
-
-​				参数四：指定存活时间的单位(秒、分、时、天)： unit（时间单位）
-
-​				参数五：指定任务队列： workQueue（不能为null）
-
-​				参数六：指定用哪个线程工厂创建线程： threadFactory（不能为null）
-
-​				参数七：指定线程忙，任务满的时候，新任务来了怎么办： handler（不能为null）			
-
-###### 		1）线程池常见面试题
-
-​			1. 临时线程什么时候创建啊？
-
-​				新任务提交时发现核心线程都在忙，任务队列也满了，并且还可以创建临时线程，此时才会创建临时线程
-
-​			2. 什么时候会开始拒绝任务？
-
-​				核心线程和临时线程都在忙，任务队列也满了，新的任务过来的时候才会开始任务拒绝
-
-###### 		2）ExecutorService的常用方法
-
-​				void execute(Runnable command) ：执行任务/命令，没有返回值，一般用来执行 Runnable 任务
-
-​				Future<T> submit(Callable<T> task)：执行任务，返回未来任务对象获取线程结果，一般拿来执行 Callable 任务
-
-​				void shutdown() ：等任务执行完毕后关闭线程池
-
-​				List<Runnable> shutdownNow()：立刻关闭，停止正在执行的任务，并返回队列中未执行的任务
-
-###### 		3）新任务拒绝策略
-
-​			ThreadPoolExecutor.AbortPolicy：丢弃任务并抛出RejectedExecutionException异常。是默认的策略
-
-​			ThreadPoolExecutor.DiscardPolicy： 丢弃任务，但是不抛出异常 这是不推荐的做法
-
-​			ThreadPoolExecutor.DiscardOldestPolicy：抛弃队列中等待最久的任务 然后把当前任务加入队列中
-
-​			ThreadPoolExecutor.CallerRunsPolicy：由主线程负责调用任务的run()方法从而绕过线程池直接执行
-
-###### 		4）问题	
-
-​			1. 线程池如何处理Runnable任务?
-
-​				使用ExecutorService的方法：void  execute(Runnable target)
-
-​			2. 线程池如何处理Callable任务，并得到任务执行完后返回的结果
-
-​				使用ExecutorService的方法：Future<T> submit(Callable<T> command)
-
-##### 	2. 方式二：
-
-​		Executors的底层其实也是基于线程池的实现类ThreadPoolExecutor创建线程池对象的
-
-​		方式二：使用线程池的工具类Executors通过调用方法返回不同类型的线程池对象
-
-​		public static ExecutorService newCachedThreadPool()：
-
-​			线程数量随着任务增加而增加，如果线程任务执行完毕且空闲了一段时间则会被回收掉
-
-​		public static ExecutorService newFixedThreadPool(int nThreads)
-
-​			创建固定线程数量的线程池，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程替代它
-
-​		public static ExecutorService newSingleThreadExecutor ()
-
-​			创建只有一个线程的线程池对象，如果该线程出现异常而结束，那么线程池会补充一个新线程
-
-​		public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)
-
-​			创建一个线程池，可以实现在给定的延迟后运行任务，或者定期执行任务
-
-###### 		1）Executors使用可能存在的陷阱
-
-​			大型并发系统环境中使用Executors如果不注意可能会出现系统风险
-
-​			![image-20221015175431494](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Executors使用可能存在的陷阱.png)
-
-![image-20221015175457617](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Executors使用可能存在的陷阱2.png)
-
-###### 	2）问题
-
-​		1. Executors工具类底层是基于什么方式实现的线程池对象？
-
-​			线程池ExecutorService的实现类：ThreadPoolExecutor
-
-​		2. Executors是否适合做大型互联网场景的线程池方案？
-
-​			不合适，建议使用ThreadPoolExecutor来指定线程池参数，这样可以明确线程池的运行规则，规避资源耗尽的风险
-
-## 9）定时器
-
-### 1. 什么是定时器？
-
-​	定时器是一种控制任务延时调用，或者周期调用的技术
-
-### 2. 作用：
-
-​	闹钟、定时邮件发送
-
-### 3. 定时器的实现方式
-
-#### 1）方式一：Timer定时器
-
-​		public Timer()：创建Timer定时器对象
-
-​		public void schedule(TimerTask task, long delay, long period)：开启一个定时器，按照计划处理TimerTask任务
-
-##### 	1. 特点和存在的问题
-
-​		1. Timer是单线程，处理多个任务按照顺序执行，存在延时与设置定时器的时间有出入
-
-​		2. 可能因为其中的某个任务的异常使Timer线程死掉，从而影响后续任务执行
-
-#### 2）方式二： ScheduledExecutorService定时器
-
-​		ScheduledExecutorService是 jdk1.5中引入了并发包，目的是为了弥补Timer的缺陷, ScheduledExecutorService内部为线程池
-
-##### 		1. Executors的方法:
-
-​			public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)：得到线程池对象
-
-##### 		2. ScheduledExecutorService的方法:
-
-​				public ScheduledFuture<?> scheduleAtFixedRate
-
-​				(Runnable command, long initialDelay, long period,TimeUnit unit)：周期调度方法
-
-###### 			ScheduledExecutorService的优点：
-
-​				基于线程池，某个任务的执行情况不会影响其他定时任务的执行
-
-## 九、（为学高并发打个预防针，本人也待消化）
-
-## 一、多线程概念基础（V2）
-
-### 1）进程和线程
-
-#### 1. 进程：
-
-​	进程是指正在运行的程序，进程拥有一个完整的、私有的基本运行资源集合，通常，每个进程都有自己的内存空间
-
-​	进程往往被看作是程序或应用的代名词
-
-​	然而，用户看到的一个单独的应用程序实际上可能是一组相互协作的进程集合
-
-​	为了便于进程之间的通信，大多数操作系统都支持进程间通信（IPC），如pipes 和sockets，
-
-​	IPC不仅支持同一系统上的通信，也支持不同的系统
-
-​	IPC通信方式包括管道（包括无名管道和命名管道）消息队列、信号量、共享存储、Socket、Streams等方式，
-
-​	其中 Socket和Streams支持不同主机上的两个进程IPC
-
-#### 2. 线程：
-
-​		线程有时也被称为轻量级的进程
-
-​		进程和线程都提供了一个执行环境，但创建一个新的线程比创建一个新的进程需要的资源要少
-
-​		线程是在进程中存在的 --- 每个进程最少有一个线程
-
-​		线程共享进程的资源，包括内存和打开的文件，这样提高了效率，但潜在的问题就是线程间的通信
-
-​		多线程的执行是Java平台的一个基本特征
-
-​		每个应用都至少有一个线程 – 或几个，如果算上“系统”线程的话，比如内存管理和信号处理等
-
-​		但是从程序员的角度来看，启动的只有一个线程，叫主线程
-
-​		简而言之：一个程序运行后至少有一个进程，一个进程中可以包含多个线程
-
-### 2） 线程启动和停止
-
-#### 1. 启动线程
-
-​	启动线程调用start方法
-
-#### 2. 停止线程
-
-​	线程自带的stop方法，一方面已经过时，另一方面，不会对停止的线程做状态保存，使得线程中涉及的
-
-​	对象处于未知状态，如果这些状态，其他线程也会使用，将会使得其他线程出现无法预料的异常，所
-
-​	以，停止程序的功能，需要自己实现
-
-### 3）线程暂停和中断
-
-#### 1. 暂停
-
-​	Java中线程的暂停是调用 java.lang.Thread 类的 sleep 方法，该方法会使当前正在执行的线程暂停
-
-​	指定的一段时间，如果线程持有锁， sleep 方法结束前并不会释放该锁
-
-#### 2. 中断
-
-​	java.lang.Thread类有一个 interrupt 方法，该方法直接对线程调用
-
-​	当被interrupt的线程正在sleep或wait时，会抛出 InterruptedException 异常
-
-​	事实上， interrupt 方法只是改变目标线程的中断状态（interrupt status），而那些会抛出
-
-​	InterruptedException 异常的方法，如wait、sleep、join等，都是在方法内部不断地检查中断状态的值
-
-##### 1）interrupt方法
-
-​	Thread实例方法：必须由其它线程获取被调用线程的实例后，进行调用。实际上，只是改变了被调用线程的内部中断状态；
-
-###### 	interrupt底层源码实现：
+###### 		interrupt底层源码实现：
 
  1. interrupt 中断操作时，非自身打断需要先检测是否有中断权限，这由jvm的安全机制配置；
 
@@ -542,31 +249,195 @@
 
 ​		![image-20221015183135530](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\interrupt底层源码实现.png)
 
-##### 2）Thread.interrupted方法
+##### interrupted方法：
 
 ​	Thread类方法：必须在当前执行线程内调用，该方法返回当前线程的内部中断状态，然后清除中断状态（置为false） 
 
-##### 3）isInterrupted方法
+##### isInterrupted方法：
 
 ​	Thread实例方法：用来检查指定线程的中断状态。当线程为中断状态时，会返回true；否则返回false
 
-### 4）线程的状态
+### 	10. join：等待线程死亡
 
-#### 1. Java线程可能的状态：
+​			join()方法的作用就是让主线程等待子线程执行结束之后再运行主线程
 
-![image-20221015183528834](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Java线程可能的状态.png)
+### 	11. park：堵塞进程
 
-#### 2. 线程的状态变迁
+```java
+Park 和 Unpark 均是 LockSupport 类中的方法
+//暂停当前线程
+LockSupport.park();
 
-![image-20221015183605355](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\线程的状态变迁.png)
+//恢复某个线程
+LockSupport.unpark(暂停线程对象);
+1. park中的线程，处于 WAIT 状态
+2. unpark既可以在park之前调用，也可以在之后调用，都是用来恢复某个线程的运行
+    简单的说，调用 unpark 后再调用 park 线程依然不会暂停，类似提前“解毒
+特点：
+   与Object的wait & notify 相比
+   	wait，notify 和 notifyAll 必须配合Object Monitor一起使用，而 unpark 不必
+    park & unpark是以线程为单位来【阻塞】和【唤醒】线程，
+    而 notify 只能随机唤醒一个等待线程，notifyAll 是唤醒所有等待线程，就不那么【精确】
+    park & unpark 可以先 unpark ,而 wait & notify 不能先 notify
+原理：
+    每个线程都有自己的一个 Parker 对象（C 实现的），由三部分组成 _counter, _cond, 和 _mutex
+举个例子：
+ 	把线程比喻成一个旅行者， Parker 就是他背着的旅行包，条件变量（_cond） 好比背包中帐篷。
+    _counter 好比背包中的备用干粮（ 0 为耗尽， 1 为充足）
+	调用 park 就是看线程需不需要停下来休息
+    	若备用干粮耗尽（ _counter 为 0） ，则钻进帐篷休息（线程暂停）
+    	若备用干粮充足（_counter 为 1），则不需要停留继续前进 （线程继续运行）
+    调用 unpark ，相当于补充干粮（把 _counter 设置为 1）
+    	如果此时线程 还在帐篷（先调用 park） ，则唤醒他继续前进（线程继续运行）
+		如果线程还在运行，下次调用 park 时，仅是消耗备用干粮（把 _counter 设置为 0） ，不需要停留继续前进。
+		如果此时线程还在运行，那么下次他（线程）调用park时，仅是消耗备用干粮，不需要停留继续前进
+		因为背包空间有限，多次调用 unpark 仅会补充一份备用干粮
+详细：
+    1）调用 park
+		1. 当前线程调用park()方法
+    	2. 检查_counter，本情况为 0 此时获得 _mutex 互斥锁
+   		3.  线程进入 _cond 条件变量阻塞
+    	4. 设置 _counter = 0
+    2）调用 unpark
+    	1. 调用unpark(Thread_0)方法，设置 _counter 为 1
+    	2. 唤醒_cond条件变量中的Thread_0 (线程)
+    	3. Thread_0 恢复运行
+    	4. 设置 _counter 为 0
+    3）先调用 unpark 再调用 park
+    	1. 调用unpark (Thread_0) 方法，设置_counter 为 1
+    	2. 当前线程调用park()方法
+    	3. 检查 _counter ，本情况为 1 ，这时线程无需阻塞，继续运行
+    	4. 设置 _counter 为 0
+```
 
-### 5）多线程
+### 	12. priority：线程优先级
+
+	Java提供一个线程调度器来监控程序中启动后进入就绪状态的所有线程，线程调度器按照优先级决定应该调度哪个线程来执行
+	线程的优先级用数字表示，范围从1~10.
+	 Thread.MIN_PRIORITY = 1;
+	 Thread.MAX_PRIORITY = 10;
+	 Thread.NORM_PRIORITY = 5;
+	 
+	线程优先级高的，不一定先执行，是由CPU调度的，只是执行权重大了
+	优先级低只是意味着获得调度的概率低.并不是优先级低就不会被调用了.这都是看CPU的调度
+	记住一句话：线程只受CPU调度
+	使用以下方式改变或获取优先级：
+	getPriority()
+	setPriority(int xxx)
+	注意：先设置优先级再启动！！！
+### 	13. yield：让出CPU使用权
+
+	Thread.yield()方法作用是：yield()做的是让当前运行线程回到可运行状态，以允许具有相同优先级的其他线程获得运行机会。因此，使用yield()的目的是让相同优先级的线程之间能适当的轮转执行。但是，实际中无法保证yield()达到让步目的，因为让步的线程还有可能被线程调度程序再次选中。
+	
+	yield()从未导致线程转到等待/睡眠/阻塞状态。在大多数情况下，yield()将导致线程从运行状态转到可运行状态，但有可能没有效果
+### 	14. wait、notify、notifyAll：唤醒等待线程
+
+	1、wait()、notify/notifyAll() 方法是Object的本地final方法，无法被重写。
+	2、wait()使当前线程阻塞，前提是 必须先获得锁，一般配合synchronized 关键字使用，即，一般在synchronized 同步代码块里使用 wait()、notify/notifyAll() 方法。
+	3.由于 wait()、notify/notifyAll() 在synchronized 代码块执行，说明当前线程一定是获取了锁的。
+	当线程执行wait()方法时候，会释放当前的锁，然后让出CPU，进入等待状态。
+	只有当 notify/notifyAll() 被执行时候，才会唤醒一个或多个正处于等待状态的线程，然后继续往下执行，直到执行完synchronized 代码块的代码或是中途遇到wait() ，再次释放锁。
+	也就是说，notify/notifyAll() 的执行只是唤醒沉睡的线程，而不会立即释放锁，锁的释放要看代码块的具体执行情况。所以在编程中，尽量在使用了notify/notifyAll() 后立即退出临界区，以唤醒其他线程让其获得锁
+	4. wait() 需要被try catch包围，以便发生异常中断也可以使wait等待的线程唤醒。
+	5. notify和wait的顺序不能错，如果A线程先执行notify方法，B线程在执行wait方法，那么B线程是无法被唤醒的。
+	6. notify 和 notifyAll的区别
+	notify方法只唤醒一个等待（对象的）线程并使该线程开始执行。所以如果有多个线程等待一个对象，这个方法只会唤醒其中一个线程，选择哪个线程取决于操作系统对多线程管理的实现。notifyAll 会唤醒所有等待(对象的)线程，尽管哪一个线程将会第一个处理取决于操作系统的实现。如果当前情况下有多个线程需要被唤醒，推荐使用notifyAll 方法。比如在生产者-消费者里面的使用，每次都需要唤醒所有的消费者或是生产者，以判断程序是否可以继续往下执行。
+	7. 在多线程中要测试某个条件的变化，使用if 还是while？
+	要注意，notify唤醒沉睡的线程后，线程会接着上次的执行继续往下执行。所以在进行条件判断时候，可以先把 wait 语句忽略不计来进行考虑；显然，要确保程序一定要执行，并且要保证程序直到满足一定的条件再执行，要使用while进行等待，直到满足条件才继续往下执行。如下代码：
+### 	15. 对象监视器
+
+> ## 1）Object监视器	
+>
+> ### 	1. 什么是对象监视器
+>
+> 1. 对象监视器实际上就是与每个对象关联的Monitor对象，也叫做管程锁
+>
+> 2. 实际上监视器也是一个数据结构，里面维护着一系列等待队列、同步队列等
+>
+> 3. 这里不过多讨论对象监视器，详细讨论在会面的Synchronized部分中会有，本文主要针对Java初学者介绍相关的API方法，为后面的线程通信做准备
+>
+> 4. 当多个线程持有的“对象监视器”为同一个对象的前提下，同一时间只有一个线程可以执行synchronized(非this对象)同步代码块中的代码！可以是实现线程同步！
+>
+>    ### 2. 方法：
+>
+>    ​	为了方便线程协作通信，JAVA为提供了wait()和notifyAll以及notify()实现挂起线程
+>
+>    ​	并且唤醒另外一个等待的线程的三个监视器方法(通知与等待)
+>
+>    /**
+>     * 在其他线程调用此对象的 notify() 方法或 notifyAll() 方法前，能够使得当前线程进入等待队列，导致当前线程等待WAITING状态。该wait方法应由当前的持有对象监视器来调用。
+>     * 想要唤醒该等待线程，也应该由其他持有相同的对象监视器的线程调用notify方法。即要求其他线程和需要被唤醒的等待线程持有相同的对象监视器。或者其他线程调用该线程的interrupt()方法， 该线程抛出InterruptedExce ption 异常返回。
+>     * Wait的两个重载方法：
+>     */
+>        public final void wait()
+>
+>    /**
+>     * 限时等待timeout milliseconds(毫秒)
+>     * @param timeout
+>     */
+>        public final native void wait(long timeout)
+>
+>    /**
+>     * 如果一个线程调用共享对象的该方法挂起后， 没有在指定的timeout ms 时间内被其他线程调用该共享变量的notify() 或者notifyAll() 方法唤醒，那么该函数还是会因为超时而返回。
+>     * 如果将timeout 设置为0 则和wait 方法效果一样，因为在wait 方法内部就是调用了wait(O)。需要注意的是，如果在调用该函数时，传递了一个负的timeout 则会抛出IllegalArgumentException 异常。
+>     *
+>     * @param timeout
+>     * @param nanos
+>     */
+>        public final void wait(long timeout, int nanos)
+>
+>
+>    /**
+>     * 线程调用对象监视器的notify()方法,唤醒一条在该对象监视器上调用wait系列方法后被挂起的线程。如果有多条线程在同一等待队列中等待，只会选择唤醒其中一个线程，并且该选择是任意性的。
+>     */
+>     public final void notify();
+>
+>    /**
+>     * 调用notifyAll方法就可以唤醒对应对象监视器的等待队列当中所有的等待的线程。只对在该方法被调用之前等待的线程有效。
+>     */
+>     public final void notifyAll();
+>
+>    ### 3. 特点：
+>
+>     wait方法、notify方法、notifyAll方法，在使用的时候，必须要有自己的同步监视器（锁对象）
+>
+>    ​	换句话：wait方法、notify方法、notifyAll方法，必须注册在某个同步监视器上（锁上）（拥有自己的锁对象）否则抛出一个异常：IllegalMonitorStateException - 如果当前线程不是此对象监视器的所有者。
+>     因此创建了一个锁对象，这个锁对象上就具备一组监视器方法。Wait、notify、nofityAll方法就可以使用。
+>
+>    ####  为什么上面的方法定义在Object类中?
+>
+>     wait、notify、nofityAll  监视器方法，在使用的时候，必须要由自己的锁对象来调用。锁对象是任意对象，Java中只要是对象均有一个自己的监视器对象，任意对象都能调用的方法就应该抽出来，定义在Object 类当中，毕竟Object是所有类型的超类！
+>
+>    ### 2）Condition 监视器
+>
+>    #### Object的监视器方法与Condition接口的对比
+>
+>    任意一个Java对象，都拥有一与之关联的唯一的监视器对象，为此Java为每个对象提供了一组监视器方法（定义在java.lang.Object上），主要包括wait()、wait(long  timeout)、notify()以及notifyAll()方法，这些方法与synchronized同步关键字配合，可以实现等待/通知模式。
+>
+>    JDK1.5出现的Condition接口也提供了类似Object的监视器方法，与Lock配合可以实现等待/通知模式，但是这两者在使用方式以及功能特性上还是有差别的。Object的监视器方法与Condition接口的对比如下：
+>
+>    ![image-20221016201314480](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Object的监视器方法与Condition接口的对比.png)
+>
+>    Condition可以和任意的锁对象结合,监视器方法不会再绑定到某个锁对象上。使用Lock锁之后，相当于Lock 替代了synchronized方法和语句的使用，Condition替代了Object监视器方法的使用。
+>     在Condition中，Condition对象当中封装了监视器方法，并用await()替换wait()，用signal()替换notify()，用signalAll()替换notifyAll()，传统线程的通信方式，Condition都可以实现，这里注意，Condition是被绑定到Lock上的，要创建一个Lock的Condition必须用newCondition()方法。
+>    Condition的强大之处在于它可以为多个线程间建立不同的Condition，使用synchronized/wait()只有一个阻塞队列，notifyAll会唤起所有阻塞队列下的线程，而使用lock/condition，可以实现多个阻塞队列，signalAll只会唤起某个阻塞队列下的阻塞线程。
+>
+>    ### 常用API方法
+>
+>    ![image-20221016201427540](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Condition监视器常用API方法.png)
+>
+>    #### 注意：
+>
+>     获取一个Condition必须通过Lock的newCondition()方法。
+>     Condition定义了等待/通知两种类型的方法，当前线程调用这些方法时，需要提前获取到Condition对象关联的锁。Condition对象是由Lock对象（调用Lock对象的newCondition()方法）创建出来的，换句话说，Condition是依赖Lock对象的。
+
+## 5）多线程
 
 ​	线程是进程中的一个执行单元，负责当前进程中程序的执行，一个进程中至少有一个线程
 
 ​	一个进程中是可以有多个线程的，这个应用程序也可以称之为多线程程序
 
-#### 1. 并发和并行
+### 1. 并发和并行
 
 ​	并行是指两个或者多个事件在同一时刻发生；而并发是指两个或多个事件在同一时间间隔发生
 
@@ -576,39 +447,41 @@
 
 ​	如hadoop分布式集群
 
-#### 2. 多线程好处
+### 2. 多线程好处
 
-##### 1）提高cpu的利用率
+#### 	1）提高cpu的利用率
 
-​	一般来说，在等待磁盘IO，网络IO或者等待用户输入时，CPU可以同时去处理其他任务（这就是体会到了多线程的强大）
+​		一般来说，在等待磁盘IO，网络IO或者等待用户输入时，CPU可以同时去处理其他任务（这就是体会到了多线程的强大）
 
-##### 2）更高效的响应
+#### 	2）更高效的响应
 
-​	多线程技术使程序的响应速度更快 ,因为用户界面可以在进行其它工作的同时一直处于活动状态，不会造成无法响应的现象
+​		多线程技术使程序的响应速度更快 ,因为用户界面可以在进行其它工作的同时一直处于活动状态，不会造成无法响应的现象
 
-##### 3）公平使用CPU资源
+#### 	3）公平使用CPU资源
 
-​	当前没有进行处理的任务，可以将处理器时间让给其它任务;占用大量处理时间的任务，也可以定期将
+​		当前没有进行处理的任务，可以将处理器时间让给其它任务;占用大量处理时间的任务，也可以定期将
 
-​	处理器时间让给其它任务;通过对CPU时间的划分，使得CPU时间片可以在多个线程之间切换，避免需要
+​		处理器时间让给其它任务;通过对CPU时间的划分，使得CPU时间片可以在多个线程之间切换，避免需要
 
-​	长时间处理的线程独占CPU，导致其它线程长时间等待
+​		长时间处理的线程独占CPU，导致其它线程长时间等待
 
-#### 3. 多线程的代价
+### 3. 多线程的代价
 
-##### 1）更复杂的设计
+#### 	1）更复杂的设计
 
-​	共享数据的读取，数据的安全性，线程之间的交互，线程的同步等；
+​		共享数据的读取，数据的安全性，线程之间的交互，线程的同步等；
 
-##### 2）上下文环境切换
+#### 	2）上下文环境切换
 
-​	线程切换，cpu需要保存本地数据、程序指针等内容；
+​		线程切换，cpu需要保存本地数据、程序指针等内容；
 
-##### 3）更多的资源消耗
+#### 	3）更多的资源消耗
 
-​	每个线程都需要内存维护自己的本地栈信息，操作系统也需要资源对线程进行管理维护；
+​		每个线程都需要内存维护自己的本地栈信息，操作系统也需要资源对线程进行管理维护；
 
-# 二、并发编程基础
+
+
+# 二、并发编程基础（为后续学习打基础）
 
 ## 1）临界资源
 
@@ -632,7 +505,9 @@
 
 ### 2. 何谓线程安全
 
-​	1. 允许被多个线程同时执行的代码称作线程安全的代码。线程安全的代码不包含竞态条件
+​	允许被多个线程同时执行的代码称作线程安全的代码。线程安全的代码不包含竞态条件
+
+​	通俗点，线程安全问题就是指多个线程同时操作同一个共享资源的时候可能会出现业务安全问题，称为线程安全问题		
 
 ### 3. 对象的安全
 
@@ -662,6 +537,14 @@
 
 ​	通过创建不可变的共享对象来保证对象在线程间共享时不会被修改，从而实现线程安全
 
+
+
+​		
+
+### 	2. 线程安全问题出现的原因？
+
+​		多个线程同时访问同一个共享资源且存在修改该资源
+
 ## 3）Java内存模型
 
 ​		1. Java内存模型即Java Memory Model，简称JMM
@@ -680,6 +563,38 @@
 
 ​	线程之间必须通过明确的发送消息来显式进行通信，在java中典型的消息传递方式就是wait()和notify()
 
+#### 	1）什么是线程通信、如何实现？
+
+​			所谓线程通信就是线程间相互发送数据，线程间共享一个资源即可实现线程通信
+
+#### 	2）线程通信常见形式
+
+​			通过共享一个数据的方式实现
+
+​			根据共享数据的情况决定自己该怎么做，以及通知其他线程怎么做
+
+#### 	3）线程通信的应用场景
+
+​			生产者与消费者模型：生产者线程负责生产数据，消费者线程负责消费生产者产生的数据
+
+​			要求：生产者线程生产完数据后唤醒消费者，然后等待自己，消费者消费完该数据后唤醒生产者，然后等待自己
+
+#### 	4）Object类的等待和唤醒方法：
+
+​			void wait()：让当前线程等待并释放所占锁，直到另一个线程调用notify()方法或 notifyAll()方法
+
+​			void notify()：唤醒正在等待的单个线程
+
+​			void notifyAll()：唤醒正在等待的所有线程 
+
+#### 	5）能说说线程通信三个常见方法？
+
+​				void wait()：让当前线程等待并释放所占锁，直到另一个线程调用notify()方法或 notifyAll()方法
+
+​				void notify()：唤醒正在等待的单个线程
+
+​				void notifyAll()：唤醒正在等待的所有线程 
+
 ### 2. 线程之间的同步
 
 1. 同步是指程序用于控制不同线程之间操作发生相对顺序的机制
@@ -695,6 +610,111 @@
 4. Java线程之间的通信总是隐式进行，整个通信过程对程序员完全透明
 
    如果编写多线程程序的Java程序员不理解隐式进行的线程之间通信的工作机制，很可能会遇到各种奇怪的内存可见性问题
+
+   #### 1）线程同步解决安全问题的思想是什么？
+
+   ​	加锁，把共享资源进行上锁，每次只能一个线程进入访问完毕以后解锁，然后其他线程才能进来
+
+   #### 2）线程同步方式
+
+   ##### 		1）方式一：同步代码块
+
+   ###### 				1. 作用：
+
+   ​			把出现线程安全问题的核心代码给上锁
+
+   ###### 				2. 原理：
+
+   ​			每次只能一个线程进入，执行完毕后自动解锁，其他线程才可以进来执行
+
+   ###### 				3. 格式：
+
+   ​			synchronized(同步锁对象) {	
+
+   ​				操作共享资源的代码(核心代码) 
+
+   ​			}
+
+   ###### 				4. 锁对象要求：
+
+   ​			理论上：锁对象只要对于当前同时执行的线程来说是同一个对象即可
+
+   ###### 				5. 问题
+
+   ​			1. 同步代码块是如何实现线程安全的？
+
+   ​				对出现问题的核心代码使用synchronized进行加锁
+
+   ​				每次只能一个线程占锁访问
+
+   ​			2. 锁对象用任意唯一的对象好不好呢?
+
+   ​				不好，会影响其他无关线程的执行	
+
+   ​			3. 同步代码块的同步锁对象有什么要求？
+
+   ​				对于实例方法建议使用this作为锁对象
+
+   ​				对于静态方法建议使用字节码（类名.class）对象作为锁对象
+
+   ##### 		2）方式二：同步方法
+
+   ###### 				1. 作用：
+
+   ​			把出现线程安全问题的核心方法给上锁
+
+   ###### 				2. 原理：
+
+   ​			每次只能一个线程进入，执行完毕以后自动解锁，其他线程才可以进来执行
+
+   ###### 				3. 格式：
+
+   ​			修饰符 synchronized 返回值类型 方法名称(形参列表) {	
+
+   ​				操作共享资源的代码
+
+   ​			}
+
+   ###### 				4. 同步方法底层原理：
+
+   ​			1. 同步方法其实底层也是有隐式锁对象的，只是锁的范围是整个方法代码
+
+   ​			2. 如果方法是实例方法：同步方法默认用this作为的锁对象，但是代码要高度面向对象！
+
+   ​			3. 如果方法是静态方法：同步方法默认用类名.class作为的锁对象
+
+   ###### 				5. 问题：
+
+   ​			1. 解决安全问题是同步代码块好还是同步方法好一点？
+
+   ​				同步代码块锁的范围更小，同步方法锁的范围更大
+
+   ​			2. 同步方法是如何保证线程安全的？
+
+   ​				对出现问题的核心方法使用synchronized修饰
+
+   ​				每次只能一个线程占锁进入访问
+
+   ​			3. 同步方法的同步锁对象的原理？
+
+   ​				对于实例方法默认使用this作为锁对象
+
+   ​				对于静态方法默认使用类名.class对象作为锁对象
+
+   ##### 		3）方式三：Lock锁
+
+   ​			JDK5以后提供了一个新的锁对象Lock，就是为了更清晰的表达如何加锁和释放锁，使用更加灵活、方便
+
+   ​			Lock实现提供比使用synchronized方法和语句可以获得更广泛的锁定操作
+
+   ​			Lock是接口不能直接实例化，这里采用它的实现类ReentrantLock来构建Lock锁对象
+
+   ​			public ReentrantLock()：获得Lock锁的实现类对象
+
+   ​			void lock()：获得锁
+
+   ​			void unlock()：释放锁
+
 
 ### 3. Java内存模型结构
 
@@ -1212,81 +1232,172 @@ Thread 2 waits randomly (e.g. 43 millis) before retrying.
 
 ​		为其他等待线程总是能被获得唤醒。
 
-# 9）与线程相关的方法（详解后续更新，多线程太难了）
-
-### 1. 获取当前线程对象：currentThread()
-
-### 2. 获取当前线程名称：getName()
-
-### 3. 启动线程：start
-
-​	只有调用start方法才是启动一个新的线程执行
-
-### 4. 停止线程：stop
-
-​	强制停止一个正在运行的线程, 无论此时线程是何种状态, 非常不安全
-
-### 5. 休眠线程：sleep
-
-​	让线程休眠指定的时间，单位为毫秒
-
-### 6. 指定线程任务：run
-
-​	启动线程后执行该run方法封装的线程任务
-
-### 7. 精灵线程：setDaemon
 
 
-​	普通线程执行结束,守护线程也不再继续执行
+## 9）线程池（具体待学Github之thread_high）
 
-### 8. 获取线程状态：getState
+### 1. 什么是线程池？
 
-​	获取当前线程状态（六大状态）
+​	线程池就是一个可以复用线程的技术
 
-### 9. 中断线程相关
+### 2. 不使用线程池的问题  
 
-#### 1）interrupt()
+​	如果用户每发起一个请求，后台就创建一个新线程来处理
 
-作用：interrupt方法只改变中断状态, 不会中断一个正在运行的线程
+​	下次新任务来了又要创建新线程，而创建新线程的开销是很大的，这样会严重影响系统的性能
 
-##### 阻塞与非阻塞状况：
+### 3. 线程池的工作原理
 
-###### 阻塞状况：
+​		![image-20221015173839451](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\线程池的工作原理.png)
 
-​	调用interrupt方法抛出InterruptedException异常的方法，如wait、sleep、join等，都是在方法内部不断地检查中断状态的值
+### 4. 线程池实现的API、参数说明
 
-###### 非阻塞状况：
+#### 	1）谁代表线程池？
 
-​	调用interrupt方法, 不抛出InterruptedException异常的方法，因为在方法内部并未有检查中断状态的值
+​		JDK 5.0起提供了代表线程池的接口：ExecutorService
 
-#### 2）interrupted()
+#### 	2）如何得到线程池对象
 
-​	必须在当前执行线程内调用，该方法返回当前线程的内部中断状态（true)，然后清除中断状态（置为false）
+##### 		1. 方式一：
 
-#### 3）isInterrupted(boolean ClearInterrupted)
+​			方式一：使用ExecutorService的实现类ThreadPoolExecutor自创建一个线程池对象
 
-​		参数代表是否清除中断状态
+​		![image-20221015173730223](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\方式一获的线程池对象.png)
 
-### 10. 等待线程死亡：join
+​		ThreadPoolExecutor构造器的参数说明：
 
-​		等待当前线程死亡
+​				参数一：指定线程池的线程数量（核心线程）： corePoolSize（不能小于0）
 
-### 11. 堵塞进程：park
+​				参数二：指定线程池可支持的最大线程数： maximumPoolSize（最大数量 >= 核心线程数量）
 
-​		堵塞以及不堵塞进程
+​				参数三：指定临时线程的最大存活时间： keepAliveTime（不能小于0）
 
-### 12. 线程优先级：priority
+​				参数四：指定存活时间的单位(秒、分、时、天)： unit（时间单位）
 
-​	设置以及获取线程优先级
+​				参数五：指定任务队列： workQueue（不能为null）
 
-### 13. 等待线程：wait
+​				参数六：指定用哪个线程工厂创建线程： threadFactory（不能为null）
 
-​	等待其它线程唤醒
+​				参数七：指定线程忙，任务满的时候，新任务来了怎么办： handler（不能为null）			
 
-### 14. 唤醒等待线程：notify、notifyAll
+###### 		1）线程池常见面试题
 
-​	唤醒正在等待中的其中一个线程或唤醒所有正在等待的线程
+​			1. 临时线程什么时候创建啊？
 
-### 15. 让出CPU使用权：yield
+​				新任务提交时发现核心线程都在忙，任务队列也满了，并且还可以创建临时线程，此时才会创建临时线程
 
-​	让出当前线程的cpu执行权，使得线程由运行状态变为就绪状态,等下调用时再执行
+​			2. 什么时候会开始拒绝任务？
+
+​				核心线程和临时线程都在忙，任务队列也满了，新的任务过来的时候才会开始任务拒绝
+
+###### 		2）ExecutorService的常用方法
+
+​				void execute(Runnable command) ：执行任务/命令，没有返回值，一般用来执行 Runnable 任务
+
+​				Future<T> submit(Callable<T> task)：执行任务，返回未来任务对象获取线程结果，一般拿来执行 Callable 任务
+
+​				void shutdown() ：等任务执行完毕后关闭线程池
+
+​				List<Runnable> shutdownNow()：立刻关闭，停止正在执行的任务，并返回队列中未执行的任务
+
+###### 		3）新任务拒绝策略
+
+​			ThreadPoolExecutor.AbortPolicy：丢弃任务并抛出RejectedExecutionException异常。是默认的策略
+
+​			ThreadPoolExecutor.DiscardPolicy： 丢弃任务，但是不抛出异常 这是不推荐的做法
+
+​			ThreadPoolExecutor.DiscardOldestPolicy：抛弃队列中等待最久的任务 然后把当前任务加入队列中
+
+​			ThreadPoolExecutor.CallerRunsPolicy：由主线程负责调用任务的run()方法从而绕过线程池直接执行
+
+###### 		4）问题	
+
+​			1. 线程池如何处理Runnable任务?
+
+​				使用ExecutorService的方法：void  execute(Runnable target)
+
+​			2. 线程池如何处理Callable任务，并得到任务执行完后返回的结果
+
+​				使用ExecutorService的方法：Future<T> submit(Callable<T> command)
+
+##### 	2. 方式二：
+
+​		Executors的底层其实也是基于线程池的实现类ThreadPoolExecutor创建线程池对象的
+
+​		方式二：使用线程池的工具类Executors通过调用方法返回不同类型的线程池对象
+
+​		public static ExecutorService newCachedThreadPool()：
+
+​			线程数量随着任务增加而增加，如果线程任务执行完毕且空闲了一段时间则会被回收掉
+
+​		public static ExecutorService newFixedThreadPool(int nThreads)
+
+​			创建固定线程数量的线程池，如果某个线程因为执行异常而结束，那么线程池会补充一个新线程替代它
+
+​		public static ExecutorService newSingleThreadExecutor ()
+
+​			创建只有一个线程的线程池对象，如果该线程出现异常而结束，那么线程池会补充一个新线程
+
+​		public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)
+
+​			创建一个线程池，可以实现在给定的延迟后运行任务，或者定期执行任务
+
+###### 		1）Executors使用可能存在的陷阱
+
+​			大型并发系统环境中使用Executors如果不注意可能会出现系统风险
+
+​			![image-20221015175431494](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Executors使用可能存在的陷阱.png)
+
+![image-20221015175457617](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09thread_base\document\assets\Executors使用可能存在的陷阱2.png)
+
+###### 	2）问题
+
+​		1. Executors工具类底层是基于什么方式实现的线程池对象？
+
+​			线程池ExecutorService的实现类：ThreadPoolExecutor
+
+​		2. Executors是否适合做大型互联网场景的线程池方案？
+
+​			不合适，建议使用ThreadPoolExecutor来指定线程池参数，这样可以明确线程池的运行规则，规避资源耗尽的风险
+
+## 10）定时器（了解OK）
+
+### 1. 什么是定时器？
+
+​	定时器是一种控制任务延时调用，或者周期调用的技术
+
+### 2. 作用：
+
+​	闹钟、定时邮件发送
+
+### 3. 定时器的实现方式
+
+#### 1）方式一：Timer定时器
+
+​		public Timer()：创建Timer定时器对象
+
+​		public void schedule(TimerTask task, long delay, long period)：开启一个定时器，按照计划处理TimerTask任务
+
+##### 	1. 特点和存在的问题
+
+​		1. Timer是单线程，处理多个任务按照顺序执行，存在延时与设置定时器的时间有出入
+
+​		2. 可能因为其中的某个任务的异常使Timer线程死掉，从而影响后续任务执行
+
+#### 2）方式二： ScheduledExecutorService定时器
+
+​		ScheduledExecutorService是 jdk1.5中引入了并发包，目的是为了弥补Timer的缺陷, ScheduledExecutorService内部为线程池
+
+##### 		1. Executors的方法:
+
+​			public static ScheduledExecutorService newScheduledThreadPool(int corePoolSize)：得到线程池对象
+
+##### 		2. ScheduledExecutorService的方法:
+
+​				public ScheduledFuture<?> scheduleAtFixedRate
+
+​				(Runnable command, long initialDelay, long period,TimeUnit unit)：周期调度方法
+
+###### 			ScheduledExecutorService的优点：
+
+​				基于线程池，某个任务的执行情况不会影响其他定时任务的执行
