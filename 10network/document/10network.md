@@ -158,6 +158,12 @@
 
 ![image-20221017123700941](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123700941.png)
 
+##### 3. 进制转换
+
+​	十进制转N进制的方法是“除N取余，逆序排列”
+
+​	二进制转十进制的方法是按权展开法
+
 #### 		6）问题
 
 ​				1. IP地址的代表类是谁？
