@@ -39,126 +39,121 @@ public class Game {
             }else if ( m.equals("a") ){
                 move(-1);
             }else if ( m.equals("d")){
-                 move(1);
+                move(1);
             }
         }
     }
 
     private void move(int hm) {
-         String[] map = Maps.maps[mapIndex - 1];
-         if( "x".equals( map[hindex + hm] ) ){
-             // 碰到墙，原地不懂
-             showMap();
-             return;
-         }else if ( " ".equals( map[hindex + hm] ) ){
-             if ( hpm == 1 ){
-             }else {
-                 map[hindex] = " ";
-             }
-             hpMove();
+        String[] map = Maps.maps[mapIndex - 1];
+        if( "x".equals( map[hindex + hm] ) ){
+            // 碰到墙，原地不懂
+            showMap();
+            return;
+        }else if ( " ".equals( map[hindex + hm] ) ){
+            if ( hpm != 1 ){
+                map[hindex] = " ";
+            }
+            hpMove();
             // 碰到空格，直接交换位置
-             map[hindex + hm] = "h";
-             hindex = hindex + hm;
-             showMap();
-             return;
-         }else if ("i".equals(map[hindex + hm])) {
-             if ( hpm == 1 ){
-             }else {
-                 map[hindex] = " ";
-             }
-             map[hindex + hm] = "h";
-             //勇士的位置发生改变
-             hindex = hindex + hm;
-             hero.setyK(hero.getyK() + 1);
-             System.out.println(hero.getName() + "捡到黄钥匙，黄钥匙 + 1");
-             showMap();
-         }else if("I".equals( map[hindex + hm ])){
-             hpMove();
+            map[hindex + hm] = "h";
+            hindex = hindex + hm;
+            showMap();
+            return;
+        }else if ("i".equals(map[hindex + hm])) {
+            if ( hpm != 1 ){
+                map[hindex] = " ";
+            }
+            map[hindex + hm] = "h";
+            //勇士的位置发生改变
+            hindex = hindex + hm;
+            hero.setYk(hero.getYk() + 1);
+            System.out.println(hero.getName() + "捡到黄钥匙，黄钥匙 + 1");
+            showMap();
+        }else if("I".equals( map[hindex + hm ])){
+            hpMove();
             // 如果碰到的黄色的门，看英雄是否有钥匙
-             if ( hero.getyK() > 0 ){
-                 if ( hpm == 1 ){
-                 }else {
-                     map[hindex] = " ";
-                 }
-                 map[hindex + hm] = "h";
-                 hindex = hindex + hm;
-                 hero.setyK(hero.getyK() - 1 );
-                 showMap();
-             }else {
-                 showMap();
-             }
-         }else if("J".equals( map[hindex + hm])){
-             hpMove();
-             if ( hero.getyK() > 0 ){
-                 if ( hpm == 1 ){
-                 }else {
-                     map[hindex] = " ";
-                 }
-                  map[hindex + hm] = "h";
-                  hindex = hindex + hm;
-                  hero.setrK(hero.getrK() - 1);
-                  showMap();
-             }else {
-                 showMap();
-             }
-         }else if("K".equals( map[hindex + hm])){
-             hpMove();
-             // 类推
-             if ( hero.getbK() > 0 ){
-                 if ( hpm == 1 ){
-                 }else {
-                     map[hindex] = " ";
-                 }
-                 map[hindex + hm] = "h";
-                 hindex = hindex + hm;
-                 hero.setbK(hero.getbK() - 1);
-                 showMap();
-             }else {
-                 showMap();
-             }
-         }else if("s".equals( map[hindex + hm])){
-             hpMove();
-             // 碰到商店购买属性
-             System.out.println("欢迎进入魔塔商店");
-             System.out.println("如果你有25个金币，你可以选择以下任何一项!");
-             System.out.println("1. 增加800生命力\t2. 增加4点攻击力 \t3. 增加4点防御\t4. 离开商店");
-             String choice = sc.next();
-             buyAttr(Integer.parseInt(choice));
-             showMap();
-         }else if("p".equals( map[hindex + hm])){
-             mapIndex++;
-             // 英雄上楼
-             if ( hpm != 1 ){
-                 Maps.maps[mapIndex-1][hindex] = " ";
-                 Maps.maps[mapIndex-1][hindex + hm] = "h";
-                 hindex = hindex + hm;
-                 hpm++;// 英雄上楼移动记录
-             }
+            if ( hero.getYk() > 0 ){
+                if ( hpm != 1 ){
+                    map[hindex] = " ";
+                }
+                map[hindex + hm] = "h";
+                hindex = hindex + hm;
+                hero.setYk(hero.getYk() - 1 );
+                showMap();
+            }else {
+                showMap();
+            }
+        }else if("J".equals( map[hindex + hm])){
+            hpMove();
+            if ( hero.getYk() > 0 ){
+                if ( hpm != 1 ){
+                    map[hindex] = " ";
+                }
+                map[hindex + hm] = "h";
+                hindex = hindex + hm;
+                hero.setRk(hero.getRk() - 1);
+                showMap();
+            }else {
+                showMap();
+            }
+        }else if("K".equals( map[hindex + hm])){
+            hpMove();
+            // 类推
+            if ( hero.getBk() > 0 ){
+                if ( hpm != 1 ){
+                    map[hindex] = " ";
+                }
+                map[hindex + hm] = "h";
+                hindex = hindex + hm;
+                hero.setBk(hero.getBk() - 1);
+                showMap();
+            }else {
+                showMap();
+            }
+        }else if("s".equals( map[hindex + hm])){
+            hpMove();
+            // 碰到商店购买属性
+            System.out.println("欢迎进入魔塔商店");
+            System.out.println("如果你有25个金币，你可以选择以下任何一项!");
+            System.out.println("1. 增加800生命力\t2. 增加4点攻击力 \t3. 增加4点防御\t4. 离开商店");
+            String choice = sc.next();
+            buyAttr(Integer.parseInt(choice));
+            showMap();
+        }else if("p".equals( map[hindex + hm])){
+            mapIndex++;
+            // 英雄上楼
+            if ( hpm != 1 ){
+                Maps.maps[mapIndex-1][hindex] = " ";
+                Maps.maps[mapIndex-1][hindex + hm] = "h";
+                hindex = hindex + hm;
+                hpm++;// 英雄上楼移动记录
+            }
 
-             showMap();
-         }else if("n".equals( map[hindex + hm])){
-             mapIndex--;
-             showMap();
-         }else {
-             hpMove();
-             //除开，墙，宝石，钥匙，门，空地，血瓶，之外，全部都是怪物了
-             int index = Integer.parseInt(map[hindex + hm]);
+            showMap();
+        }else if("n".equals( map[hindex + hm])){
+            mapIndex--;
+            showMap();
+        }else {
+            hpMove();
+            //除开，墙，宝石，钥匙，门，空地，血瓶，之外，全部都是怪物了
+            int index = Integer.parseInt(map[hindex + hm]);
 
-             //打架      原数据不要动
-             Monster data = Monsters.ms[index - 1];
-             Monster m = new Monster(data.getName(), data.getBlood(), data.getAtt(),
-                     data.getDef(), data.getGold(), data.getExp());
-             boolean isFlight = fight(m);
-             if (isFlight){
-                 map[hindex] = " ";
-                 map[hindex + hm] = "h";
-                 hindex = hindex + hm;
-                 showMap();
-             }else {
-                 // 战斗失败，游戏结束！
-                 return;
-             }
-         }
+            //打架      原数据不要动
+            Monster data = Monsters.ms[index - 1];
+            Monster m = new Monster(data.getName(), data.getBlood(), data.getAtt(),
+                    data.getDef(), data.getGold(), data.getExp());
+            boolean isFlight = fight(m);
+            if (isFlight){
+                map[hindex] = " ";
+                map[hindex + hm] = "h";
+                hindex = hindex + hm;
+                showMap();
+            }else {
+                // 战斗失败，游戏结束！
+                return;
+            }
+        }
     }
 
     private boolean fight(Monster m) {

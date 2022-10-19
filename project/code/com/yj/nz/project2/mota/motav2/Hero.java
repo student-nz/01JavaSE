@@ -19,9 +19,9 @@ public class Hero {
     private int def;
     private int gold;
     private int exp;
-    private int rK;
-    private int yK;
-    private int bK;
+    private int rk;
+    private int yk;
+    private int bk;
     // Alte + Insert
 
 
@@ -29,7 +29,7 @@ public class Hero {
         this("yjxz",1,2000,200,200,200,200,3,3,3);
     }
 
-    public Hero(String name, int level, int blood, int att, int def, int gold, int exp, int rK, int yK, int bK) {
+    public Hero(String name, int level, int blood, int att, int def, int gold, int exp, int rk, int yk, int bk) {
         this.name = name;
         this.level = level;
         this.blood = blood;
@@ -37,9 +37,9 @@ public class Hero {
         this.def = def;
         this.gold = gold;
         this.exp = exp;
-        this.rK = rK;
-        this.yK = yK;
-        this.bK = bK;
+        this.rk = rk;
+        this.yk = yk;
+        this.bk = bk;
     }
 
     public String getName() {
@@ -98,31 +98,30 @@ public class Hero {
         this.exp = exp;
     }
 
-    public int getrK() {
-        return rK;
+    public int getRk() {
+        return rk;
     }
 
-    public void setrK(int rK) {
-        this.rK = rK;
+    public void setRk(int rk) {
+        this.rk = rk;
     }
 
-    public int getyK() {
-        return yK;
+    public int getYk() {
+        return yk;
     }
 
-    public void setyK(int yK) {
-        this.yK = yK;
+    public void setYk(int yk) {
+        this.yk = yk;
     }
 
-    public int getbK() {
-        return bK;
+    public int getBk() {
+        return bk;
     }
 
-    public void setbK(int bK) {
-        this.bK = bK;
+    public void setBk(int bk) {
+        this.bk = bk;
     }
 
-    //打印对象默认调用toString方法，需要重写toString 以便打印对象内容
     @Override
     public String toString() {
         return "Hero{" +
@@ -133,9 +132,9 @@ public class Hero {
                 ", def=" + def +
                 ", gold=" + gold +
                 ", exp=" + exp +
-                ", rK=" + rK +
-                ", yK=" + yK +
-                ", bK=" + bK +
+                ", rk=" + rk +
+                ", yk=" + yk +
+                ", bk=" + bk +
                 '}';
     }
 }
