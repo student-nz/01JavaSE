@@ -2,7 +2,7 @@ package com.yj.nz.d1_hello;
 
 /**
  * ClassName:HelloWorld
- * Package:com.yj.nz
+ * Package:nz
  * Description:描述
  *
  * @Date:2022/10/9 18:06

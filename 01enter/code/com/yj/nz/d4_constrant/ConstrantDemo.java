@@ -2,7 +2,7 @@ package com.yj.nz.d4_constrant;
 
 /**
  * ClassName:ConstrantDemo
- * Package:com.yj.nz.d4_constrant
+ * Package:nz.d4_constrant
  * Description:描述
  *
  * @Date:2022/10/9 18:28

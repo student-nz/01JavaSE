@@ -2,7 +2,7 @@ package com.yj.nz.d3_note;
 
 /**
  * ClassName:NoteDemo
- * Package:com.yj.nz.d3_note
+ * Package:nz.d3_note
  * Description:描述
  *
  * @Date:2022/10/9 18:25

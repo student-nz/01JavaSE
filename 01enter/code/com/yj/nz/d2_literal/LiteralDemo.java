@@ -2,7 +2,7 @@ package com.yj.nz.d2_literal;
 
 /**
  * ClassName:LiteralDemo
- * Package:com.yj.nz.d2_literal
+ * Package:nz.d2_literal
  * Description:描述
  *
  * @Date:2022/10/9 18:09

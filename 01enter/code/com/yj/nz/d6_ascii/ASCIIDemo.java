@@ -2,7 +2,7 @@ package com.yj.nz.d6_ascii;
 
 /**
  * ClassName:ASCIIDemo
- * Package:com.yj.nz.d5_variable
+ * Package:nz.d5_variable
  * Description:描述
  *
  * @Date:2022/10/9 19:22
