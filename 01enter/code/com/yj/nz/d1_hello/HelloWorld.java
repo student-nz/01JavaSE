@@ -12,7 +12,7 @@ package com.yj.nz.d1_hello;
 /*
 * 第一个入门程序
 * */
-public class HelloWorld {
+public class  HelloWorld {
     public static void main(String[] args) {
         System.out.println("你好,政哥！");
     }
