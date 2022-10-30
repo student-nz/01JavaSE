@@ -135,7 +135,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​				class（类）
 
-​				![image-20221009124232997](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\IDEA项目结构.png)
+​				![image-20221009124232997](assets\IDEA项目结构.png)
 
 #### 	IDEA 常用快捷键：
 
@@ -179,7 +179,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​	6种常量：字符串常量、整数常量、小数常量、字符常量、布尔常量、空常量
 
-![image-20221009170524484](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\常量.png)
+![image-20221009170524484](assets\常量.png)
 
 # 7）变量
 
@@ -199,7 +199,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​	不同的数据类型也分配了不同的内存空间,所以它们表示的数据大小也是不一样的
 
-![image-20221009170858707](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\数据类型.png)
+![image-20221009170858707](assets\数据类型.png)
 
 ​	使用格式：
 
@@ -217,7 +217,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​			基本数据类型分4类8种
 
-![image-20221009170930935](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\基础数据类型分类.png)
+![image-20221009170930935](assets\基础数据类型分类.png)
 
 ​		
 
@@ -229,7 +229,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​			字符在计算机底层就是存储其编号的二进制形式
 
-​		![image-20221009125649179](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\ASCII.png)
+​		![image-20221009125649179](assets\ASCII.png)
 
 # 10）关键字、标志符
 
@@ -237,7 +237,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​				关键字即Java自己保留的一些单词，作为特殊功能的，例如：public、class、byte、short、int、long、double… 
 
-​				![image-20221009125829761](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221009125829761.png)
+​				![image-20221009125829761](assets\image-20221009125829761.png)
 
 ## 	标识符
 
@@ -347,7 +347,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ### 			if
 
-​	![image-20221009132438938](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\if格式.png)
+![image-20221009132438938](assets\if格式.png)
 
 ### 	switch
 
@@ -359,7 +359,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​			default就是case所给情况都不匹配，即会执行该默认代码
 
-![image-20221009132513365](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\switch.png)
+![image-20221009132513365](assets\switch.png)
 
 ## 	循环结构
 
@@ -371,29 +371,29 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ### 		for
 
-​			![image-20221009132742020](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\for循环.png)
+​			![image-20221009132742020](assets\for循环.png)
 
 ### 		while
 
-​				![image-20221009132828683](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\while循环.png)
+​				![image-20221009132828683](assets\while循环.png)
 
 ### 		do-while
 
 ​				do-while循环即先执行一次再判断循环条件
 
-​				![image-20221009133009638](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\do-while.png)
+​				![image-20221009133009638](assets\do-while.png)
 
 ### 死循环
 
 ​	无限循环即如果没有其它条件干预循环，循环就不会停止下来
 
-​	![image-20221009133121591](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\死循环.png)
+​	![image-20221009133121591](assets\死循环.png)
 
 ### 循环嵌套
 
 ​	循环嵌套即循环中又包含循环
 
-​	![image-20221009133159662](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\循环嵌套.png)
+​	![image-20221009133159662](assets\循环嵌套.png)
 
 ### 跳转关键字
 
@@ -403,11 +403,11 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​	break可以用在嵌套循环中跳出整个外部循环并立即结束它
 
-​	![image-20221009133757602](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\跳转整个外部循环.png)
+​	![image-20221009133757602](assets\跳转整个外部循环.png)
 
 ​	continue可以用在嵌套循环中跳出外部循环的当次执行进入外部循环的下一次
 
-​    ![image-20221009133822699](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\继续外部循环.png) 
+​    ![image-20221009133822699](assets\继续外部循环.png) 
 
 # 14）数组
 
@@ -487,7 +487,7 @@ JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以�
 
 ​					无返回值方法的调用只能直接调用且不能使用return返回数据,但是可以直接return;
 
-​					![image-20221009135632513](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\01enter\document\assets\方法.png)  
+​					![image-20221009135632513](assets\方法.png)  
 
 ### 			方法的参数传递机制
 
