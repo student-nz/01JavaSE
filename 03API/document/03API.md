@@ -2,175 +2,241 @@
 
 # 三、常用API
 
-​	API (Application Programming Interface,应用程序编程接口)就是Java写好的技术(功能代码),我们可以直接调用
+```
+API (Application Programming Interface,应用程序编程接口)就是Java写好的技术(功能代码),我们可以直接调用
 
-​	Oracle 也为Java提供的这些功能代码提供了相应的API文档(技术使用说明书)
+Oracle 也为Java提供的这些功能代码提供了相应的API文档(技术使用说明书)
 
-​	下载API文档：http://www.oracle.com/technetwork/java/javase/downloads/index.html 
+下载API文档：http://www.oracle.com/technetwork/java/javase/downloads/index.html 
+```
 
-## 	1）Random
+## 	1. Random
 
-​			Random可以用来产生随机数
+```
+Random可以用来产生随机数
 
-​			使用步骤：
+使用步骤：
+	1. import java.util.Random;（导包）
+	
+	2. Random r = new Random();（创建对象）
+	
+	3. int number = r.nextInt(n);(生成 [0,n) 的随机数,包左不包右)
+```
 
-​				1. import java.util.Random;（导包）
+## 	2. Scanner
 
-​				2. Random r = new Random();（创建对象）
+```
+Scanner可以用来进行键盘录入
 
-​				3. int number = r.nextInt(n);(生成 [0,n) 的随机数,包左不包右)
+使用步骤：
+	1. impot java.util.Scanner;（导包）
+	
+	2. Scanner sc = new Scanner(System.in);（创建对象）
 
-## 	2）Scanner
+	3. int i = sc.nextInt();（接收数据）
+```
 
-​		Scanner可以用来进行键盘录入
+## 3. String
 
-​		使用步骤：
+```
+java.lang.String类代表字符串
 
-​			1. impot java.util.Scanner;（导包）
+java.lang.String类被称为不可变字符串类型,
 
-​			2. Scanner sc = new Scanner(System.in);（创建对象）
+java.lang.String类的对象在创建后不能被更改
 
-​			3. int i = sc.nextInt();（接收数据）
+java.lang.String类实际上是一个用final修饰的字符数组, 更底层实际就是final修饰的字节数组
 
-## 3）String
+以“”方式给出的字符串对象，在堆内存中的字符串常量池中存储
+```
 
-​		java.lang.String类代表字符串
+### 			1. 创建字符串对象的2种方式
 
-​		java.lang.String类被称为不可变字符串类型,
+#### 					1. 直接使用“”定义
 
-​		java.lang.String类的对象在创建后不能被更改
+```
+String name = "政哥";
+```
 
-​		java.lang.String类实际上是一个用final修饰的字符数组, 更底层实际就是final修饰的字节数组
+#### 					2. 构造器创建对象
 
-​		以“”方式给出的字符串对象，在堆内存中的字符串常量池中存储
+```
+public String()：创建一个空白字符串对象，不含有任何内容
 
-### 		1. 创建字符串对象的2种方式
+public String(String original)：根据传入的字符串内容，来创建字符串对象
 
-#### 			1）直接使用“”定义
+public String(char[] chs)：根据字符数组的内容，来创建字符串对象
 
-​				String name = "政哥";
+public String(byte[] chs)：根据字节数组的内容，来创建字符串对象
+```
 
-#### 			2）构造器创建对象
+#### 					3. 两者创建区别
 
-​				public String()：创建一个空白字符串对象，不含有任何内容
+```
+以“”方式给出的字符串对象,在字符串常量池中存储,而且相同内容只会在内存中存储一份
 
-​				public String(String original)：根据传入的字符串内容，来创建字符串对象
-
-​				public String(char[] chs)：根据字符数组的内容，来创建字符串对象
-
-​				public String(byte[] chs)：根据字节数组的内容，来创建字符串对象
-
-#### 			区别：
-
-​			以“”方式给出的字符串对象,在字符串常量池中存储,而且相同内容只会在内存中存储一份
-
-​			通过构造器new对象,每new一次都会产生一个新对象存放在堆内存中
+通过构造器new对象,每new一次都会产生一个新对象存放在堆内存中
+```
 
 ### 	2. 常用API	
 
-#### 			1）字符串内容比较
+#### 				1. 字符串内容比较
 
-​				字符串的内容比较不适合用“==”比较，因为 == 比较的是地址
+```
+字符串的内容比较不适合用“==”比较，因为 == 比较的是地址
 
-​				public boolean equals(Objectan Object)：
+public boolean equals(Objectan Object)：
+	将此字符串与指定对象进行比较, 只关心字符内容是否一致！
+			
+public boolean equalsIgnoreCase(String anotherString)：
+	将此字符串与指定对象进行比较, 忽略大小写比较字符, 只关心字符内容是否一致！			
+```
 
-​					将此字符串与指定对象进行比较, 只关心字符内容是否一致！
+#### 		2. 字符与字符串操作
 
-​				public boolean equalsIgnoreCase(String anotherString) ：
+```
+public char charAt(int index)：
+	根据下标找到指定的字符
 
-​					将此字符串与指定对象进行比较, 忽略大小写比较字符, 只关心字符内容是否一致！
+public char[] toCharArray()：
+	以字符数组的形式返回全部的字符串内容
 
-#### 	2）字符与字符串操作
+public String(char[] value)：
+	将全部的字符数组变为字符串
 
-​				public char charAt(int index)：根据下标找到指定的字符
+public String(char[] value,int offset,int count)：
+	将指定范围的字符数组变为字符串
+```
 
-​				public char[] toCharArray()：以字符数组的形式返回全部的字符串内容
+#### 	3. 字节与字符串操作
 
-​				public String(char[] value)：将全部的字符数组变为字符串
+​				
 
-​				public String(char[] value,int offset,int count)：将指定范围的字符数组变为字符串
+```
+public byte[] getBytes()：
+	将字符串变为字节数组
 
-#### 	3）字节与字符串操作
+public String(byte[] bytes)：
+	将字节数组转换为字符串
 
-​				public byte[] getBytes()：将字符串变为字节数组
+public String(byte[] bytes,int offset,int length)：
+	将指定范围的字节数组变为字符串
 
-​				public String(byte[] bytes)：将字节数组转换为字符串
+public String(byte[] bytes, String charsetName)：
+	通过使用指定的 charset 解码指定的 byte 数组，构造一个新的 String
+```
 
-​				public String(byte[] bytes,int offset,int length)：将指定范围的字节数组变为字符串
+#### 	4. 是否指定内容开头/结尾
 
-​				public String(byte[] bytes, String charsetName)：通过使用指定的 charset 解码指定的 byte 数组，构造一个新的 String
+​				
 
-#### 	4）是否指定内容开头/结尾
+```
+public boolean startsWith(String prefix)：
+	从第一个位置开始判断是否以指定的内容开头
 
-​				public boolean startsWith(String prefix)：从第一个位置开始判断是否以指定的内容开头
+public boolean startsWith(String prefix,int toffset)：
+	从指定的位置开始判断是否以指定的内容开头
 
-​				public boolean startsWith(String prefix,int toffset)：从指定的位置开始判断是否以指定的内容开头
+public boolean endsWith(String suffix)：
+	判断是否以指定的内容结尾
+```
 
-​				public boolean endsWith(String suffix)：判断是否以指定的内容结尾
+#### 	5. 替换
 
-#### 	5）替换
+​				
 
-​				public String replace(char oldChar,char newChar)：替换指定字符
+```
+public String replace(char oldChar,char newChar)：
+	替换指定字符
 
-​				public String replace(CharSequence target, CharSequence replacement)：替换指定字符串
+public String replace(CharSequence target, CharSequence replacement)：
+	替换指定字符串
 
-​				public String replaceAll(String regex,String replacement)：替换指定的字符串
+public String replaceAll(String regex,String replacement)：
+	替换指定的字符串
 
-​				public String replaceFirst(String regex,String replacement)：替换第一个满足条件的字符串
+public String replaceFirst(String regex,String replacement)：
+	替换第一个满足条件的字符串
+```
 
-#### 	6）拆分
+#### 	6. 拆分
 
-​				public String[] split(String regex)：按照指定的字符串拆分
+```
+public String[] split(String regex)：
+	按照指定的字符串拆分
 
-​				public String[] split(String regex,int limit)：拆分字符串，并指定拆分的个数
+public String[] split(String regex,int limit)：
+	拆分字符串，并指定拆分的个数
+```
 
-#### 	7）查找
+#### 	7. 查找
 
-​				public boolean contains(String s)：返回一个字符串是否存在
+​				
 
-​				public int indexOf(int ch)：从头查找指定的字符是否存在, char -> int, 如果存在则返回位置, 如果不存在则返回“-1”
+```
+public boolean contains(String s)：
+	返回一个字符串是否存在
 
-​				public int indexOf(int ch,int fromIndex)：
+public int indexOf(int ch)：
+	从头查找指定的字符是否存在, char -> int, 如果存在则返回位置, 如果不存在则返回“-1”
 
-​					从指定位置查找指定的字符是否存在，char > int，如果存在则返回位置，如果不存在则返回“-1”
+public int indexOf(int ch,int fromIndex)：
+	从指定位置查找指定的字符是否存在，char > int，如果存在则返回位置，如果不存在则返回“-1”
 
-​				public int indexOf(String str)：从头查找指定的字符串是否存在, 如果存在则返回位置, 如果不存在则返回“-1”
+public int indexOf(String str)：
+	从头查找指定的字符串是否存在, 如果存在则返回位置, 如果不存在则返回“-1”
 
-​				public int indexOf(String str,int fromIndex)：从指定位置查找字符串是否存在, 如果存在则返回位置, 如果不存在则返回“-1”
+public int indexOf(String str,int fromIndex)：
+	从指定位置查找字符串是否存在, 如果存在则返回位置, 如果不存在则返回“-1”
 
-​				public int lastIndexOf(int ch)：public int lastIndexOf(int ch,int fromIndex)：类似
+public int lastIndexOf(int ch)：public int lastIndexOf(int ch,int fromIndex)：
+	类似
 
-​				public int lastIndexOf(String str)：类似
+public int lastIndexOf(String str)：
+	类似
 
-​				public int lastIndexOf(String str,int fromIndex)：类似
+public int lastIndexOf(String str,int fromIndex)：
+	类似
+```
 
 #### 	8. 其它操作
 
-​				public boolean isEmpty()：字符串是否为空
+​		
 
-​				public int length()：字符串长度
+```
+public boolean isEmpty()：
+	字符串是否为空
 
-​				public String toLowerCase()：转小写
+public int length()：
+	字符串长度
 
-​				public String toUpperCase()：转大写
+public String toLowerCase()：
+	转小写
 
-​				public String trim()：字符串两边去空白
+public String toUpperCase()：
+	转大写
 
-​				public String concat(String str)：字符串拼接操作
+public String trim()：
+	字符串两边去空白
 
-#### 源码分析：
+public String concat(String str)：
+	字符串拼接操作
+```
 
-​			java.lang.String类是一个final类, 意味着该类不能再有子类
+### 源码分析：
 
-​			String类底层是一个字符数组final char value[] 该数组是final修饰的,意味着字符串一旦创建,就不能再修改, 
+```
+java.lang.String类是一个final类, 意味着该类不能再有子类
 
-​			那么我们实际上修改字符串其实是产生了新字符串对象
+String类底层是一个字符数组final char value[] 该数组是final修饰的,意味着字符串一旦创建,就不能再修改, 
+那么我们实际上修改字符串其实是产生了新字符串对象
 
-​			String也叫做不可修改的字符串常量类
+String也叫做不可修改的字符串常量类
 
-​			判断字符串文本是否相同 不能选择 == 因为不确定两个字符串对象是否是直接指向常量池还是指向堆内存
+判断字符串文本是否相同 不能选择 == 因为不确定两个字符串对象是否是直接指向常量池还是指向堆内存
+```
 
-#### 关于常量池：
+### 关于常量池：
 
 ​			
 
@@ -182,177 +248,194 @@
 
 
 
-#### String类的equals()源码分析：
+### String类的equals()源码分析：
 
-​	![image-20221011124452695](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\#### String类的equals()源码分析.png)
+​	![image-20221011124452695](assets\#### String类的equals()源码分析.png)
 
-#### String类concat方法源码分析：
+### String类concat方法源码分析：
 
-​	![image-20221011124601475](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\String类concat方法源码分析.png)
+​	![image-20221011124601475](assets\String类concat方法源码分析.png)
 
-## String类length()源码分析
+### String类length()源码分析
 
-![image-20221011124638616](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\String类length()源码分析.png)  
+![image-20221011124638616](assets\String类length()源码分析.png)  
 
-## 4）StringBuilder
+## 4. StringBuilder
 
-​				StringBuilder是一个可变的字符串类, 是一个对象容器, 简称字符串缓冲区
+```
+StringBuilder是一个可变的字符串类, 是一个对象容器, 简称字符串缓冲区
 
-​				StringBuilder存在目的就是为了提高字符串的操作效率, 如：拼接、修改等
+StringBuilder存在目的就是为了提高字符串的操作效率, 如：拼接、修改等
+```
 
-#### 			1. 创建StringBuilder
+### 				1. 创建StringBuilder
 
-​				public StringBuilder()：创建一个空白的可变的字符串对象，不包含任何内容
+```
+public StringBuilder()：
+	创建一个空白的可变的字符串对象，不包含任何内容
 
-​				public StringBuilder(String str)：创建一个指定字符串内容的可变字符串对象
+public StringBuilder(String str)：
+	创建一个指定字符串内容的可变字符串对象
+```
 
-#### 			2. 拼接-反转-长度-转换
+### 			2. 拼接-反转-长度-转换		
 
-​				public StringBuilder append(任意类型)：添加数据并返回StringBuilder对象本身
+```
+public StringBuilder append(任意类型)：
+	添加数据并返回StringBuilder对象本身
 
-​				public StringBuilder reverse()：将对象的内容反转
+public StringBuilder reverse()：
+	将对象的内容反转
 
-​				public int length()：返回对象内容长度
+public int length()：
+	返回对象内容长度
 
-​				public String toString()：通过toString()就可以实现把StringBuilder转换为String
+public String toString()：
+	通过toString()就可以实现把StringBuilder转换为String
+```
 
-#### 			3. String类拼接字符串原理图
+### 			3. String类拼接字符串原理图
 
-#### ![image-20221010170148174](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\String类拼接字符串原理图.png)		4. StringBuilder提高效率原理图
+### ![image-20221010170148174](assets\String类拼接字符串原理图.png)		4. StringBuilder提高效率原理图
 
-![image-20221010170449665](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\StringBuilder提高效率原理图.png)
+![image-20221010170449665](assets\StringBuilder提高效率原理图.png)
 
-#### 	5. 三者区别区别
+### 	5. 三者区别区别
 
-​			String类：内容是不可变的
+​		
 
-​			StringBuffer与StringBuilderr类：内容是可变的
+```
+String类：内容是不可变的
 
-​			StringBuffer与StringBuilder的API类似,且都是带缓冲区的可变长度字符串
+StringBuffer与StringBuilderr类：内容是可变的
 
-​			String因为是不可修改的字符串,在处理文字时StringAPI面临效率不高问题,
+StringBuffer与StringBuilder的API类似,且都是带缓冲区的可变长度字符串
 
-​			所以及StringBuffer和StringBuilder就是为了解决这一问题而存在的类
+String因为是不可修改的字符串,在处理文字时StringAPI面临效率不高问题,
 
-​			StringBuffer线程安全, 同步, 运行速度慢,不建议采用
+所以及StringBuffer和StringBuilder就是为了解决这一问题而存在的类
 
-​			StringBuilder线程不安全,不同步,运行速度快于StringBuffer,工作中采用该方法,安全问题自己避免即可
+StringBuffer线程安全, 同步, 运行速度慢,不建议采用
 
+StringBuilder线程不安全,不同步,运行速度快于StringBuffer,工作中采用该方法,安全问题自己避免即可
+```
 
+## 5. ArrayList
 
-## 4）ArrayList
+```
+集合是一种容器,与数组类似,不同的是集合集合大小不固定,可以动态变化,类型也可以选择不固定,而数组类型确定、长度固定
 
-​			集合是一种容器,与数组类似,不同的是集合集合大小不固定,可以动态变化,类型也可以选择不固定,而数组类型确定、长度固定
-
-​			java.util.ArrayList是集合类,同时ArrayList是属于集合中的一种且支持索引
+java.util.ArrayList是集合类,同时ArrayList是属于集合中的一种且支持索引
+```
 
 ### 			1. 数组与集合应用场景
 
-​				元素个数不确定,且要进行增删操作的业务场景,选择集合而不是数组,
+```
+元素个数不确定,且要进行增删操作的业务场景,选择集合而不是数组,
 
-​				元素个数确定且大小固定不变的业务场景选择数组而不是集合,例如：连连看、扫雷、魔塔设计关卡图
+元素个数确定且大小固定不变的业务场景选择数组而不是集合,例如：连连看、扫雷、魔塔设计关卡图
+```
 
 ### 			2. ArrayList对于泛型的支持
 
-​				ArrayList<E>其实就是一个泛型类,可以在编译阶段约束集合对象只能操作某种数据类型
+```
+ArrayList<E>其实就是一个泛型类,可以在编译阶段约束集合对象只能操作某种数据类型
+集合中只能存储引用类型，不支持基本数据类型，且集合中存储的元素并不是对象本身，而是对象的地址，
 
-​				集合中只能存储引用类型，不支持基本数据类型，且集合中存储的元素并不是对象本身，而是对象的地址，
-
-​				例如：
-
-​						ArrayList<String> ：此集合只能操作字符串类型的元素
-
-​						ArrayList<int>（错误写法，因为集合中只能存储引用类型，不支持基本数据类型）
-
-​						ArrayList<Integer>：此集合只能操作整数类型的元素
-
-​					（正确写法,因为集合中只能存储引用类型,不支持基本数据类型,所以要想存储基本数据类型元素，
-
-​						就要利用基本数据类型对应包装类存储相应元素）
+例如：
+	ArrayList<String> ：此集合只能操作字符串类型的元素
+	ArrayList<int>（错误写法，因为集合中只能存储引用类型，不支持基本数据类型）
+	ArrayList<Integer>：此集合只能操作整数类型的元素
+	（正确写法,因为集合中只能存储引用类型,不支持基本数据类型,所以要想存储基本数据类型元素，
+		就要利用基本数据类型对应包装类存储相应元素）
+```
 
 ### 			3. 常用API
 
-#### 				1）创建集合容器
+#### 					1. 创建集合容器
 
-​					public ArrayList()：创建一个空的集合对象
+```
+public ArrayList()：创建一个空的集合对象
+```
 
-#### 				2）增删改查+大小
+#### 					2. 增删改查+大小	
 
-​					public boolean add(E e)：将指定的元素追加到此集合的末尾
+```
+public boolean add(E e)：将指定的元素追加到此集合的末尾
 
-​					public void add(int index,E element)：在此集合中的指定位置插入指定的元素
+public void add(int index,E element)：在此集合中的指定位置插入指定的元素
 
-​					public E remove(int index)：删除指定索引处的元素，返回被删除的元素
+public E remove(int index)：删除指定索引处的元素，返回被删除的元素
 
-​					public boolean remove(Object o)：删除指定的元素，返回删除是否成功
+public boolean remove(Object o)：删除指定的元素，返回删除是否成功
 
-​					public E set(int index,E element)：修改指定索引处的元素，返回被修改的元素
+public E set(int index,E element)：修改指定索引处的元素，返回被修改的元素
 
-​					public E get(int index)：返回指定索引处的元素
+public E get(int index)：返回指定索引处的元素
 
-​					public int size()：返回集合中的元素的个数
+public int size()：返回集合中的元素的个数
+```
 
-### 	4.  集合遍历
+### 		4.  集合遍历
 
-![image-20221010112434825](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\集合遍历.png)
+![image-20221010112434825](assets\集合遍历.png)
 
-## 5）Object
+## 5. Object
 
-​			Object类的方法是一切子类对象都可以直接使用的
+```
+Object类的方法是一切子类对象都可以直接使用的
 
-​			Object类是Java中的祖宗类,一个类要么默认继承了Object类, 要么间接继承了Object类
+Object类是Java中的祖宗类,一个类要么默认继承了Object类, 要么间接继承了Object类
+```
 
-#### 			1. 常用API
+### 			 常用API			
 
-​				public String toString()：
+```
+public String toString()：
+	默认是返回当前对象在堆内存中的地址信息:类的全限名@内存地址
+	直接打印对象就是调用该方法, 默认是输出对象在堆内存的地址
+	要想输出对象内容, 就需要重写toString方法
+	所以父类toString()方法存在的意义就是为了被子类重写, 以便返回对象的内容信息, 而不是地址信息
 
-​							默认是返回当前对象在堆内存中的地址信息:类的全限名@内存地址
 
-​							直接打印对象就是调用该方法, 默认是输出对象在堆内存的地址
+public boolean equals(Object o)：
+	默认是与另一个对象比较地址是否一样, 相同返回true, 不同返回false
+	让子类重写，以便比较2个子类对象的内容是否相同
+	由于直接比较两个对象的地址是否相同完全可以用“==”替代equals
+	所以父类equals方法存在的意义就是为了被子类重写, 以便子类自己来定制比较规则			
+```
 
-​							要想输出对象内容, 就需要重写toString方法
+![image-20221108084801517](assets\image-20221108084801517.png)
 
-​							所以父类toString()方法存在的意义就是为了被子类重写, 以便返回对象的内容信息, 而不是地址信息
+## 	6. Objects（对象工具类）
 
-​				public boolean equals(Object o)：
+```
+Objects是一个工具类, 提供了一些方法去完成一些功能
 
-​							默认是与另一个对象比较地址是否一样, 相同返回true, 不同返回false
+官方在进行字符串比较时, 没有用字符串对象的的equals方法而是选择了Objects的equals方法来比较
 
-​							让子类重写，以便比较2个子类对象的内容是否相同
+因为使用Objects的equals方法在进行对象的比较会更安全
+```
 
-​							由于直接比较两个对象的地址是否相同完全可以用“==”替代equals
+### 				相关API
 
-​							所以父类equals方法存在的意义就是为了被子类重写, 以便子类自己来定制比较规则
+```
+public static boolean equals(Object a, Object b)：
+	比较两个对象, 底层会先进行非空判断,从而可以避免空指针异常, 再进行equals比较
 
-​						
+public static boolean isNull(Object obj)
+	判断变量是否为null ,为null返回true ,否则, 返回false
+```
 
-## 	6）Objects（对象工具类）
+#### Objects的equals源码分析：
 
-​				Objects是一个工具类, 提供了一些方法去完成一些功能
+​	![image-20221010160508162](assets\源码分析.png)
 
-​				官方在进行字符串比较时, 没有用字符串对象的的equals方法而是选择了Objects的equals方法来比较
+## 7. Arrays类(数组工具类)
 
-​				因为使用Objects的equals方法在进行对象的比较会更安全
-
-​				字符串类继承Object类重写后的equals方法源码分析：				![image-20221010155537706](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Objecteuqals源代码图.png)
-
-#### 				1. 相关API
-
-​				public static boolean equals(Object a, Object b)：
-
-​						比较两个对象, 底层会先进行非空判断,从而可以避免空指针异常, 再进行equals比较
-
-​				Objects的equals源码分析：
-
-​				![image-20221010160508162](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\源码分析.png)
-
-​			public static boolean isNull(Object obj)
-
-​						判断变量是否为null ,为null返回true ,否则, 返回false
-
-## 7）Arrays类(数组工具类)
-
-​	数组操作工具类, 专门用于操作数组元素的
+```
+数组操作工具类, 专门用于操作数组元素的
+```
 
 | public static String toString(类型[] a)                      | 返回数组的内容（字符串形式）                     |
 | ------------------------------------------------------------ | ------------------------------------------------ |
@@ -360,9 +443,7 @@
 | public static <T> void sort(类型[] a, Comparator<? super T> c) | 使用比较器对象自定义排序                         |
 | public static int binarySearch(int[] a, int key)             | 二分搜索数组中的数据，存在返回索引，不存在返回-1 |
 
-6. ​	StringBuilder线程不安全, 不同步,运行速度快（工作推荐使用）
-
-## 8）Math(数学工具类)
+## 8. Math(数学工具类)
 
 | public static int abs(int a)                | 返回参数的绝对值                               |
 | ------------------------------------------- | ---------------------------------------------- |
@@ -374,87 +455,113 @@
 | public static double pow(double a,double b) | 返回a的b次幂的值                               |
 | public static double random()               | 返回值为double的正值，[0.0,1.0)                |
 
-## 9）System(系统工具类)
+## 9. System(系统工具类)
 
-​			public static void exit(int status)：终止当前运行的 Java 虚拟机，非零表示异常终止
+```
+public static void exit(int status)：终止当前运行的 Java 虚拟机，非零表示异常终止
 
-​			public static long currentTimeMillis()：返回当前系统的时间毫秒值形式
+public static long currentTimeMillis()：返回当前系统的时间毫秒值形式
 
-​			public static void arraycopy(数据源数组, 起始索引, 目的地数组, 起始索引, 拷贝个数)：数组拷贝
+public static void arraycopy(数据源数组, 起始索引, 目的地数组, 起始索引, 拷贝个数)：数组拷贝
+```
 
-## 10）BigDecimal（大数字类）
+## 10. BigDecimal（大数字类）
 
-#### 		1. 作用
+### 			1. 作用
 
-​				用于解决浮点型运算精度失真的问题
+```
+用于解决浮点型运算精度失真的问题
+例如：浮点型运算的时候直接 + - * / 可能会出现数据失真问题（精度丢失问题）
+```
 
-​		例如：浮点型运算的时候直接 + - * / 可能会出现数据失真问题（精度丢失问题）
+![image-20221010170940575](assets\image-20221010170940575.png)
 
-![image-20221010170940575](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20221010170940575.png)
+### 		2. 如何使用
 
-#### 		2. 如何使用
+```
+BigDecimal对象通过调用方法valueOf(double val)获取：BigDecimal b1 = BigDecimal.valueOf(0.1);
 
-​			BigDecimal对象通过调用方法valueOf(double val)获取：BigDecimal b1 = BigDecimal.valueOf(0.1);
+public static BigDecimal valueOf(double val): 包装浮点数成为BigDecimal对象
+```
 
-​			public static BigDecimal valueOf(double val): 包装浮点数成为BigDecimal对象
+## 11. Date
 
-## 11）Date
+```
+Date类代表当前所在系统的日期时间信息
+```
 
-​			Date类代表当前所在系统的日期时间信息
-
-#### 			1. 创建日期对象
+### 				1. 创建日期对象
 
 | public Date()          | 分配一个 Date对象，并初始化，以便它代表它被分配的时间，精确到毫秒 |
 | ---------------------- | ------------------------------------------------------------ |
 | public Date(long date) | 分配一个 Date对象，并将其初始化为表示从标准基准时间起指定的毫秒数 |
 
-#### 			2. 获取和设置时间
+### 				2. 获取和设置时间
 
 | public long getTime()          | 获取的是日期对象从1970年1月1日 00:00:00到现在的毫秒值 |
 | ------------------------------ | ----------------------------------------------------- |
 | public void setTime(long time) | 设置时间，给的是毫秒值                                |
 
-## 	12）SimpleDateFormat
+## 	12. SimpleDateFormat
 
-​		完成日期时间的格式化操作的类
+```
+完成日期时间的格式化操作的类
+```
 
-#### 						1. 格式化：
+### 						1. 格式化
 
-​			Date对象 -> 2099年11月11日 11:11
+```
+Date对象 -> 2099年11月11日 11:11
 
-​			时间毫秒值 -> 2099年11月11日 11:11:
+时间毫秒值 -> 2099年11月11日 11:11
+```
 
-#### 		2. 格式化时间常用模式：
+### 		2. 格式化时间常用模式
 
-​			 y	年  
+​		
 
-​			M	月  
+```
+y	年  
 
-​			d	日  
+M	月  
 
-​			H	时  
+d	日  
 
-​			m	分  
+H	时  
 
-​			s	秒
+m	分  
 
-​			2020-11-11 13:27:06  -> yyyy-MM-dd HH:mm:ss  
+s	秒
 
-​			2020年11月11日 13:27:06  -> yyyy年MM月dd日 HH:mm:ss  
+2020-11-11 13:27:06  -> yyyy-MM-dd HH:mm:ss  
 
-#### 						3. 构造方法
+2020年11月11日 13:27:06  -> yyyy年MM月dd日 HH:mm:ss  
+```
 
-​			public SimpleDateFormat()：构造一个SimpleDateFormat，使用默认模式和日期格式
+### 						3. 构造方法
 
-​			public SimpleDateFormat(String pattern)：构造一个SimpleDateFormat使用给定的模式和默认的日期格式
+```
+public SimpleDateFormat()：
+	构造一个SimpleDateFormat，使用默认模式和日期格式
 
-#### 						4. 格式化和解析日期
+public SimpleDateFormat(String pattern)：
+	构造一个SimpleDateFormat使用给定的模式和默认的日期格式
+```
 
-​			public final String format(Date date)：将日期格式化成日期/时间字符串
+### 						4. 格式化和解析日期
 
-​			public final String format(Object time)：将时间毫秒值式化成日期/时间字符串
+```
+public final String format(Date date)：
+	将日期格式化成日期/时间字符串
 
-​			public Date parse(String source)：从给定字符串的开始解析文本以生成日期
+public final String format(Object time)：
+	将时间毫秒值式化成日期/时间字符串
+
+public Date parse(String source)：
+	从给定字符串的开始解析文本以生成日期
+```
+
+
 
 ## 	13）Calendar
 
