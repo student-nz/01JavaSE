@@ -213,7 +213,7 @@ public String concat(String str)：
 	字符串拼接操作
 ```
 
-### 源码分析：
+### 9. 源码分析：
 
 ```
 java.lang.String类是一个final类, 意味着该类不能再有子类
@@ -226,7 +226,7 @@ String也叫做不可修改的字符串常量类
 判断字符串文本是否相同 不能选择 == 因为不确定两个字符串对象是否是直接指向常量池还是指向堆内存
 ```
 
-### 关于常量池：			
+### 10. 关于常量池：			
 
 ![image-20221011123600119](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\String源码分析.png)
 
@@ -236,15 +236,15 @@ String也叫做不可修改的字符串常量类
 
 
 
-### String类的equals()源码分析：
+### 11. String类的equals()源码分析：
 
 ​	![image-20221011124452695](assets\#### String类的equals()源码分析.png)
 
-### String类concat方法源码分析：
+### 12. String类concat方法源码分析：
 
 ​	![image-20221011124601475](assets\String类concat方法源码分析.png)
 
-### String类length()源码分析
+### 13. String类length()源码分析
 
 ![image-20221011124638616](assets\String类length()源码分析.png)  
 
@@ -374,7 +374,7 @@ Object类的方法是一切子类对象都可以直接使用的
 Object类是Java中的祖宗类,一个类要么默认继承了Object类, 要么间接继承了Object类
 ```
 
-## 			 常用API			
+## 			 1. 常用API			
 
 ```
 public String toString()：
@@ -403,7 +403,7 @@ Objects是一个工具类, 提供了一些方法去完成一些功能
 因为使用Objects的equals方法在进行对象的比较会更安全
 ```
 
-## 				相关API
+## 				1. 相关API
 
 ```
 public static boolean equals(Object a, Object b)：
@@ -413,7 +413,7 @@ public static boolean isNull(Object obj)
 	判断变量是否为null ,为null返回true ,否则, 返回false
 ```
 
-## Objects的equals源码分析：
+## 2. Objects的equals源码分析：
 
 ​	![image-20221010160508162](assets\源码分析.png)
 
@@ -597,63 +597,70 @@ public long getTimeInMillis()：拿到此刻时间毫秒值
 
 # 15. JDK8新增日期类
 
-​			从Java 8开始, java.time包提供了新的日期和时间API, 主要涉及的类型有：
+```
+Java 8开始, java.time包提供了新的日期和时间API, 主要涉及的类型如下：
+```
 
 ​		![image-20221010173532411](assets\JDK8新增日期类.png)
 
-​		新增的API严格区分了时刻、本地日期、本地时间，并且，对日期和时间进行运算更加方便
+​		
 
-​		其次, 新API的类型几乎全部是不变类型（与String的使用类似）,可以放心使用而不必担心被修改
+```
+新增的API严格区分了时刻、本地日期、本地时间，并且，对日期和时间进行运算更加方便，
+其次, 新API的类型几乎全部是不可变类型（与String的使用类似）,可放心使用而不必担心被修改
+```
 
-### 	1）LocalDate/LocalTime/LocalDateTime
+## 	1. LocalDate/LocalTime/LocalDateTime
 
-​			LocalDate和LocalTime和LocalDateTime分别表示日期、时间、日期时间对象, 他们的类的实例是不可变的对象
+```
+LocalDate和LocalTime和LocalDateTime分别表示日期、时间、日期时间对象, 他们的类的实例是不可变的对象
 
-​			LocalDate和LocalTime和LocalDateTime三者构建对象和API都是通用的
+LocalDate和LocalTime和LocalDateTime三者构建对象和API是通用的
+```
 
-#### 		1. 三者构建对象的API：
+### 		1. 三者构建对象的API
 
-​			 public static Xxxx now();：静态方法, 根据当前时间创建对象
+```
+public static Xxxx now();：静态方法, 根据当前时间创建对象
+	LocaDate localDate = LocalDate.now();
+	LocalTime localTime = LocalTime.now();
+	LocalDateTime localDateTime = LocalDateTime.now();
 
-​					LocaDate localDate = LocalDate.now();
+public static Xxxx of(…);：静态方法, 指定日期/时间创建对象
+	LocalDate localDate1 = LocalDate.of(2099 , 11,11);
+	LocalTime localTime1 = LocalTime.of(11, 11, 11);
+	LocalDateTime localDateTime1 = LocalDateTime.of(2020, 10, 6, 13, 23, 43);
+```
 
-​					LocalTime llocalTime = LocalTime.now();
+### 		2.  三者获取信息的API
 
-​					LocalDateTime localDateTime = LocalDateTime.now();
+```
+public int geYear()：  获取年
 
-​			public static Xxxx of(…);：静态方法, 指定日期/时间创建对象
+public int getMonthValue()：  获取月份（1-12）
 
-​					LocalDate localDate1 = LocalDate.of(2099 , 11,11);
+Public int getDayOfMonth()：  获取月中第几天乘法
 
-​					LocalTime localTime1 = LocalTime.of(11, 11, 11);
+Public int getDayOfYear()：  获取年中第几天
 
-​					LocalDateTime localDateTime1 = LocalDateTime.of(2020, 10, 6, 13, 23, 43);
+Public DayOfWeek getDayOfWeek()：获取星期			
+```
 
-#### 		2.  三者获取信息的API
+### 	3. 转换相关的API
 
-​			public int geYear()：  获取年
+```
+public LocalDate toLocalDate()：转换成一个LocalDate对象
 
-​			public int getMonthValue()：  获取月份（1-12）
+public LocalTime toLocalTime()：转换成一个LocalTime对象
+```
 
-​			Public int getDayOfMonth()：  获取月中第几天乘法
+### 	4.  修改相关的API
 
-​			Public int getDayOfYear()：  获取年中第几天
+```
+LocalDateTime 综合了 LocalDate 和 LocalTime 里面的方法
 
-​			Public DayOfWeek getDayOfWeek()：获取星期
-
-​			
-
-#### 	3. 转换相关的API
-
-​		public LocalDate toLocalDate()：转换成一个LocalDate对象
-
-​		public LocalTime toLocalTime()：转换成一个LocalTime对象
-
-#### 	4.  修改相关的API
-
-​			LocalDateTime 综合了 LocalDate 和 LocalTime 里面的方法
-
-​			这些方法返回的是一个新的实例引用, 因为LocalDateTime 、LocalDate 、LocalTime 都是不可变的
+这些方法返回的是一个新的实例引用, 因为LocalDateTime 、LocalDate 、LocalTime 都是不可变的
+```
 
 | plusDays, plusWeeks, plusMonths, plusYears         | 向当前 LocalDate 对象添加几天、 几周、几个月、几年           |
 | -------------------------------------------------- | ------------------------------------------------------------ |
@@ -661,63 +668,71 @@ public long getTimeInMillis()：拿到此刻时间毫秒值
 | withDayOfMonth, withDayOfYear, withMonth, withYear | 将月份天数、年份天数、月份、年 份 修 改 为 指 定 的 值 并 返 回 新 的 LocalDate 对象 |
 | isBefore, isAfter                                  | 比较两个 LocalDate                                           |
 
-### 	2）Instant时间戳
+## 	2. Instant时间戳
 
-​				JDK8获取时间戳特别简单, 且功能更丰富, Instant类由一个静态工厂方法now()可以返回当前时间戳
+```
+JDK8获取时间戳特别简单, 且功能更丰富, Instant类由一个静态工厂方法now()可以返回当前时间戳
 
-​				时间戳是包含日期和时间的, 与java.util.Date很类似,事实上Instant就是类似JDK8 以前的Date
+时间戳是包含日期和时间的, 与java.util.Date很类似,事实上Instant就是类似JDK8 以前的Date
 
-​				Instant和Date这两个类可以进行转换
+Instant和Date这两个类可以进行转换
+```
 
-​				![image-20221010174816928](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Instant.png)
+​				![image-20221010174816928](assets\Instant.png)
 
-### 	3）日期与时间格式化器
+## 	3. 日期与时间格式化器
 
-​			在JDK8中, 引入了一个全新的日期与时间格式器DateTimeFormatter
+```
+在JDK8中, 引入了一个全新的日期与时间格式器DateTimeFormatter，正反都能调用format方法
+```
 
-​			正反都能调用format方法
+​			![image-20221010174928579](assets\日期与时间格式化器.png)
 
-​			![image-20221010174928579](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\日期与时间格式化器.png)
+## 	4. Duration/Period
 
-### 	4）Duration/Period
+​				
 
-​					在Java8中, 我们可以使用以下类来计算日期间隔差异：
+```
+在Java8中, 我们可以使用以下类来计算日期间隔差异：
+	java.time.Period（用于计算两个“日期”间隔）
+	java.time.Duration（用于计算两个“时间”间隔）
+```
 
-​						java.time.Period
+### 						1. Period
 
-​						java.time.Duration
+```
+Period 类方法 getYears(), getMonths(), getDays() 用来计算,只能精确到年月日
 
-​						java.time.Duration用于计算两个“时间”间隔
-
-​						java.time.Period用于计算两个“日期”间隔。
-
-#### 					1. Period
-
-​						Period 类方法 getYears(), getMonths(), getDays() 来计算,只能精确到年月日
-
-​						应用场景：用于 LocalDate 之间的比较
+应用场景：
+	用于 LocalDate 之间的比较
+```
 
 ​					![image-20221010175221477](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Period0.png)
 
-#### 					2.Duration
+### 					2.Duration			
 
-​					提供了使用基于时间的值测量时间量的方法
+```
+提供了使用基于时间的值测量时间量的方法
 
-​					应用场景：用于 LocalDateTime 之间的比较, 也可用于 Instant 之间的比较
+应用场景：
+	用于 LocalDateTime 之间的比较, 也可用于 Instant 之间的比较
+```
 
 ​					![image-20221010175342080](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Duration.png)
 
-​	5）ChronoUnit
+## 	5. ChronoUnit
 
-​			java.time.temporal.ChronoUnit工具类可用于在单个时间单位内测量一段时间, 可以用于比较所有的时间单位
+```
+java.time.temporal.ChronoUnit工具类可用于在单个时间单位内测量一段时间, 可以用于比较所有的时间单位
+```
 
 ​			![image-20221010175548510](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\ChronoUnit.png)
 
-### 	
+#   16. 包装类
 
-##   15）包装类
-
-​			包装类其实就是8种基本数据类型对应的引用类型
+```
+包装类其实就是8种基本数据类型对应的引用类型
+```
 
 | 基本数据类型 | 引用数据类型 |
 | ------------ | ------------ |
@@ -730,37 +745,39 @@ public long getTimeInMillis()：拿到此刻时间毫秒值
 | double       | Double       |
 | boolean      | Boolean      |
 
-### 1. 为什么提供包装类？
+## 1. 为什么提供包装类？
 
-​		目的就是Java为了实现一切皆对象, 为8种基本类型提供了对应的引用类型
+```
+目的就是Java为了实现一切皆对象, 为8种基本类型提供了对应的引用类型,
 
-​		同时, 集合和泛型也只能支持包装类型, 不支持基本数据类型, 所以需要包装类进行替换基本数据类型
+同时, 集合和泛型也只能支持包装类型, 不支持基本数据类型, 所以需要包装类进行替换基本数据类型
+
+包装类变量的默认值可以是null, 容错率更高
+```
 
 ## 2. 包装类装箱和拆箱
 
-​			JDK5之后出现的自动装箱与拆箱
+```
+JDK5之后出现的自动装箱与拆箱
 
-​			自动装箱：基本类型的数据和变量可以直接赋值给包装类型的变量
+自动装箱：基本类型的数据和变量可以直接赋值给包装类型的变量
 
-​			自动拆箱：包装类型的变量可以直接赋值给基本数据类型的变量
+自动拆箱：包装类型的变量可以直接赋值给基本数据类型的变量
+```
 
 ## 3. 包装类的特有功能
 
-​			包装类变量的默认值可以是null, 容错率更高
+```
+1. int 转换为 String
+	public static String valueOf(int i)：返回 int 参数的字符串表示形式, 该方法是 String 类中的方法
+	类推
 
-#### 		1. int 转换为 String
+2. String 转换为 int
+		public static int parseInt(String s)：将字符串解析为 int 类型, 该方法是 Integer 类中的方法
+				类推
+```
 
-​			public static String valueOf(int i)：返回 int 参数的字符串表示形式, 该方法是 String 类中的方法
-
-​			类推
-
-#### 		2. String 转换为 int
-
-​			public static int parseInt(String s)：将字符串解析为 int 类型, 该方法是 Integer 类中的方法
-
-​			类推
-
-#### 	3. 包装一个对象中的原始类型 int 的值
+## 	4. 包装一个对象中的原始类型 int 的值
 
 | public Integer(int value)               | 根据 int 值创建 Integer 对象(过时）      |
 | --------------------------------------- | ---------------------------------------- |
@@ -768,76 +785,82 @@ public long getTimeInMillis()：拿到此刻时间毫秒值
 | public static Integer valueOf(int i)    | 返回表示指定的 int 值的 Integer 实例     |
 | public static Integer valueOf(String s) | 返回一个保存指定值的 Integer 对象 String |
 
-### 4. 包装类的缓存技术
+## 5. 包装类的缓存技术
 
-​		包装类在使用时,某些特殊的包装类会预先在内存上创建一些包装类对象作为缓存
+```
+包装类在使用时,某些特殊的包装类会预先在内存上创建一些包装类对象作为缓存
 
-​		当我们使用的包装类对象数字范围在指定的范围之内时,就会使用缓中的对象
+当我们使用的包装类对象数字范围在指定的范围之内时,就会使用缓存中的对象
 
-​		以Integer为例  
+以Integer为例  
+	low -128 
+	high 127
+	Integer cache[]：Integer对象数组
+	Integer是一个final修饰的最终类
+```
 
-​				low -128 
-
-​				high 127
-
-​	Integer cache[]：Integer对象数组
-
-#### 	源码分析：
-
-Integer是一个final修饰的最终类
+### 	1. 源码分析：
 
 ![image-20221011123351786](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Integer.png)
 
-​		![image-20221011100819337](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\包装类缓存技术1.png)
+​		![image-20221011100819337](assets\包装类缓存技术1.png)
 
-#### 		valueOf方法：
+### 			2. valueOf方法：
 
-​		![image-20221011100857592](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\包装类缓存技术2.png)
+![image-20221011100857592](assets\包装类缓存技术2.png)
 
-![image-20221011101124262](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\包装类缓存技术3.png)
+![image-20221011101124262](assets\包装类缓存技术3.png)
 
-​		包装类作为方法形参,采用按值传递还是按引用传递?
+​		
 
-​			当参数是基本数据类型时 按值传递 实参和形参在内存上是两个独立的变量 修改形参不会对实参产生影响
-
-​			当参数是引用数据类型时 按引用传递 实参和形参执行堆内存上同一个地址 修改形参会对实参产生影响
-
-​			但是包装类不是！
-
-​			如下代码 结果是什么? 如何解释? 
-
-​				包装类作为方法参数仍然是按引用传递, 但是包装类的特点是内部存储的值是不可以修改的 
-
-​				内部维护了一个  final修饰的 对应的基本数据类型的常量 
-
-​				自动装箱技术在给包装类赋值时 调用valueOf方法 valueOf方法会给我们返回一个新对象 
-
-​				在方法中修改包装类其实是让形参指向了内存上另一个包装类对象 并没有也不可能影响实参
+```
+包装类作为方法形参,采用按值传递还是按引用传递?
+	
+	当参数是基本数据类型时 按值传递 实参和形参在内存上是两个独立的变量 修改形参不会对实参产生影响
+	
+	当参数是引用数据类型时 按引用传递 实参和形参执行堆内存上同一个地址 修改形参会对实参产生影响
+	
+	但是包装类不是！
+		如下代码 结果是什么? 如何解释? 
+		
+		包装类作为方法参数仍然是按引用传递, 但是包装类的特点是内部存储的值是不可以修改的 
+		内部维护了一个  final修饰的 对应的基本数据类型的常量 
+		自动装箱技术在给包装类赋值时 调用valueOf方法 valueOf方法会给我们返回一个新对象 
+		在方法中修改包装类其实是让形参指向了内存上另一个包装类对象 并没有也不可能影响实参
+```
 
 ​		![image-20221011121705070](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Integer缓存技术.png)
 
-## 16）正则表达式
+# 17. 正则表达式
 
-​		正则表达式就是用来一些规定的字符来制定规则, 并用来校验数据格式的合法性
+```
+正则表达式就是用来一些规定的字符来制定规则, 并用来校验数据格式的合法性（其实学习JS那块有正则表达式介绍）
+```
 
-#### 1. 字符串相关API：
+## 	1. 字符串相关API：
 
-​		public boolean matches(String regex)：判断是否匹配正则表达式，匹配返回true，不匹配返回false
+```
+public boolean matches(String regex)：判断是否匹配正则表达式，匹配返回true，不匹配返回false
+```
 
 ![image-20221010180840295](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\正则表达式.png)
 
-#### 2. 正则表达式在字符串API中的使用
+## 2. 正则表达式在字符串API中的使用
 
-​		public String replaceAll(String regex,String newStr)：按照正则表达式匹配的内容进行替换
+```
+public String replaceAll(String regex,String newStr)：按照正则表达式匹配的内容进行替换
 
-​		public String[] split(String regex)：按照正则表达式匹配的内容进行分割字符串, 反回一个字符串数组
+public String[] split(String regex)：按照正则表达式匹配的内容进行分割字符串, 反回一个字符串数组
+```
 
-## 17）IDEA生成API接口文档
+# 18. IDEA生成API接口文档
 
-​		1. 点击上方Tools中的Generate JavaDoc…
+```
+	点击上方Tools中的Generate JavaDoc…
+	. . .
 
-​		. . .
+	提供一个思路, 具体用到, 知道这样解决即可
 
-​		提供一个思路, 具体用到, 知道这样解决即可
+	使用Javadoc生成的API接口文档是html格式
+```
 
-​		使用Javadoc生成的API接口文档是html格式
