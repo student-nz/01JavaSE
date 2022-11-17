@@ -1,6 +1,6 @@
 ​							
 
-# 三、常用API
+# 常用API
 
 ```
 API (Application Programming Interface,应用程序编程接口)就是Java写好的技术(功能代码),我们可以直接调用
@@ -228,11 +228,11 @@ String也叫做不可修改的字符串常量类
 
 ### 10. 关于常量池：			
 
-![image-20221011123600119](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\String源码分析.png)
+![image-20221011123600119](assets\String源码分析.png)
 
 ![image-20221011123854098](assets\关于常量池1.png)
 
-![image-20221011123917568](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\关于常量池2.png)
+![image-20221011123917568](assets\关于常量池2.png)
 
 
 
@@ -707,7 +707,7 @@ Period 类方法 getYears(), getMonths(), getDays() 用来计算,只能精确到
 	用于 LocalDate 之间的比较
 ```
 
-​					![image-20221010175221477](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Period0.png)
+​					![image-20221010175221477](assets\Period0.png)
 
 ### 					2.Duration			
 
@@ -718,7 +718,7 @@ Period 类方法 getYears(), getMonths(), getDays() 用来计算,只能精确到
 	用于 LocalDateTime 之间的比较, 也可用于 Instant 之间的比较
 ```
 
-​					![image-20221010175342080](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Duration.png)
+​					![image-20221010175342080](assets\Duration.png)
 
 ## 	5. ChronoUnit
 
@@ -726,7 +726,7 @@ Period 类方法 getYears(), getMonths(), getDays() 用来计算,只能精确到
 java.time.temporal.ChronoUnit工具类可用于在单个时间单位内测量一段时间, 可以用于比较所有的时间单位
 ```
 
-​			![image-20221010175548510](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\ChronoUnit.png)
+​			![image-20221010175548510](assets\ChronoUnit.png)
 
 #   16. 包装类
 
@@ -829,7 +829,7 @@ JDK5之后出现的自动装箱与拆箱
 		在方法中修改包装类其实是让形参指向了内存上另一个包装类对象 并没有也不可能影响实参
 ```
 
-​		![image-20221011121705070](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\Integer缓存技术.png)
+​		![image-20221011121705070](assets\Integer缓存技术.png)
 
 # 17. 正则表达式
 
@@ -843,7 +843,7 @@ JDK5之后出现的自动装箱与拆箱
 public boolean matches(String regex)：判断是否匹配正则表达式，匹配返回true，不匹配返回false
 ```
 
-![image-20221010180840295](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\03API\document\assets\正则表达式.png)
+![image-20221010180840295](assets\正则表达式.png)
 
 ## 2. 正则表达式在字符串API中的使用
 

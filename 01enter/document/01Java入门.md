@@ -1,176 +1,180 @@
-# 一、Java入门
+# Java入门
 
 # 1. 什么是Java
 
-```
-一种面向对象的高级语言
+​			1. 一种面向对象的高级语言
 
-一种与平台无关（跨平台）的语言（它提供了在不同平台下运行的解释环境）
+​			2. 一种与平台无关（跨平台）的语言（它提供了在不同平台下运行的解释环境）
 
-一种健壮的语言，吸收了C/C++语言的优点
+​			3. 一种健壮的语言，吸收了C/C++语言的优点
 
-有较高的安全性（自动回收垃圾，强制类型检查，取消指针)
-```
+​			4. 有较高的安全性（自动回收垃圾，强制类型检查，取消指针)
 
 # 2. 安装JDK
 
-```
-要想运行Java程序，第一件事就是安装JDK(Java Development Kit)即Java开发工具
-且JDK放在一个不包含中文的目录下，避免后续出现各种问题
+## 	2.1. 安装JDK须知
 
-JDK16直接下载地址：https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
-```
+​			1. 要想运行Java程序，第一件事就是安装JDK（Java Development Kit）即Java开发工具
 
-## 	1. 配置环境变量
+​			2. JDK放在一个不包含中文的目录下，避免后续出现各种问题
 
-```
-JDK安装之后，第一件事情即配置JDK环境变量
-	1. JAVA_HOME：D:\development\Java\jdk-16.0.2
-	2. Path
-		%JAVA_HOME%\bin（JDK提供的javac编译命令，java执行命令）
-		%JAVA_HOME%\jre\bin
-```
+​			3. JDK16直接下载地址：https://www.oracle.com/java/technologies/javase-jdk16-downloads.html
 
-## 	2. 检测JDK是否安装完毕
+## 		2.2. 配置环境变量
 
-```
-java -version或javac -version
-```
+​			1. JDK安装之后，第一件事情即配置JDK环境变量
 
-## 	3. JDK的安装目录
+​			2. JAVA_HOME：D:\development\Java\jdk-16.0.2
 
-```
-bin：存放JDK的各种工具命令,javac和java命令就在该目录下
+​			3. Path
 
-conf：存放JDK相关配置文件
+​				1. %JAVA_HOME%\bin（该目录提供了一系列命令，例如： javac - 编译命令，java - 执行命令）
 
-include：存放一些平台特定的头文件
+​				2. %JAVA_HOME%\jre\bin
 
-jmods：存放JDK的各种模块
+## 		2.3. 检测JDK是否安装完毕
 
-legal：存放JDK各模块的授权文档
+​			命令控制台 输入 java 命令，出现以下信息，表示安装成功！
 
-lib：存放JDK工具的一些补充JAR包
-```
+![image-20221115124539862](assets\image-20221115124539862.png)
 
-## 	4. 编写代码步骤
+## 		2.4. JDK的安装目录
 
- 	1. 编写HelloWorld.java
- 	2. 编译HelloWorld（javac HellWorld.java）
- 	3. 执行HelloWorld（java HelloWorld）
+​			1. bin：存放JDK的各种工具命令,javac和java命令就在该目录下
 
-## 	5. 记事本编写代码常见问题
+​			2. conf：存放JDK相关配置文件
 
-```
-1. 扩展名被隐藏
+​			3. include：存放一些平台特定的头文件
 
-2. 文件名和类名不一致
+​			4. jmods：存放JDK的各种模块
 
-3. 大小写错误，单词拼写错误，存在中文符号，找不到main方法
+​			5. legal：存放JDK各模块的授权文档
 
-4. 括号不配对
+​			6. lib：存放JDK工具的一些补充JAR包
 
-5. 编译或者执行命令使用不当
-```
+![image-20221115124650269](assets\image-20221115124650269.png)
 
-## 	6. cmd相关命令
+## 		2.5. 编写代码步骤
 
-	1. 盘符切换：D:
-	2. 查看当前路径下的内容：dir
-	3. 进入单级目录：cd 目录
-	4. 回退到上一级目录：cd ..
-	5. 进入多级目录：cd 目录1\目录2\...
-	6. 回退到盘符目录：cd \
-	7. 清屏：cls
-	8. 退出命令提示符窗口：exit
+​			1. 编写HelloWorld.java
 
-## 	7. JDK、JRE、JVM关系
+​			2. 编译HelloWorld（javac HellWorld.java）
 
-```
-JVM(Java Virtual Machine): Java虚拟机, 真正运行Java程序的地方
+​			3. 执行HelloWorld（java HelloWorld）
 
-JDK(Java Development Kit): Java开发工具,包含java编译器、java虚似机以及java帮我们写好的程序...等所有java的开发、运行需要的东西
+## 		2.6. 记事本编写代码常见问题
 
-JRE(Java Runtime Environment): Java运行时环境,只包含java虚似机、以及java帮我们写好的程序等java运行所需的东西
-```
+​			1. 扩展名被隐藏
 
-![image-20221009122806896](assets\JDK、JRE、JVM关系.png)
+​			2. 文件名和类名不一致
 
-## 	8. Java程序跨平台工作原理
+​			3. 大小写错误，单词拼写错误，存在中文符号，找不到main方法
 
-```
-Java跨平台是通过Java虚拟机JVM实现的，Java 编译程序将 Java 源程序翻译为 JVM 可执行代码（字节码）
+​			4. 括号不配对
 
-对于不同的运行平台，有不同的JVM，JVM 屏蔽了底层运行平台的差别，实现了”一次编译，随处运行”
-```
+​			5. 编译或者执行命令使用不当
 
-# 3. 开发Java程序
+# 	3. cmd相关命令
 
-## 		1. 文本编辑器开发
+​			1. 盘符切换：D:
 
-```
-记事本、NotePad++、sublime . . .
-```
+​			2. 查看当前路径下的内容：dir
 
-## 		2. 集成开发环境
+​			3. 进入单级目录：cd 目录
 
-```
-集成开发环境(IDE, Integrated Development Environment)就是把代码编写，编译，执行等多种功能综合到一起的开发工具
-可以进行代码智能提示，错误提醒，项目管理等等
-```
+​			4. 回退到上一级目录：cd ..
 
-## 		3. 常见Java IDE工具
+​			5. 进入多级目录：cd 目录1\目录2\...
 
-```
-Eclipse、MyEclipse、IntelliJ IDEA、Jbuilder、NetBeans
-```
+​			6. 回退到盘符目录：cd \
 
-## 		4. IntelliJ IDEA开发工具
+​			7. 清屏：cls
 
-```
-IntelliJ IDEA 一般简称IDEA,是Java编程语言开发的集成环境,目前在业界内被公认为最好的java开发工具
-IDEA官网：https://www.jetbrains.com/idea/
-```
+​			8. 退出命令提示符窗口：exit
 
-## 	5. eclipse开发工具		
+# 	4. JDK、JRE、JVM关系
 
-```
-eclipse官网：http://www.eclipse.org/downloads/eclipse-packages/
-```
+​				1. JVM（Java Virtual Machine）： Java虚拟机, 真正运行Java程序的地方
 
-### 				1. IDEA项目结构：
+​				2. JDK（Java Development Kit）： Java开发工具,包含java编译器、java虚似机以及java帮我们写好的程序...等所有java的
 
-```
-project（项目、工程）
-module（模块）
-package（包）
-class（类）
-```
+​																			开发、运行需要的东西
 
-​				![image-20221009124232997](assets\IDEA项目结构.png)
+​				3. JRE（Java Runtime Environment）：Java运行时环境,只包含java虚似机、以及java帮我们写好的程序等java运行所需的东西
 
-### 		2. IDEA 常用快捷键：
+![image-20221115130053096](assets\image-20221115130053096.png)
 
-```
-main/psvm、sout . . .：快速导入相关带啊吗
-ctrl + D：复制当前行数据到下一行
-ctrl + Y：删除所在行
-ctrl + Alt + L：格式化代码
-Alt + Shift + ↑,↓：上下移动当前代码
-ctrl + /：单行注释
-ctrl + shift + /：多行注释
-```
+# 	5. Java程序跨平台工作原理
 
-# 4. 注释
+​				1. Java 跨平台是通过 Java 虚拟机 JVM 实现的，Java  编译程序 将 Java 源程序翻译为 JVM 可执行代码（字节码）
 
-```
-注释即对代码进行解释说明的文字，方便自己和其他人理解、查看，不会影响程序的正常执行
+​				2. 对于不同的运行平台，有不同的JVM，JVM 屏蔽了底层运行平台的差别，实现了”一次编译，随处运行”
 
-三种注释：
-	单行注释：// 
-	多行注释：/* */
-	文档注释：/** */
-```
+# 6. 如何开发Java程序
+
+## 			6.1. 文本编辑器
+
+​			记事本、NotePad++、sublime . . .
+
+## 			6.2. 集成开发环境
+
+​			集成开发环境(IDE, Integrated Development Environment)就是把代码编写，编译，执行等多种功能综合到一起的开发工具
+
+​			可以进行代码智能提示，错误提醒，项目管理等等
+
+## 			6.3. 常见Java IDE工具
+
+​			Eclipse、MyEclipse、IntelliJ IDEA、Jbuilder、NetBeans
+
+## 			6.4. IntelliJ IDEA开发工具
+
+​			IntelliJ IDEA 一般简称 IDEA,是 Java 编程语言开发的集成环境,目前在业界内被公认为最好的 java 开发工具！
+
+​			IDEA 官网：https://www.jetbrains.com/idea/
+
+## 		6.5. eclipse开发工具
+
+​			eclipse 是一款开放源代码的、基于Java的可扩展开发平台，也就是另一款往年流行的Java开发工具！
+
+​			eclipse 官网：http://www.eclipse.org
+
+# 7. IDEA集成开发环境
+
+## 	7.1. IDEA项目结构
+
+​			1. project（项目、工程）
+
+​			2. module（模块）
+
+​			3. package（包）
+
+​			4. class（类）
+
+​				![image-20221115130035556](assets\image-20221115130035556.png)
+
+## 			7.2. IDEA 常用快捷键
+
+​			1. main/psvm、sout . . .：快速导入相关带啊吗
+
+​			2. ctrl + D：复制当前行数据到下一行
+
+​			3. ctrl + Y：删除所在行
+
+​			4. ctrl + Alt + L：格式化代码
+
+​			5. Alt + Shift + ↑,↓：上下移动当前代码
+
+​			6. ctrl + /：单行注释
+
+​			7. ctrl + shift + /：多行注释
+
+# 8. 注释三种
+
+​			1. 单行注释：// 
+
+​			2. 多行注释：/* */
+
+​			3. 文档注释：/** */（文档注释主要是用来生成说明文件时用的）
 
 # 5. 字面量
 
