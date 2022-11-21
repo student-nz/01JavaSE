@@ -225,7 +225,7 @@ Java数据类型分两类：
 	2. 基本数据类型：
 		随便写一个整数字面值，默认是int类型的，如果希望随便写一个整数默认是long型的必须在数据后加L或者l表示
 		随便写一个小数字面值，默认是double类型的，如果希望这个小数是float类型的，必须在数据后加F或者f表示
-基本数据类型分4类8种:
+基本数据类型又分4类8种:
 ```
 
 ![image-20221009170930935](assets\基础数据类型分类.png)
@@ -248,7 +248,7 @@ ASCII(American Standard Code for Information Interchange)即美国信息交换�
 关键字即Java自己保留的一些单词，作为特殊功能的，例如：public、class、byte、short、int、long、double… 
 ```
 
-​				![image-20221009125829761](assets\image-20221009125829761.png)
+![image-20221009125829761](assets\image-20221009125829761.png)
 
 ## 		2. 标识符
 
@@ -712,6 +712,6 @@ Scanner可以用来进行键盘录入
 
 ## 4. 双色球
 
-
+​	
 
 ## 5.  扫雷
