@@ -528,6 +528,28 @@ Exception in thread "main" java.lang.NullPointerException: Cannot load from int 
 Debug即断点调试(排错),可以控制代码从断点开始一行一行的执行，然后详细观看程序执行的情况
 ```
 
+标注 1：Show Execution Point ，显示执行端点(Alt + F10)；
+
+标注 2：Step Over，跳到下一步(F8)；
+
+标注 3：Step Into，进入代码或者说进入到方法内部(F7)；
+
+标注 4：Force Step Into，强制进入代码或者说进入到方法内部(Alt + Shift + F7)；
+
+标注 5：Step Out，跳到下一个断点或者跳出方法(Shift + F8)；
+
+标注 6：Drop Frame，放弃当前 debug，重新执行 debug；
+
+标注 7：Run to Cursor，运行到光标处(Alt + F9)；
+
+标注 8：Evaluate Expression，评估表达式；
+
+标注 9：View Breakpoints，查看断点，展示更多高级设置；
+
+标注 10：Mute Breakpoints，置灰所有断点，再次点击，恢复；
+
+标注 11：Get thread dunp ，获得当前的线程堆栈。
+
 # 16. 方法
 
 ​					
