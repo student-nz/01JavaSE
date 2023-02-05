@@ -18,9 +18,11 @@
 
 ​	即该集合创建后不能添加，不能删除，不能修改
 
- 	1. static <E>  List<E>  of(E…elements)：创建一个具有指定元素的List集合对象
- 	2. static <E>  Set<E>  of(E…elements)：创建一个具有指定元素的Set集合对象
- 	3. static <K , V>   Map<K，V>  of(E…elements)：创建一个具有指定元素的Map集合对象
+​		static <E>  List<E>  of(E…elements)：创建一个具有指定元素的List集合对象
+
+​		static <E>  Set<E>  of(E…elements)：创建一个具有指定元素的Set集合对象
+
+​		static <K , V>   Map<K，V>  of(E…elements)：创建一个具有指定元素的Map集合对象
 
 ## 2. Stream流
 
@@ -96,11 +98,11 @@
 
 ​			Collectors工具类提供了具体的收集方式
 
-​			public static <T> Collector toList()：把元素收集到List集合中
+​			public static <T> Collector toList()：在底层创建一个List集合，把元素收集到List集合中
 
-​			public static <T> Collector toSet()：把元素收集到Set集合中
+​			public static <T> Collector toSet()：在底层创建一个Set集合，把元素收集到Set集合中
 
-​			public static  Collector toMap(Function keyMapper , Function valueMapper)：把元素收集到Map集合中
+​			public static  Collector toMap(Function keyMapper , Function valueMapper)：在底层创建一个Map集合，把元素收集到Map集合中
 
 # 二、函数式接口
 

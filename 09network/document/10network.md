@@ -1,360 +1,272 @@
 # 网络编程（网络通信）
 
-## 1）什么是网络编程
+# 1. 计算机网络
 
-​		1. 网络编程从大的方面说就是对信息的发送到接收，中间传输为物理线路的作用
+​	 计算机网络是指将地理位置不同的具有独立功能的多台计算机及其外部设备，通过通信线路连接起来，
 
-​		2. 网络编程最主要的工作就是在发送端把信息通过规定好的协议进行组装包，在接收端按照规定好的协议把包进行解析，
+​	在网络操作系统，网络管理软件及网络通信协议的管理和协调下，实现资源共享和信息传递的计算机系统
 
-​			从而提取出对应的信息，达到通信的目的
+# 2. 网络编程
 
-## 2）网络通信基本模式
+​		在网络通信协议下，不同计算机上运行的程序，可以进行数据传输
 
-### 1. Client-Server(CS)
+# 3. 网络编程三要素
 
-​		CS（Client/Server）即客户端、服务器架构模式，客户端需要安装专用的客户端软件
+## 	3.1 IP地址
 
-​		在 CS 结构中，通常采取两层结构。服务器负责数据的管理，客户机负责完成与用户的交互任务
+### 1. IP地址
 
-#### 	1）C/S架构
+​	要想让网络中的计算机能够互相通信，必须为每台计算机指定一个标识号，
 
-##### 		1. 服务器
+​	通过这个标识号来指定要接收数据的计算机和识别发送的计算机，而IP地址就是这个标识号。
 
-​			服务器部分是多个用户共享的信息与功能，执行后台服务，如控制共享数据库的操作等。
+​	也就是设备的标识
 
-##### 		2. 客户机
+### 2. IP地址分为两大类
 
-​			客户端部分为用户所专有，负责执行前台功能，在出错提示、在线帮助等方面都有强大的功能，并且可以在子程序间自由切换
+#### 			1. IPv4	
 
-#### 	2）C/S架构特点
+​	IPv4是给每个连接在网络上的主机分配一个32bit地址。
 
-​			交互性强、具有安全的存取模式、响应速度快、利于处理大量数据
+​	按照TCP/IP规定，IP地址用二进制来表示，每个IP地址长32bit，也就是4个字节。
 
-#### 	3）C/S架构详解
+​	例如：
 
-​			1. 客户机又称为用户工作站，是用户与网络打交道的设备，一般由用户【PC】担任
+​		一个采用二进制形式的IP地址是“11000000 10101000 00000001 01000010”，这么长的地址，处理起来非常费劲。
 
-​				每一个客户机都运行在它自己的、并为服务器所认可的操作系统环境中。
+​		为了方便使用，IP地址经常被写成十进制的形式，中间使用符号“.”分隔不同的字节。
 
-​				客户机主要通过服务器享受网络上提供的各种资源
+​		于是，上面的IP地址可以表示为“192.168.1.66”。
 
-​			2. 客户机是连接【服务器】的计算机，使用服务器共享的文件、打印机和其他资源
+​		IPv4地址的这种表示法叫做“点分十进制表示法”
 
-​			3. 客户机是网络软件运行的一种形式，通常采用客户机/服务器（C/S）结构的系统，有一台或多台服务器以及大量的客户机。
+#### 2. IPv6
 
-​				服务器配备【大容量存储器】【大容量存储器?】并安装【数据库系统】，用于数据存放和数据检索；
+​	由于互联网的蓬勃发展，IP地址的需求量愈来愈大，但是网络地址资源有限，使得IP的分配越发紧张。
 
-​				客户端安装专用的软件，负责数据的输入、运算和输出
+​	为了扩大地址空间，通过IPv6重新定义地址空间，采用128位地址长度，每16个字节一组，分成8组十六进制数，
 
-​			4. 客户机和服务器都是独立的计算机，
+​	这样就解决了网络地址资源数量不够的问题，每个整数用四个十六进制位表示， 数之间用冒号（ ：）分开，
 
-​				当一台连入网络的计算机向其他计算机提供各种网络服务（如数据、文件的共享等）时，就被叫做服务器
+​	IPv6的这种表示法叫作“冒分十六进制表示法”
 
-​				那些用于访问服务器资料的计算机则被叫做客户机
+​	如下图：
 
-### 2. Browser/Server(BS)
+![image-20221017123700941](assets\image-20221017123700941.png)
 
-​		BS（Browser/Server）即浏览器、服务器架构模式，客户端采用浏览器运行软件
+### 		3. IP地址形式
 
-​		在BS结构中，每个网络节点分为浏览器端、服务器端和中间件，通过它们之间的链接和交互来完成系统的功能任务
+​	IP地址形式可分为 公网地址、私有地址(局域网使用)
 
-#### 	1）B/S架构
+​	例如：
 
-##### 		1. 浏览器端：
+​		我们经常看到的 192.168. 开头的就是常见的局域网地址，范围为 192.168.0.0--192.168.255.255，专门为组织机构内部使用
 
-​			浏览器端：即用户使用的浏览器，是用户操作系统的接口，用户通过浏览器界面向服务器端提出请求，
+### 		4. DOS常用命令
 
-​			并对服务器端返回的结果进行处理并展示，通过界面可以将系统的逻辑功能更好的表现出来		
+​		ipconfig：查看本机IP地址
 
-##### 		2. 服务器端：
+​		ping IP地址：检查网络是否连通
 
-​			服务器端：提供数据服务，操作数据，然后把结果返回中间层，结果显示在系统界面上
+### 		5. 特殊IP地址
 
-##### 		3. 中间件：
+​		127.0.0.1：是回送地址，可以代表本机地址，一般用来测试使用
 
-​			中间件：这是运行在浏览器和服务器之间的。这层主要完成系统逻辑，实现具体的功能，
+## 	2.2 端口
 
-​			接受用户的请求并把这些请求传送给服务器，然后将服务器的结果返回给用户，
+### 		1. 端口
 
-​			浏览器端和服务器端需要交互的信息是通过中间件完成的
+​	就是设备上应用程序的唯一标识，标识正在计算机设备上运行的进程（程序）！
 
-#### 	2）B/S架构特点
+![image-20221219212015694](assets\image-20221219212015694.png)
 
-​			具有更好的通用性，对应用环境的依赖性较小，在开发维护上更加便利，可以减少系统开发和维护的成本
+### 2. 端口号
 
-### 	3. C/S架构与B/S架构主要区别
+​	就是用两个字节表示的整数，它的取值范围是0~65535，其实就是端口，是端口的 id 值！
 
-#### 		1）开发和维护成本
+​	其中：
 
-​				1. CS开发和维护的成本高于BS。
+​		0~1023之间的端口号用于一些知名的网络服务和应用，
 
-​				2. CS结构软件安装调试升级都需要在所有客户机上进行。
+​		普通的应用程序需要使用1024以上的端口号
 
-​				3. BS结构只需要将服务器上的软件版本升级即可，不必安装与维护
+​		一个设备中，不能出现2个应用程序的端口号一样，如果一样会出现端口冲突错误！
 
-#### 		2）硬件环境
+![image-20221219212145898](assets\image-20221219212145898.png)
 
-​				1. CS结构要求必须有相同的操作系统，BS结构因为在浏览器上运行只要有操作系统和浏览器就行
+### 		3. 端口类型
 
-​				2. CS客户端的计算机电脑配置要求较高。BS客户端的计算机电脑配置要求较低
+#### 					1.  周知端口
 
-​				3. CS的每一个客户端都必须安装和配置软件。BS客户端在浏览器上运行不必安装
+​		周知端口：0~1023，被预先定义的知名应用占用（如：HTTP占用 80，FTP占用21）
 
-#### 		3）负载
+#### 					2. 注册端口
 
-​				1. CS客户端负载大
+​		注册端口：1024~49151，分配给用户进程或某些应用程序（如：Tomcat占 用8080，MySQL占用3306）
 
-​				2. CS客户端与用户交互、收集信息，向后台请求
+#### 					3. 动态端口
 
-​				3. BS客户端由后台处理数据，前端只显示内容
+​		动态端口：49152到65535，之所以称为动态端口，是因为它 一般不固定分配某种进程，而是动态分配
 
-#### 		4）安全性
+## 	2.3 协议
 
-​				1. CS安全性高，可以通过严格的管理来应用于指定人群
+### 		1. 协议
 
-​				2. BS使用人数多，无法精确控制，安全性低
+​	计算机网络中，连接和通信的规则被称为网络通信协议
 
-## 3）网络通信三要素
+### 		2. 网络通信协议有两套参考模型
 
-### 	1. IP
+#### 					2.1 OSI参考模型
 
-#### 		1）IP是什么？
+​		OSI参考模型：世界互联协议标准，全球通信规范，由于此模型过于理想化，未能在因特网上进行广泛推广
 
-​				IP（Internet Protocol）：全称”互联网协议地址”，是分配给上网设备的唯一标志
+#### 					2.2 TCP/IP参考模型
 
-#### 		2）IP地址形式
+​		TCP/IP参考模型(或TCP/IP协议)：事实上的国际标准
 
-​				公网地址、和私有地址(局域网使用)
+#### 2.3 两种参考模型对比：
 
-​				192.168. 开头的就是常见的局域网地址，范围即为192.168.0.0--192.168.255.255，专门为组织机构内部使用
+![image-20221219212827804](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\09network\document\assets\image-20221219212827804.png)
 
-#### 		3）IP常用命令
+### 	3. 传输层的2个常见协议
 
-​				ipconfig：查看本机IP地址
+#### 	1. UDP协议
 
-​				ping IP地址：检查网络是否连通
+##### 		1. 什么是UDP协议
 
-#### 		4）特殊IP地址
+​	UDP(User Datagram Protocol)：用户数据报协议
 
-​				本机IP: 127.0.0.1或者localhost：称为回送地址也可称本地回环地址，只会寻找当前所在本机
+##### 		2. 特点
 
-#### 		5）常见IP分类
+​	① UDP是无连接的、不可靠的通信协议，即在数据传输时，数据的发送端和接收端不建立逻辑连接。
 
-​				常见的IP分类为：IPv4和IPv6
+​		简单来说：
 
-##### 			1. IPv4	
+​			当一台计算机向另外一台计算机发送数据时，发送端不会确认接收端是否存在，就会发出数据，
 
-​				IPv4：32位（4字节）
+​			同样接收端在收到数据时，也不会向发送端反馈是否收到数据
 
-​				点分十进制表示法
+​	② 每个数据包的大小限制在64KB内 ，由于使用UDP协议消耗系统资源小，通信效率高
 
-##### ![image-20221017123642340](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123642340.png)
+​		所以通常都会用于音频、视频和普通数据的传输。
 
-##### 			2. IPv6
+​		例如：
 
-​				IPv6：128位（16个字节），号称可以为地球每一粒沙子编号
+​			视频会议通常采用UDP协议，因为这种情况即使偶尔丢失一两个数据包，也不会对接收结果产生太大影响。
 
-​				IPv6分成8个整数，每个整数用四个十六进制位表示， 数之间用冒号（：）分开
+​			但是在使用UDP协议传送数据时，由于UDP协议的面向无连接性，不能保证数据的完整性，
 
-![image-20221017123700941](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123700941.png)
+​			因此在传输重要数据时不建议使用UDP协议
 
-##### 3. 进制转换
+​	③ 可以广播发送 ，发送数据结束时无需释放资源，开销小，速度快
 
-​	十进制转N进制的方法是“除N取余，逆序排列”
+##### 		3. 应用场景
 
-​	二进制转十进制的方法是按权展开法
+​	语音通话，视频会话等
 
-#### 		6）问题
+#### 		2. TCP协议
 
-​				1. IP地址的代表类是谁？
+![image-20221017124149053](assets\image-20221017124149053.png)
 
-​					InetAddress类
+##### 			1. 什么是TCP协议
 
-​				2. 如何获取本机IP对象
+​	TCP(Transmission Control Protocol) ：传输控制协议
 
-​					public static InetAddress getLocalHost()
+##### 			2. 特点
 
-​				3. 如何判断与该IP地址对象是否互通？
+​	① TCP协议是面向连接的、可靠的通信协议，即传输数据之前，在发送端和接收端建立逻辑连接，然后再传输数据，
 
-​					public boolean isReachable(int timeout)
+​		它提供了两台计算机之间可靠无差错的数据传输。
 
-### 	2. 端口
+​		在TCP连接中必须要明确客户端与服务器端，由客户端向服务端发出连接请求，每次连接的创建都需要经过“三次握手”
 
-#### 		1）端口是什么？
+​		 正因为采用TCP协议，传输数据前会采用“三次握手”方式建立连接，点对点通信，所以TCP协议是可靠的通信协议
 
-​					端口号：标识正在计算机设备上运行的进程（程序），被规定为一个 16 位的二进制，范围是 0~65535
+- 三次握手：TCP协议中，在发送数据的准备阶段，客户端与服务器之间的三次交互，以保证连接的可靠
 
-#### 		2）端口类型
+  - 第一次握手，客户端向服务器端发出连接请求，等待服务器确认
 
-##### 				1. 周知端口
 
-​					周知端口：0~1023，被预先定义的知名应用占用（如：HTTP占用 80，FTP占用21）
+  - 第二次握手，服务器端向客户端回送一个响应，通知客户端收到了连接请求
 
-##### 				2. 注册端口
 
-​					注册端口：1024~49151，分配给用户进程或某些应用程序。（如：Tomcat占 用8080，MySQL占用3306）
+  - 第三次握手，客户端再次向服务器端发送确认信息，确认连接
 
-##### 				3. 动态端口
+- 完成三次握手，连接建立后，客户端和服务器就可以开始进行数据传输了
 
-​					动态端口：49152到65535，之所以称为动态端口，是因为它 一般不固定分配某种进程，而是动态分配
+  由于这种面向连接的特性，TCP协议可以保证传输数据的安全，所以应用十分广泛。
 
-#### 		3）问题
+  例如：
 
-​			1. 端口号的作用是什么？
+  ​		上传文件、下载文件、浏览网页等
 
-​				唯一标识正在计算机设备上运行的进程（程序）
+​	② 还有在TCP协议下进行网络通信，在连接中可进行大数据量的传输，
 
-​			2. 一个设备中，能否出现2个应用程序的端口号一样，为什么？
+​		同时，连接、发送数据都需要确认，且传输完毕后，还需释放已建立的连接，通信效率相对 UDP协议 较低
 
-​				不可以，如果一样会出现端口冲突错误
+##### 			3. TCP三次握手确立连接图解
 
-### 	3. 协议
+![image-20221017123559588](assets\image-20221017123559588.png)
 
-#### 		1）协议是什么？
 
-​				连接和通信数据的规则被称为网络通信协议
 
-#### 		2）网络通信协议有两套参考模型
+##### 4. TCP四次挥手断开连接图解
 
-##### 				1. OSI参考模型
+![image-20221017091743196](assets\image-20221017091743196.png)    		
 
-​					OSI参考模型：世界互联协议标准，全球通信规范，由于此模型过于理想化，未能在因特网上进行广泛推广
+##### 			3. 应用场景
 
-##### 				2. TCP/IP参考模型
+​	正因为TCP协议具有三次握手、四次挥手特点，一般应用于对信息安全要求较高的场景，例如：文件下载、金融等数据通信
 
-​					TCP/IP参考模型(或TCP/IP协议)：事实上的国际标准
+# 4. 网络编程正式开始
 
-​					![image-20221017090922603](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017090922603.png)
+## 4.1 InetAddress 的使用
 
-#### 	3）传输层的2个常见协议
+​		InetAddress：此类表示Internet协议（IP）地址
 
-##### 		1. TCP协议：
+- InetAddress  API如下：
 
-![image-20221017124149053](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017124149053.png)
+  | 方法名                                           | 说明                                             |
+  | ------------------------------------------------ | ------------------------------------------------ |
+  | public static InetAddress getLocalHost()         | 确返回本主机的地址对象                           |
+  | public static InetAddress getByName(String host) | 得到指定主机的IP地址对象，参数是域名或者IP地址   |
+  | public String getHostName()                      | 获取此IP地址的主机名                             |
+  | public String getHostAddress()                   | public String getHostAddress()                   |
+  | public boolean isReachable(int timeout)          | 在指定毫秒内连通该IP地址对应的主机，连通返回true |
 
-###### 			1）什么是TCP协议
+## 4.2 UDP通信
 
-​				TCP(Transmission Control Protocol) ：传输控制协议
+### 1. UDP通信：快速入门
 
-###### 			2）TCP协议特点：
+#### 	1.1 UDP协议特点
 
-​				1. 使用TCP协议，必须双方先建立连接，是一种面向连接，安全、可靠的传输数据的协议
+​		首先我们知道，UDP协议是一种无连接、不可靠传输的协议，
 
-​				2. 传输前，采用“三次握手”方式建立连接，点对点通信，所以是可靠的 
+​		将数据源IP、目的地IP和端口以及数据封装成数据包，大小限制在64KB内，直接发送出去即可
 
-​				3. 在连接中可进行大数据量的传输
+#### 	1.2 UDP协议通信模型演示
 
- 				4. 连接、发送数据都需要确认，且传输完毕后，还需释放已建立的连接，通信效率较低
+![image-20221219214155360](assets\image-20221219214155360.png)
 
-###### 			3）TCP协议通信场景
+#### 	1.3 数据包对象：DatagramSocket（韭菜盘子）
 
-​				对信息安全要求较高的场景，例如：文件下载、金融等数据通信
+​		**常见API:**
 
-###### 			4）TCP三次握手确立连接
+​				public DatagramPacket(byte[] buf, int length, InetAddress address, int port)：创建发送端数据包对象
 
-​		![image-20221017123559588](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123559588.png)
+​						buf：要发送的内容，字节数组
 
-###### 			5）TCP四次挥手断开连接
+​						length：要发送内容的字节长度
 
-##### 			![image-20221017091743196](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017091743196.png)    		
+​						address：接收端的IP地址对象
 
-##### 	2. UDP协议
+​						port：接收端的端口号
 
-###### 		1）什么是UDP协议
+​				public DatagramPacket(byte[] buf, int length)：创建接收端的数据包对象
 
-​			UDP(User Datagram Protocol)：用户数据报协议
+​				public int getLength()：获得实际接收到的字节个数
 
-###### 		2）UDP协议特点
-
-​			1. UDP是一种无连接、不可靠传输的协议
-
-​			2. 将数据源IP、目的地IP和端口封装成数据包，不需要建立连接 
-
-​			3. 每个数据包的大小限制在64KB内 
-
-​			4. 发送不管对方是否准备好，接收方收到也不确认，故是不可靠的 
-
-​			5.  可以广播发送 ，发送数据结束时无需释放资源，开销小，速度快
-
-###### 		3）UDP协议通信场景
-
-​			语音通话，视频会话等
-
-#### 	4）问题
-
-​		1. 通信协议是什么？
-
-​			计算机网络中，连接和通信数据的规则被称为网络通信协议
-
-​		2. TCP通信协议的特点是什么样的?
-
-​			1. 它是一种面向连接的可靠通信协
-
-​			2. 传输前，采用“三次握手”方式建立连接，点对点的通信，所以可靠
-
-​			3. 在连接中可进行大数据量的传输
-
-​			4. 通信效率较低
-
-​		3. UDP协议的特点是什么样的？
-
-​			1. 用户数据报协议(User Datagram Protocol)
-
-​			2. UDP是面向无连接，不可靠传输的通信协议
-
-​			3. 速度快，有大小限制一次最多发送64K，数据不安全，易丢失数据
-
-# 十、网络编程（Java进行网络通信相关API，未完善理解）
-
-## 1）InetAddress（操作IP）
-
-​		Java中的InetAddress，此类表示Internet协议（IP）地址
-
-### 	1. 常见API：
-
-​			public static InetAddress getLocalHost()：返回本主机的IPv4地址对象
-
-​			public static InetAddress getByName(String host)：得到指定主机的IP地址对象，参数是域名或者IP地址
-
-​			public String getHostName()：获取此IP地址的主机名
-
-​			public String getHostAddress()：返回IP地址字符串
-
-​			public boolean isReachable(int timeout)：在指定毫秒内连通该IP地址对应的主机，连通返回true
-
-## 2）操作UDP
-
-### 	1. DatagramPacket（操作UDP）
-
-​				DatagramPacket：数据包对象
-
-#### 		1）常见API：
-
-​			public DatagramPacket(byte[] buf, int length, InetAddress address, int port)：创建发送端数据包对象
-
-​					buf：要发送的内容，字节数组
-
-​					length：要发送内容的字节长度
-
-​					address：接收端的IP地址对象
-
-​					port：接收端的端口号
-
-​			public DatagramPacket(byte[] buf, int length)：创建接收端的数据包对象
-
-​					buf：用来存储接收的内容
-
-​					length：能够接收内容的长度
-
-​			public int getLength()：获得实际接收到的字节个数
-
-​					
-
-### 	2. DatagramSocket（操作UDP）
-
-​				DatagramSocket：发送端和接收端对象
-
-#### 		1）常见API：
+#### 	1.4 发送端和接收端对象：DatagramSocket（人）
 
 ​				public DatagramSocket()：创建发送端的Socket对象，系统会随机分配一个端口号
 
@@ -364,143 +276,87 @@
 
 ​				public void receive(DatagramPacket p) ：接收数据包
 
-### 	3. 发送端实现步骤
+#### 	1.5 使用UDP通信实现：发送消息、接收消息
 
-​			1. 创建DatagramSocket对象（发送端对象）
+![image-20221219214422780](assets\image-20221219214422780.png)
 
-​			2. 创建DatagramPacket对象封装需要发送的数据（数据包对象）
+![image-20221219214445389](assets\image-20221219214445389.png)
 
-​			3. 使用DatagramSocket对象的send方法传入DatagramPacket对象
+#### 	1.6 使用UDP通信实现：多发多收消息
 
-​			4. 释放资源
+![image-20221219214743086](assets\image-20221219214743086.png)
 
-### 	4. 接收端实现步骤
+**发送端可以反复发送数据：**
 
-​			1. 创建DatagramSocket对象并指定端口（接收端对象）
+![image-20221219214818253](assets\image-20221219214818253.png)
 
-​			2. 创建DatagramPacket对象接收数据（数据包对象）
+**接收端可以反复接收数据**
 
-​			3. 使用DatagramSocket对象的receive方法传入DatagramPacket对象
+![image-20221219214851977](assets\image-20221219214851977.png)
 
-​			4. 释放资源
+### 	2. UDP的三种通信方式
 
-### 	5. UDP通信：多发多收
+#### 			2.1 单播：
 
-​		具体要求：
+​		就是单台主机与单台主机之间的通信（前面演示都为单播通信）
 
-​			1. 发送端可以一直发送消息
+#### 			2.2 广播：
 
-​			2. 接收端可以不断的接收多个发送端的消息展示
+​		就是当前主机与所在网络中的所有主机通信
 
-​			3. 发送端输入了exit则结束发送端程序
+#### 			2.3 组播：
 
-​		客户端实现步骤：
+​		就是当前主机与选定的一组主机的通信
 
-​			1. 创建DatagramSocket对象（发送端对象）
+![image-20221017123537781](assets\image-20221017123537781.png)
 
-​			2. 使用while死循环不断的接收用户的数据输入，如果用户输入的exit则退出程序
 
-​			3. 如果用户输入的不是exit,  把数据封装成DatagramPacket
 
-​			4. 使用DatagramSocket对象的send方法将数据包对象进行发送
+#### 		 2.4 UDP如何实现广播
 
-​			5. 释放资源
+​		使用广播地址：255.255.255.255
 
-​		接收端实现步骤：
+​		具体操作：
 
-​			1. 创建DatagramSocket对象并指定端口（接收端对象）
+​			① 发送端发送的数据包的目的地写的是广播地址、且指定端口（255.255.255.255  ,   9999）
 
-​			2. 创建DatagramPacket对象接收数据（数据包对象）
+​			② 本机所在网段的其他主机的程序只要注册对应端口就可以收到消息了（9999）
 
-​			3. 使用while死循环不断的进行第4步
+#### 		 2.5 UDP如何实现组播
 
-​			4. 使用DatagramSocket对象的receive方法传入DatagramPacket对象
+​		使用组播地址：224.0.0.0 ~ 239.255.255.255
 
-### 	6. UDP操作相关问题
+​		具体操作：
 
-​		1. UDP发送端和接收端的对象是哪个？
+​			①  发送端的数据包的目的地是组播IP  (例如：224.0.1.1,  端口：9999)
 
-​			public DatagramSocket()：创建发送端的Socket对象
+​			② 接收端必须绑定该组播IP(224.0.1.1)，端口还要注册发送端的目的端口9999 ，这样即可接收该组播消息
 
-​			public DatagramSocket(int port)：创建接收端的Socket对象
+​			③ DatagramSocket的子类MulticastSocket可以在接收端绑定组播IP
 
-​		2. 数据包对象是哪个？
+#### 		2.6 MulticastSocket和InetAddress对比
 
-​			DatagramPacket
+​	**MulticastSocket：**MulticastSocket可以将数据报以广播的方式发送到多个客户端
 
-​		3. 如何发送、接收数据包
+​	**三个构造器：**
 
-​			使用DatagramSocket的如下方法：
+​		public MulticastSocket()：使用本机默认地址，随机端口来创建MulticastSocket对象
 
-​				public void send(DatagramPacket dp)：发送数据包
+​		public MulticastSocket(int portNumber)：使用本机默认地址，指定端口创建MulticastSocket对象
 
-​				public void receive(DatagramPacket dp) ：接收数据包
+​		public MulticastSocket(SocketAddress bindaddr)：使用本机指定IP地址，指定端口来创建MulticastSocket对象
 
-​		4. 采用UDP协议时，接收端为什么可以接收很多发送端的消息？？
+​	**加入指定组或离开指定组：**
 
-​				UDP能够多发多收原因：接收端只负责接收数据包，无所谓是哪个发送端的数据包
+​		创建MulticastSocket对象后，还需要将MulticastSocket加入到指定的多点广播地址 
 
-### 	7. UDP的三种通信方式
+​		joinGroup(InetAddress addr)：MulticastSocket使用joinGroup()方法加入指定组；
 
-![image-20221017123537781](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123537781.png)
-
-#### 			1）单播：
-
-​					单播：单台主机与单台主机之间的通信（前面演示都为单播通信）
-
-#### 			2）广播：
-
-​					广播：当前主机与所在网络中的所有主机通信
-
-#### 			3）组播：
-
-​					组播：当前主机与选定的一组主机的通信
-
-#### 		 UDP如何实现广播
-
-​			使用广播地址：255.255.255.255
-
-​			具体操作：
-
-​				1. 发送端发送的数据包的目的地写的是广播地址、且指定端口（255.255.255.255  ,   9999）
-
-​				2. 本机所在网段的其他主机的程序只要注册对应端口就可以收到消息了（9999）
-
-#### 		 UDP如何实现组播
-
-​			使用组播地址：224.0.0.0 ~ 239.255.255.255
-
-​			具体操作：
-
-​				1. 发送端的数据包的目的地是组播IP  (例如：224.0.1.1,  端口：9999)
-
-​				2. 接收端必须绑定该组播IP(224.0.1.1)，端口还要注册发送端的目的端口9999 ，这样即可接收该组播消息
-
-​				3. DatagramSocket的子类MulticastSocket可以在接收端绑定组播IP
-
-#### 		MulticastSocket和InetAddress对比
-
-##### 			1. MulticastSocket
-
-​				MulticastSocket可以将数据报以广播的方式发送到多个客户端。
-
-###### 			三个构造器：
-
- 			public MulticastSocket()：使用本机默认地址，随机端口来创建MulticastSocket对象。
- 		 	public MulticastSocket(int portNumber)：使用本机默认地址，指定端口创建MulticastSocket对象。
- 		 	public MulticastSocket(SocketAddress bindaddr)：使用本机指定IP地址，指定端口来创建MulticastSocket对象
-
-###### 			加入指定组或离开指定组：
-
-​				创建MulticastSocket对象后，还需要将MulticastSocket加入到指定的多点广播地址 
-
-​				joinGroup(InetAddress addr)：MulticastSocket使用joinGroup()方法加入指定组；
-
-​				leaveGroup(InetAddress addr)：MulticastSocket使用leaveGroup()方法脱离一个组
+​		leaveGroup(InetAddress addr)：MulticastSocket使用leaveGroup()方法脱离一个组
 
 ​		MulticastSocket类中有一个setTimeToLive(int  ttl)
 
-​			当ttl为0时，指定数据报应停留在本地主机，
+​			当 ttl 为0时，指定数据报应停留在本地主机，
 
 ​			为1时，指定数据报发送到本地局域网网，
 
@@ -512,370 +368,299 @@
 
 ​			255为全球。
 
-​		默认情况下，该ttl的值为1。
+​		默认情况下，该ttl的值为1
 
 ​			 IP协议为多点广播提供了这批特殊的IP地址，这些IP地址的范围是224.0.0.0至239.255.255.255。
 
-##### 		2. InetAddress
+## 4.3 TCP通信
 
-​			 InetAddress 类没有提供构造，而提供如下两个静态方法来获取InetAddress对象
+### 	1. TCP通信：快速入门
 
-​				getByName(String host):如getByName("localhost"),getByName(www.baidu.com);
+#### 		1.1 TCP协议特点
 
-​				getByAddress(byte [] addr):如getByAddress(new byte[]{127,0,0,1});
+​			 TCP是一种面向连接，安全、可靠的传输数据的协议 
 
-### 		UDP通信相关问题：
+​			传输前，采用“三次握手”方式，点对点通信，是可靠的  
 
-​				1. 如何实现广播，具体怎么操作？
+​			在连接中可进行大数据量的传输
 
-​					发送端目的IP使用广播IP： 255.255.255.255  999
+#### 		1.2 TCP通信模型
 
-​					所在网段的其他主机对应了端口（9999）即可接收消息
-
-​				2. 如何实现组播，具体怎么操作？
-
-​					发送端目的IP使用组播IP，且指定端口
-
-​					所在网段的其他主机注册了该组播IP和对应端口即可接收消息
-
-## 3）操作TCP
+![image-20221219220213004](assets\image-20221219220213004.png)
 
 ​			在java中只要是使用java.net.Socket类实现通信，底层即是使用了TCP协议
 
-### 	1. 常见API
+#### 1.3 客户端：Socket
 
-#### 		1）Socket（客户端）
+​		public Socket(String host , int port)：创建发送端的Socket对象与服务端连接，参数为服务端程序的ip和端口
 
-​				public Socket(String host , int port)：创建发送端的Socket对象与服务端连接，参数为服务端程序的ip和端口
+​		OutputStream getOutputStream()：获得字节输出流对象
 
-​				OutputStream getOutputStream()：获得字节输出流对象
+​		InputStream getInputStream()：获得字节输入流对象
 
-​				InputStream getInputStream()：获得字节输入流对象
+#### 1.4 客户端发送消息
 
-#### 		2）ServerSocket(服务端)
+​	![image-20221219220415627](assets\image-20221219220415627.png)
+
+#### 		1.5 服务端：ServerSocket
 
 ​				public ServerSocket(int port)：注册服务端端口
 
 ​				public Socket accept()：等待接收客户端的Socket通信连接，连接成功返回Socket对象与客户端建立端到端通信
 
-### 	2. 客户端实现步骤
+#### 	1.6 服务端实现接收消息
 
-​			1. 创建客户端的Socket对象，请求与服务端的连接
+![image-20221219220555071](assets\image-20221219220555071.png)
 
-​			2. 使用socket对象调用getOutputStream()方法得到字节输出流
 
-​			3. 使用字节输出流完成数据的发送
 
-​			4. 释放资源：关闭socket管道
+### 2. TCP通信-多发多收消息
 
-### 	3. 服务端实现步骤
+![image-20221219220711840](assets\image-20221219220711840.png)
 
-​			1. 创建ServerSocket对象，注册服务端端口
+### 3. TCP通信-同时接受多个客户端消息
 
-​			2. 调用ServerSocket对象的accept()方法，等待客户端的连接，并得到Socket管道对象
+![image-20221219220810188](assets\image-20221219220810188.png)
 
-​			3. 通过Socket对象调用getInputStream()方法得到字节输入流、完成数据的接收
+### 4. TCP通信-使用线程池优化
 
-​			4. 释放资源：关闭socket管道
+![image-20221219220907615](assets\image-20221219220907615.png)
 
-### 	4. TCP操作相关问题
+### 5. TCP通信实战案例-即时通信
 
-​			1. TCP通信的客户端的代表类是谁？
+![image-20221219220950931](assets\image-20221219220950931.png)
 
-​				Socket类
+### 6. TCP通信实战案例-模拟BS系统
 
-​				public Socket(String host , int port)
+![image-20221219221014921](assets\image-20221219221014921.png)
 
-​			2. TCP通信如何使用Socket管道发送、接收数据
+### 7. 文件上传案例
 
-​				OutputStream getOutputStream()：获得字节输出流对象（发）
+​		客户端：将本地文件上传到服务器。接收服务器的反馈
 
-​				InputStream getInputStream()：获得字节输入流对象（收）
+​		服务器：接收客户端上传的文件，上传完毕之后给出反馈
 
-​			3. TCP通信服务端用的代表类？
+- 案例需求
 
-​				ServerSocket类,注册端口
+  客户端：数据来自于本地文件，接收服务器反馈
 
-​				调用accept()方法阻塞等待接收客户端连接。得到Socket对象
+  服务器：接收到的数据写入本地文件，给出反馈
 
-​			4. TCP通信的基本原理？
+- 案例分析
 
-​				客户端怎么发，服务端就应该怎么收
+  - 创建客户端对象，创建输入流对象指向文件，每读一次数据就给服务器输出一次数据，输出结束后使用shutdownOutput()方法告知服务端传输结束
+  - 创建服务器对象，创建输出流对象指向文件，每接受一次数据就使用输出流输出到文件中，传输结束后。使用输出流给客户端反馈信息
+  - 客户端接受服务端的回馈信息
 
-​				客户端如果没有消息，服务端会进入阻塞等待
+- 相关方法
 
-​				Socket一方关闭或者出现异常、对方Socket也会失效或者出错
+| 方法名                | 说明                               |
+| --------------------- | ---------------------------------- |
+| void shutdownInput()  | 将此套接字的输入流放置在“流的末尾” |
+| void shutdownOutput() | 禁止用此套接字的输出流             |
 
-### 5. TCP通信-多发多收消息（d6_socket2）
+### 8. 文件上传案例服务器优化
 
-​		具体要求：
+- 优化方案一
 
-​			1. 可以使用死循环控制服务端收完消息继续等待接收下一个消息
+  + 需求
 
-​			2. 客户端也可以使用死循环等待用户不断输入消息
+    服务器只能处理一个客户端请求，接收完一个图片之后，服务器就关闭了。
 
-​			3. 客户端一旦输入了exit，则关闭客户端程序，并释放资源
+  + 解决方案
 
-​		实现思路参考代码：
+    使用循环
 
-​		案例后的问题：
+  + 代码实现
 
-​			1. 本案例实现了多发多收，那么是否可以同时接收多个客户端的消息？
+    ```java
+    // 服务器代码如下,客户端代码同上个案例,此处不再给出
+    public class ServerDemo {
+        public static void main(String[] args) throws IOException {
+            ServerSocket ss = new ServerSocket(10000);
+    
+            while (true) {
+                Socket accept = ss.accept();
+    
+                //网络中的流,从客户端读取数据的
+                BufferedInputStream bis = new BufferedInputStream(accept.getInputStream());
+                //本地的IO流,把数据写到本地中,实现永久化存储
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("optimizeserver\\ServerDir\\copy.jpg"));
+    
+                int b;
+                while((b = bis.read()) !=-1){
+                    bos.write(b);
+                }
+    
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()));
+                bw.write("上传成功");
+                bw.newLine();
+                bw.flush();
+    
+                bos.close();
+                accept.close();
+            }
+            //ss.close();
+            
+        }
+    }
+    ```
+
+- 优化方案二
+
+  + 需求
+
+    第二次上传文件的时候，会把第一次的文件给覆盖。
+
+  + 解决方案
+
+    UUID. randomUUID()方法生成随机的文件名
+
+  + 代码实现
+
+    ```java
+    // 服务器代码如下,客户端代码同上个案例,此处不再给出
+    public class ServerDemo {
+        public static void main(String[] args) throws IOException {
+            ServerSocket ss = new ServerSocket(10000);
+    
+            while (true) {
+                Socket accept = ss.accept();
+    
+                //网络中的流,从客户端读取数据的
+                BufferedInputStream bis = new BufferedInputStream(accept.getInputStream());
+                //本地的IO流,把数据写到本地中,实现永久化存储
+                BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("optimizeserver\\ServerDir\\" + UUID.randomUUID().toString() + ".jpg"));
+    
+                int b;
+                while((b = bis.read()) !=-1){
+                    bos.write(b);
+                }
+    
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(accept.getOutputStream()));
+                bw.write("上传成功");
+                bw.newLine();
+                bw.flush();
+    
+                bos.close();
+                accept.close();
+            }
+            //ss.close();
+    
+        }
+    }
+    ```
+
+- 优化方案三
+
+  - 需求
+
+    使用循环虽然可以让服务器处理多个客户端请求。但是还是无法同时跟多个客户端进行通信。
+
+  - 解决方案
+
+    开启多线程处理
+
+  - 代码实现
+
+    ```java
+    // 线程任务类
+    public class ThreadSocket implements Runnable {
+        private Socket acceptSocket;
+    
+        public ThreadSocket(Socket accept) {
+            this.acceptSocket = accept;
+        }
+      
+        @Override
+        public void run() {
+            BufferedOutputStream bos = null;
+            try {
+                //网络中的流,从客户端读取数据的
+                BufferedInputStream bis = new BufferedInputStream(acceptSocket.getInputStream());
+                //本地的IO流,把数据写到本地中,实现永久化存储
+                bos = new BufferedOutputStream(new FileOutputStream("optimizeserver\\ServerDir\\" + UUID.randomUUID().toString() + ".jpg"));
+    
+                int b;
+                while((b = bis.read()) !=-1){
+                    bos.write(b);
+                }
+              
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(acceptSocket.getOutputStream()));
+                bw.write("上传成功");
+                bw.newLine();
+                bw.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if(bos != null){
+                    try {
+                        bos.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+    
+                if (acceptSocket != null){
+                    try {
+                        acceptSocket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+    // 服务器代码
+    public class ServerDemo {
+        public static void main(String[] args) throws IOException {
+            ServerSocket ss = new ServerSocket(10000);
+    
+            while (true) {
+                Socket accept = ss.accept();
+                ThreadSocket ts = new ThreadSocket(accept);
+                new Thread(ts).start();
+            }
+            //ss.close();
+        }
+    }
+    ```
+
+- 优化方案四
+
+  - 需求
+
+    使用多线程虽然可以让服务器同时处理多个客户端请求。但是资源消耗太大。
+
+  - 解决方案
+
+    加入线程池
+
+  - 代码实现
+
+    ```java
+    // 服务器代码如下,线程任务类代码同上,此处不再给出
+    public class ServerDemo {
+        public static void main(String[] args) throws IOException {
+            ServerSocket ss = new ServerSocket(10000);
+            ThreadPoolExecutor pool = new ThreadPoolExecutor(
+                    3,//核心线程数量
+                    10,   //线程池的总数量
+                    60,   //临时线程空闲时间
+                    TimeUnit.SECONDS, //临时线程空闲时间的单位
+                    new ArrayBlockingQueue<>(5),//阻塞队列
+                    Executors.defaultThreadFactory(),//创建线程的方式
+                    new ThreadPoolExecutor.AbortPolicy()//任务拒绝策略
+            );
+    
+            while (true) {
+                Socket accept = ss.accept();
+                ThreadSocket ts = new ThreadSocket(accept);
+                //new Thread(ts).start();
+                pool.submit(ts);
+            }
+            //ss.close();
+        }
+    }
+    ```
 
-​				不可以的
-
-​				因为服务端现在只有一个线程，只能与一个客户端进行通信
-
-​			2. 本次多发多收是如何实现的？
-
-​				客户端使用循环反复地发送消息
-
-​				服务端使用循环反复地接收消息
-
-​			3. 现在服务端为什么不可以同时接收多个客户端的消息
-
-​				目前服务端是单线程的，每次只能处理一个客户端的消息
-
-### 6. TCP通信-同时接受多个客户端消息（d7_socket3）
-
-#### 		问题引入：
-
-​			1. 之前我们的通信是否可以同时与多个客户端通信，为什么？
-
-​				不可以的
-
-​				单线程每次只能处理一个客户端的Socket通信
-
-​			2. 如何才可以让服务端可以处理多个客户端的通信需求？
-
-​				引入多线程
-
-#### 该案例助理解：
-
-在服务器端，socket()返回的套接字用于监听（listen）和接受（accept）客户端的连接请求。
-
-这个套接字不能用于与客户端之间发送和接收数据
-
-accept()接受一个客户端的连接请求，并返回一个新的套接字。
-
-所谓“新的”就是说这个套接字与socket()返回的用于监听和接受客户端的连接请求的套接字不是同一个套接字。
-
-与本次接受的客户端的通信是通过在这个新的套接字上发送和接收数据来完成的。
-
-再次调用accept()可以接受下一个客户端的连接请求，并再次返回一个新的套接字
-
-（与socket()返回的套接字、之前accept()返回的套接字都不同的新的套接字）。这个新的套接字用于与这次接受的客户端之间的通信。
-
-假设一共有3个客户端连接到服务器端。那么在服务器端就一共有4个套接字：第1个是socket()返回的、用于监听的套接字；其余3个是分别调用3次accept()返回的不同的套接字。
-
-如果已经有客户端连接到服务器端，不再需要监听和接受更多的客户端连接的时候，可以关闭由socket()返回的套接字，而不会影响与客户端之间的通信。
-
-当某个客户端断开连接、或者是与某个客户端的通信完成之后，服务器端需要关闭用于与该客户端通信的套接字。
-
-​				![image-20221017123426038](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123426038.png)
-
-#### 		案例后的问题：
-
-​			1. 本次是如何实现服务端接收多个客户端的消息的
-
-​				主线程定义了循环负责接收客户端Socket管道连接
-
-​				每接收到一个Socket通信管道后分配一个独立的线程负责处理它
-
-### 7. TCP通信-使用线程池优化（d8_socket4）
-
-#### 		问题引入：
-
-![image-20221017124252303](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017124252303.png)
-
-#### 		目前的通信架构存在什么问题？
-
-​				客户端与服务端的线程模型是： N-N的关系
-
-​				客户端并发越多，系统瘫痪的越快
-
-#### 		引入线程池处理多个客户端消息：
-
-​				![image-20221017123341903](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017123341903.png)
-
-​		案例后问题：
-​			本次使用线程池的优势在哪里？
-
-​				服务端可以复用线程处理多个客户端，可以避免系统瘫痪
-
-​				适合客户端通信时长较短的场景
-
-### 8. TCP通信实战案例-即时通信（有GUI技术那部分代码未看）
-
-#### 	问题引入：
-
-​		即时通信是什么含义，要实现怎么样的设计？
-
-​			即时通信，是指一个客户端的消息发出去，其他客户端可以接收到
-
-​			之前我们的消息都是发给服务端的
-
-​			即时通信需要进行端口转发的设计思想
-
-#### 	即时通信-端口转发：
-
-​		![image-20221017124602599](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017124602599.png)
-
-#### 	即时通信如何设计？
-
-​			即时通信，是指一个客户端的消息发出去，其他客户端可以接收到
-
-​			即时通信需要进行端口转发的设计思想
-
-​			服务端需要把在线的Socket管道存储起来
-
-​			一旦收到一个消息要推送给其他管道
-
-### 9. TCP通信实战案例-模拟BS系统
-
-#### 	问题引入：
-
-​	1. 之前的客户端都是什么样的？
-
-​			其实就是CS架构，客户端实需要我们自己开发实现的
-
-​	2. BS结构是什么样的，需要开发客户端吗？
-
-​			浏览器访问服务端，不需要开发客户端
-
-#### 	实现BS开发：（JavaWeb体系专攻这一块，目前了解即可）
-
-​		![image-20221017124846466](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017124846466.png)
-
-#### 	HTTP响应数据的协议格式：
-
-​		HTTP响应数据的协议格式：就是给浏览器显示的网页信息
-
-​	![image-20221017124900340](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017124900340.png)
-
-#### 	案例后问题：
-
-​		1. 客户端使用浏览器发起请求（不需要开发客户端）
-
-​		2. 服务端必须按照浏览器的协议规则响应数据。
-
-​		3. 浏览器使用什么协议规则呢？ 
-
-​		4. HTTP协议（简单了解下）
-
-## 十、为后续学习AIO、BIO、NIO、Netty等网络编程打预防针
-
-## ，本人未学习的，先知概念）Socket
-
-大家好，我是 Socket。很多人都知道我，但是都不清楚我。给你看一下我和大佬的合影。
-
-我很荣幸能与 TCP/IP 五层模型中的各位大佬站在一起，但我并不属于他们中的任何一层。
-
-我的存在只是为了让应用层的使用者能更简单地将数据丢给传输层。
-
-他们不需要关系 TCP/IP 协议族的复杂内容。有什么问题直接找我，我来帮你搞定。
-
-简单来说，你们可以把我理解成是应用层与TCP/IP协议族通信的抽象层、函数库
-
-![image-20221017174024468](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017174024468.png)
-
-物理层：规范传输介质的规格特性（接口大小、形状、引线数量、电压范围等），让比特流能在各种传输媒体之间传输。
-链路层：提供介质访问和链路管理，主要将源计算机网络层来的数据可靠的传输到相邻节点的目标计算机的网络层。
-网络层：提供了主机到主机的通信服务和各种形式的进程到进程的通信。实现两个端系统之间的数据透明传送，使传输层不需要了解网络中的数据传输和交换技术。
-传输层：主要负责向两个主机中进程之间的通信提供服务。
-应用层：为应用程序提供服务。
-
-## 2）TCP 和 UDP
-
-前面介绍过，我是应用层和传输层之间的抽象层。他们之间的通讯都是通过我来完成，可以把我理解成网络通信的基本操作单元。有时候通讯多了，可真把我给类坏了。比如很多时候应用层会有多个程序往传输层进行通信。这时候会有多个 TCP （UDP）连接，或者多个应用进程用同一个 TCP （UDP）连接。为了避免各个连接通讯混乱的问题，我可费了不少心思。
-
-我有三宝：协议、IP地址、端口。每个 Socket 都会带上这三宝，已确保自己能到达正确的目标主机上。
-协议：一种约定和规范。只有通讯双方使用同一种协议才能互相通讯。
-地址：目标主机的地址。不管是客户端还是服务端，都需要一个IP地址。
-端口：用于区分网络程序的唯一标识。目标主机上会有很多的网络应用，他们各占一个端口，互不冲突。
-
-### 1. TCP
-
-TCP 传输控制协议（Transmission Control  Protocol）是一种面向连接、可靠、基于字节流的传输层通信协议。
-
-在建立连接时需要进行三次握手，已确保在不稳定的网络环境下能进行可靠的传输。
-
-在断开连接时需要进行四次挥手，已确保双方通讯的数据完整
-
-![image-20221017174430973](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017174430973.png)
-
-三次握手
-第一次握手：从客服端发往服务端，发 syn 包，看能否连上服务器。需要等待服务器确认。
-第二次握手：从服务端发往客户端，发 ack 包，通知客户端你能连上我。同时发送 syn 包，看能否连上客户端。需要等待客户端确认。
-第三次握手：从客服端发往服务端，发 ack 包，通知服务端你能连上我。
-
-四次挥手
-第一次挥手：从客户端发往服务端，发 fin 包，告知服务端要断开连接。
-第二次挥手：从服务端发往客户端，发 ack 包，通知客户端你的请求我收到了，但是我还没有准备好，等通知。
-第三次挥手：从服务端发往客户端，发 fin 包，告知客户端我已经要断开连接了。
-第四次握手：从客户端发往服务端，发 ack 包，通知服务端你的请求我收到了，如果你不回我消息，我也断开连接了
-
-TCP Socket 通讯流程图如下
-
-![image-20221017174542437](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017174542437.png)
-
-首先，服务端和客户端都需要调用 socket 函数。用来生成一个用于通信的套接字文件描述符 sockfd。
-随后，服务端需要调用 bind 函数。开始将服务器 IP 和 PORT 绑定到第一步创建的 sockfd 上。
-然后，服务器便可以调用 listen 函数。此时的套接字状态从 CLOSE 转变为 LISTEN，成为一个对外提供 TCP 连接的窗口。监听着客户端的连接请求。
-一旦，服务端监听到客户端的连接请求后，服务端便开始调用 accept 函数。接收请求了一些包括客户端传来的 IP 和 PORT。若接收成功，还会再创建一个新的 sockfd 与客户端进行 IO 操作。
-最后，在通讯结束后调用 close 函数。与客户端进行四次挥手后关闭，释放资源。
-连接，客户端发起连接时需要调用 connect 函数。将带上自身的 IP、随机的 PORT 和 sockfd 向目标服务器开始三次握手建立连接
-
-### 2. UDP
-
-UDP 用户数据报协议（User Datagram Protocol）是无连接的，面向消息的，提供高效率服务。
-
-UDP 不需要连接，少了三次握手和四次挥手的操作，从而对资源的占用率更少、处理的网络请求和响应效率更快。
-
-但他不能保障在极端的情况下载通讯不会丢失。
-
-UDP 在绑定目标主机地址后，便可以通过 Sendto 和 Recvfrom 发送和接受数据。
-
-## 3. 长连接和短连接
-
-长连接：通讯双方在有数据交互时建立一个 TCP 连接，并一直保持连接状态。
-短连接：通讯双方在有数据交互时就建立一个 TCP 连接，数据交互完成后断开连接。
-
-长连接不需要频发建立连接，适用于频繁请求的客户。减少了短连接频繁创建连接带来的资源开销。但是长连接如果过多也会多服务器带来很大的压力。长连接的应用场景相比短连接要少点。使用建议定时发送心跳包，以维持连接的状态。且长连接的数量不宜过多。
-
-短连接对于服务器而言比较简单，每个连接都是有用的，不需要像长连接一样需要额外维护。
-
-## 4. BIO NIO AIO
-
-BIO 全称Block-IO 是一种阻塞同步的通信模式。
-
-我们常说的Stock IO 一般指的是BIO。是一个比较传统的通信方式，模式简单，使用方便。
-
-但并发处理能力低，通信耗时，依赖网速。
-NIO 全称New IO，也叫Non-Block IO 是一种非阻塞同步的通信模式。
-AIO 也叫NIO2.0 是一种非阻塞异步的通信模式。
-
-在NIO的基础上引入了新的异步通道的概念，并提供了异步文件通道和异步套接字通道的实现。
-
-![image-20221017175408204](D:\yjxz\Review_outline\yjxz\background\_01JavaSE\10network\document\assets\image-20221017175408204.png)
-
-BIO 设计原理：
-服务器通过一个Acceptor线程负责监听客户端请求和为每个客户端创建一个新的线程进行链路处理。
-
-典型的一请求一应答模式。
-
-若客户端数量增多，频繁地创建和销毁线程会给服务器打开很大的压力。后改良为用线程池的方式代替新增线程，被称为伪异步IO。
-服务器提供IP地址和监听的端口，客户端通过TCP的三次握手与服务器连接，连接成功后，双放才能通过套接字(Stock)通信。
-
-NIO 设计原理：
-NIO  相对于BIO来说一大进步。客户端和服务器之间通过Channel通信。
-
-NIO可以在Channel进行读写操作。这些Channel都会被注册在Selector多路复用器上。
-
-Selector通过一个线程不停的轮询这些Channel。找出已经准备就绪的Channel执行IO操作。
-NIO 通过一个线程轮询，实现千万个客户端的请求，这就是非阻塞NIO的特点。
-
-AIO 设计原理：
-AIO 并没有采用NIO的多路复用器，而是使用异步通道的概念。
-
-其read，write方法的返回类型都是Future对象。而Future模型是异步的，其核心思想是：去主函数等待时间。
